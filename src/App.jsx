@@ -14,7 +14,6 @@ import { StarsIcon } from './components/Icons';
 // VibeFarsi RTL Components & Backgrounds
 import { GridBackground } from '@/components/backgrounds/grid';
 import { TextShimmer } from '@/components/animations/text-shimmer';
-import { SpotlightCard } from '@/components/animations/spotlight-card';
 import { Stat } from '@/components/ui/stat';
 import { Accordion } from '@/components/ui/accordion';
 
@@ -72,29 +71,52 @@ export default function App() {
         onOpenChainSelector={() => setIsChainModalOpen(true)}
       />
 
-      {/* Main Content Area */}
-      <main className="flex-1 max-w-3xl w-full mx-auto px-4 py-8 sm:py-10 relative z-10 space-y-8">
+      {/* Main Content Area (Focused centered DEX layout like Uniswap) */}
+      <main className="flex-1 max-w-xl w-full mx-auto px-4 py-6 sm:py-8 relative z-10 space-y-6">
         
-        {/* Minimal Hero Header with VibeFarsi TextShimmer */}
-        <div className="text-center max-w-xl mx-auto space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 mb-1">
+        {/* Subtle Minimal Pill */}
+        <div className="text-center">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.06] text-xs font-mono font-medium text-muted-foreground shadow-sm">
             <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-            <TextShimmer className="text-xs font-mono font-bold text-accent" duration={2.5}>
-              JSWAP • پروتکل غیرحضانتی مبادله میان‌زنجیره‌ای و استارز
+            <TextShimmer className="text-accent font-semibold" duration={3}>
+              JSWAP • پروتکل غیرحضانتی چندزنجیره‌ای و استارز
             </TextShimmer>
           </div>
-
-          <h1 className="text-2xl sm:text-4xl font-black text-foreground tracking-tight leading-tight">
-            صرافی غیرحضانتی چندزنجیره‌ای
-          </h1>
-          
-          <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed max-w-md mx-auto">
-            مبادله مستقیم در استخرهای نقدینگی ۱۵ شبکه وب۳، خرید و فروش استارز تلگرام و تسویه بانکی به تومان
-          </p>
         </div>
 
-        {/* VibeFarsi Live DEX Metrics Ticker */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        {/* Tab 1: Multi-Chain Crypto Swap (Uniswap-style minimal centerpiece) */}
+        {activeTab === 'swap' && (
+          <div className="animate-fade-in">
+            <SwapCard 
+              onOpenWalletModal={() => setIsWalletModalOpen(true)} 
+              onOpenChainSelector={() => setIsChainModalOpen(true)}
+            />
+          </div>
+        )}
+
+        {/* Tab 2: Direct Telegram Stars OTC Desk */}
+        {activeTab === 'stars' && (
+          <div className="animate-fade-in">
+            <StarsDesk />
+          </div>
+        )}
+
+        {/* Tab 3: Iran Web3 Toolkit */}
+        {activeTab === 'iran' && (
+          <div className="animate-fade-in">
+            <IranToolkit />
+          </div>
+        )}
+
+        {/* Tab 4: Order Tracker */}
+        {activeTab === 'orders' && (
+          <div className="animate-fade-in">
+            <OrderTracker />
+          </div>
+        )}
+
+        {/* Live DEX Metrics (Placed neatly below swap card for social proof) */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-2">
           <Stat
             size="sm"
             label="حجم معاملات ۲۴ ساعته"
@@ -105,11 +127,11 @@ export default function App() {
           />
           <Stat
             size="sm"
-            label="میانگین سرعت تسویه"
+            label="سرعت میانگین تسویه"
             value="۲٫۴"
             unit="ثانیه"
             delta={-8}
-            deltaLabel="بهبود کارایی شبکه"
+            deltaLabel="بهبود شبکه"
           />
           <Stat
             size="sm"
@@ -117,66 +139,30 @@ export default function App() {
             value="۱٬۳۴۰"
             unit="تومان"
             delta={3}
-            deltaLabel="قیمت لحظه‌ای"
+            deltaLabel="لحظه‌ای"
           />
           <Stat
             size="sm"
-            label="شبکه‌های فعال متصل"
+            label="شبکه‌های متصل"
             value="۱۵"
             unit="زنجیره"
           />
         </div>
 
-        {/* Interactive Tab Content (Wrapped in VibeFarsi SpotlightCard) */}
-        <SpotlightCard className="shadow-2xl">
-          <div className="p-4 sm:p-6">
-            {/* Tab 1: Multi-Chain Crypto Swap */}
-            {activeTab === 'swap' && (
-              <div className="animate-fade-in space-y-4">
-                <SwapCard 
-                  onOpenWalletModal={() => setIsWalletModalOpen(true)} 
-                  onOpenChainSelector={() => setIsChainModalOpen(true)}
-                />
-              </div>
-            )}
-
-            {/* Tab 2: Direct Telegram Stars OTC Desk */}
-            {activeTab === 'stars' && (
-              <div className="animate-fade-in">
-                <StarsDesk />
-              </div>
-            )}
-
-            {/* Tab 3: Iran Web3 Toolkit */}
-            {activeTab === 'iran' && (
-              <div className="animate-fade-in">
-                <IranToolkit />
-              </div>
-            )}
-
-            {/* Tab 4: Order Tracker */}
-            {activeTab === 'orders' && (
-              <div className="animate-fade-in">
-                <OrderTracker />
-              </div>
-            )}
-          </div>
-        </SpotlightCard>
-
-        {/* VibeFarsi Interactive Knowledge Base / FAQ Accordion */}
-        <div className="pt-6 space-y-4">
-          <div className="flex items-center gap-2 pb-2 border-b border-border">
+        {/* FAQ Accordion */}
+        <div className="pt-2 space-y-3">
+          <div className="flex items-center gap-2 pb-2 border-b border-border/40">
             <HelpCircle className="w-4 h-4 text-accent" />
-            <h2 className="text-sm font-bold text-foreground">
+            <h2 className="text-xs font-bold text-muted-foreground">
               راهنما و پرسش‌های متداول JSWAP
             </h2>
           </div>
-          <Accordion items={faqItems} multiple defaultOpen={['faq-1']} />
+          <Accordion items={faqItems} multiple defaultOpen={[]} />
         </div>
 
       </main>
 
-      {/* Footer */}
+      {/* Footer (Minimalist Uniswap-grade footer) */}
       <Footer onSwitchTab={(tab) => setActiveTab(tab)} />
 
       {/* Mobile Floating Bottom Navigation Bar */}

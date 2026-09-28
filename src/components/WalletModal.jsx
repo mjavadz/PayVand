@@ -269,10 +269,10 @@ export default function WalletModal({ isOpen, onClose }) {
                   setLocalError(null);
                   setIsL2DropdownOpen(false);
                 }}
-                className={`shrink-0 flex items-center gap-1.5 py-1.5 px-2.5 rounded-xl text-xs font-bold transition-all ${
+                className={`shrink-0 flex items-center gap-1.5 py-1.5 px-3 rounded-full text-xs font-semibold transition-all ${
                   isTabActive 
-                    ? 'bg-accentSoft border border-accent/40 text-accent shadow-sm' 
-                    : 'text-muted-foreground hover:text-foreground hover:bg-muted/60 border border-transparent'
+                    ? 'bg-accent/15 border border-accent/40 text-accent font-bold' 
+                    : 'text-muted-foreground hover:text-foreground hover:bg-white/[0.05] border border-transparent'
                 }`}
               >
                 {tab.isL2Group ? (
@@ -442,12 +442,12 @@ export default function WalletModal({ isOpen, onClose }) {
                     type="button"
                     disabled={isConnecting}
                     onClick={() => handleSelectWallet(wallet)}
-                    className="w-full flex items-center justify-between p-3 rounded-xl bg-muted/40 hover:bg-muted border border-border hover:border-zinc-500 transition-all text-right group"
+                    className="w-full flex items-center justify-between p-3 rounded-2xl bg-white/[0.03] hover:bg-white/[0.07] border border-white/[0.06] hover:border-accent/40 transition-all text-right group"
                   >
                     <div className="flex items-center gap-3">
-                      {/* Authentic Wallet Logo */}
-                      <div className="w-10 h-10 rounded-xl bg-card border border-border/80 flex items-center justify-center shrink-0 shadow-sm group-hover:border-accent/40 transition-colors">
-                        {getWalletIcon(wallet.id, 24)}
+                      {/* Seamless Wallet Logo — Clean and borderless */}
+                      <div className="w-9 h-9 flex items-center justify-center shrink-0">
+                        {getWalletIcon(wallet.id, 32, "rounded-xl")}
                       </div>
 
                       <div>
