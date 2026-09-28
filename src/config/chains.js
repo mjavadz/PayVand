@@ -3,8 +3,8 @@
 
 export const CHAIN_CATEGORIES = [
   { id: 'all', name: 'همه شبکه‌ها' },
+  { id: 'evm', name: 'اتریوم و زنجیره‌های EVM' },
   { id: 'l2', name: 'لایه‌های ۲ اتریوم (L2)' },
-  { id: 'l1', name: 'لایه‌های ۱ اصلی (L1)' },
   { id: 'speed', name: 'شبکه‌های پرسرعت و تلگرام' },
   { id: 'move', name: 'شبکه‌های نسل نو (Move)' }
 ];

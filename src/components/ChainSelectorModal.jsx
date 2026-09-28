@@ -1,22 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { X, Search, Check, Layers, Zap, Shield, Cpu } from 'lucide-react';
-import { 
-  TonIcon, 
-  SolanaIcon, 
-  EthereumIcon, 
-  TronIcon,
-  BnbIcon,
-  ArbitrumIcon,
-  PolygonIcon,
-  BaseIcon,
-  OptimismIcon,
-  AvalancheIcon,
-  ZkSyncIcon,
-  SuiIcon,
-  AptosIcon,
-  LineaIcon,
-  BlastIcon
-} from './Icons';
+import { ChainLogo } from './Icons';
 import { CHAINS, CHAIN_CATEGORIES, isEVMChain } from '../config/chains';
 
 export default function ChainSelectorModal({ isOpen, onClose, activeChain, onSelectChain }) {
@@ -27,7 +11,8 @@ export default function ChainSelectorModal({ isOpen, onClose, activeChain, onSel
 
   const filteredChains = useMemo(() => {
     return chainList.filter(c => {
-      const matchesCategory = selectedCategory === 'all' || c.category === selectedCategory;
+      const matchesCategory = selectedCategory === 'all' || 
+        (selectedCategory === 'evm' ? isEVMChain(c) : c.category === selectedCategory);
       const q = search.trim().toLowerCase();
       const matchesSearch = !q || 
         c.name.toLowerCase().includes(q) ||
@@ -40,27 +25,6 @@ export default function ChainSelectorModal({ isOpen, onClose, activeChain, onSel
   }, [chainList, selectedCategory, search]);
 
   if (!isOpen) return null;
-
-  const renderIcon = (id, size = 20) => {
-    switch (id) {
-      case 'ton': return <TonIcon size={size} />;
-      case 'solana': return <SolanaIcon size={size} />;
-      case 'ethereum': return <EthereumIcon size={size} />;
-      case 'tron': return <TronIcon size={size} />;
-      case 'bsc': return <BnbIcon size={size} />;
-      case 'arbitrum': return <ArbitrumIcon size={size} />;
-      case 'polygon': return <PolygonIcon size={size} />;
-      case 'base': return <BaseIcon size={size} />;
-      case 'optimism': return <OptimismIcon size={size} />;
-      case 'avalanche': return <AvalancheIcon size={size} />;
-      case 'zksync': return <ZkSyncIcon size={size} />;
-      case 'sui': return <SuiIcon size={size} />;
-      case 'aptos': return <AptosIcon size={size} />;
-      case 'linea': return <LineaIcon size={size} />;
-      case 'blast': return <BlastIcon size={size} />;
-      default: return <EthereumIcon size={size} />;
-    }
-  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-fade-in">
@@ -136,8 +100,8 @@ export default function ChainSelectorModal({ isOpen, onClose, activeChain, onSel
                   }`}
                 >
                   <div className="flex items-center gap-3 min-w-0">
-                    <div className="w-9 h-9 rounded-xl bg-muted/80 border border-border flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                      {renderIcon(chain.id, 20)}
+                    <div className="w-9 h-9 rounded-xl bg-white/[0.04] border border-white/[0.06] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                      <ChainLogo chainId={chain.id} size={20} />
                     </div>
                     <div className="truncate">
                       <div className="flex items-center gap-2">
