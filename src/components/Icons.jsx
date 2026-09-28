@@ -11,7 +11,6 @@ export const ChainLogo = ({ chainId, size = 20, className = '' }) => {
       height={size}
       style={{ width: size, height: size }}
       className={`rounded-full object-contain shrink-0 ${className}`}
-      loading="lazy"
       onError={(e) => {
         e.currentTarget.onerror = null;
         e.currentTarget.src = '/assets/icons/chains/ethereum.png';
@@ -70,7 +69,6 @@ export const WalletLogo = ({ walletId, size = 24, className = '' }) => {
       height={size}
       style={{ width: size, height: size }}
       className={`object-contain shrink-0 ${className}`}
-      loading="lazy"
     />
   );
 };
@@ -132,7 +130,6 @@ export const TokenLogo = ({ symbol = '', size = 20, className = '' }) => {
       height={size}
       style={{ width: size, height: size }}
       className={`rounded-full object-contain shrink-0 ${className}`}
-      loading="lazy"
       onError={(e) => {
         e.currentTarget.onerror = null;
         e.currentTarget.src = '/assets/icons/chains/ethereum.png';

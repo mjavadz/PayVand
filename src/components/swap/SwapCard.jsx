@@ -16,7 +16,8 @@ import {
   UsdtIcon,
   BnbIcon,
   ArbitrumIcon,
-  PolygonIcon
+  PolygonIcon,
+  TokenLogo
 } from '../Icons';
 import TokenSelectorModal from './TokenSelectorModal';
 import { TOKENS } from '../../data/tokens';

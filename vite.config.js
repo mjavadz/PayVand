@@ -19,6 +19,17 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: false,
-    chunkSizeWarningLimit: 1200
+    chunkSizeWarningLimit: 1200,
+    modulePreload: {
+      polyfill: false
+    },
+    rollupOptions: {
+      output: {
+        format: 'es',
+        entryFileNames: 'assets/index-[hash].js',
+        chunkFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: 'assets/[name]-[hash].[ext]'
+      }
+    }
   }
 });
