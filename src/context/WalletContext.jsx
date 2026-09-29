@@ -136,7 +136,7 @@ export function WalletProvider({ children }) {
 
       setWalletBalances(prev => ({ ...prev, [chainKey]: bMap }));
     } catch (e) {
-      console.warn(`Balance query failed for ${chainKey}:`, e);
+      console.warn('Balance query failed for chain:', String(chainKey), e);
     }
   }, []);
 
