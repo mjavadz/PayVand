@@ -33,10 +33,16 @@ export default function Footer({ onSwitchTab }) {
             <span>•</span>
             <span>پروتکل مبادله غیرحضانتی و امن چندزنجیره‌ای</span>
           </div>
-
-          <div className="flex items-center gap-2 text-[11px]">
-            <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-            <span>تسویه مستقیم روی استخرهای غیرمتمرکز</span>
+          <div className="flex items-center gap-3 text-[11px]">
+            <span className="flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+              <span>تسویه مستقیم روی استخرهای غیرمتمرکز</span>
+            </span>
+            <span>•</span>
+            <span className="flex items-center gap-1.5">
+              <img src="/logo.svg" alt="JSWAP" className="w-3.5 h-3.5 object-contain" />
+              <span className="font-sans font-bold text-foreground">JSWAP</span>
+            </span>
           </div>
         </div>
 

@@ -58,11 +58,14 @@ export default function Header({
         
         {/* Brand */}
         <div className="flex items-center gap-4">
-          <a href="/" className="flex items-center gap-2 group" aria-label="JSWAP Home">
-            <div className="w-7 h-7 rounded-lg bg-accent/15 border border-accent/30 flex items-center justify-center group-hover:scale-105 transition-transform duration-200">
-              <span className="text-xs font-bold text-accent">JS</span>
+          <a href="/" className="flex items-center gap-2.5 group" aria-label="JSWAP Home">
+            <div className="w-8 h-8 flex items-center justify-center group-hover:scale-105 transition-transform duration-200">
+              <img src="/logo.svg" alt="JSWAP Logo" className="w-full h-full object-contain filter drop-shadow-[0_0_10px_rgba(6,182,212,0.4)]" />
             </div>
-            <span className="text-lg font-black text-foreground tracking-tight hidden sm:block">JSWAP</span>
+            <div className="flex items-baseline gap-1">
+              <span className="text-xl font-black text-foreground tracking-tight hidden sm:block">JSWAP</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse hidden sm:block" />
+            </div>
           </a>
 
           {/* Desktop Navigation Tabs */}

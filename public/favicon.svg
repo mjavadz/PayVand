@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <defs>
+    <linearGradient id="jswapFav1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10B981" />
+      <stop offset="50%" stop-color="#06B6D4" />
+      <stop offset="100%" stop-color="#38BDF8" />
+    </linearGradient>
+    <linearGradient id="jswapFav2" x1="100%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="50%" stop-color="#06B6D4" />
+      <stop offset="100%" stop-color="#34D399" />
+    </linearGradient>
+  </defs>
+
+  <!-- Downward J-curve -->
+  <path d="M 58 10 L 58 58 C 58 74, 46 86, 30 86 C 18 86, 10 78, 10 66 C 10 54, 18 46, 30 46 L 40 46" 
+        stroke="url(#jswapFav1)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" />
+  <polygon points="48,46 34,36 34,56" fill="#38BDF8" />
+
+  <!-- Upward Counter J-curve -->
+  <path d="M 42 90 L 42 42 C 42 26, 54 14, 70 14 C 82 14, 90 22, 90 34 C 90 46, 82 54, 70 54 L 60 54" 
+        stroke="url(#jswapFav2)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" />
+  <polygon points="52,54 66,64 66,44" fill="#34D399" />
+</svg>

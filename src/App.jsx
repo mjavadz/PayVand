@@ -18,6 +18,10 @@ import { Stat } from '@/components/ui/stat';
 import { Accordion } from '@/components/ui/accordion';
 
 export default function App() {
+  React.useEffect(() => {
+    document.title = 'JSWAP Farsi | صرافی غیرحضانتی و خرید مستقیم استارز تلگرام';
+  }, []);
+
   const { 
     activeChain, 
     setActiveChain, 
