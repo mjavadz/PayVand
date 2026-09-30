@@ -258,8 +258,8 @@ export default function WalletModal({ isOpen, onClose }) {
           </button>
         </div>
 
-        {/* Primary Ecosystem Tabs */}
-        <div className="p-2.5 bg-background/60 border-b border-border/40 flex gap-1.5 overflow-x-auto no-scrollbar scroll-smooth">
+        {/* Primary Ecosystem Tabs - Flex-wrap to prevent horizontal scrolling */}
+        <div className="p-3 bg-white/[0.02] border-b border-white/[0.06] flex flex-wrap gap-1.5">
           {ECOSYSTEM_TABS.map(tab => {
             const isTabActive = selectedTab === tab.id;
             return (
@@ -271,21 +271,21 @@ export default function WalletModal({ isOpen, onClose }) {
                   setLocalError(null);
                   setIsEvmDropdownOpen(false);
                 }}
-                className={`shrink-0 flex items-center gap-1.5 py-1.5 px-3 rounded-full text-xs font-semibold transition-all ${
+                className={`flex items-center gap-1.5 py-1.5 px-3 rounded-full text-xs font-semibold transition-all ${
                   isTabActive 
-                    ? 'bg-accent/15 border border-accent/40 text-accent font-bold' 
-                    : 'text-muted-foreground hover:text-foreground hover:bg-white/[0.05] border border-transparent'
+                    ? 'bg-accent/20 border border-accent/40 text-accent font-bold shadow-sm' 
+                    : 'text-muted-foreground hover:text-foreground hover:bg-white/[0.05] border border-white/[0.06]'
                 }`}
               >
                 {tab.isEvm ? (
                   <div className="flex items-center gap-1.5">
                     {getChainIcon('ethereum', 15)}
-                    <span className="whitespace-nowrap">{tab.name}</span>
+                    <span>{tab.name}</span>
                   </div>
                 ) : (
                   <>
                     {getChainIcon(tab.iconChainId, 15)}
-                    <span className="whitespace-nowrap">{tab.name}</span>
+                    <span>{tab.name}</span>
                   </>
                 )}
               </button>

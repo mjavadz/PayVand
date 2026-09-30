@@ -27,51 +27,64 @@ export default function ChainSelectorModal({ isOpen, onClose, activeChain, onSel
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-fade-in">
+    <div 
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/75 backdrop-blur-md animate-fade-in"
+      onClick={onClose}
+    >
       <div 
-        className="w-full max-w-lg bg-card border border-border rounded-2xl shadow-2xl overflow-hidden animate-scale-in"
+        className="w-full max-w-lg bg-[#12141a] border border-white/[0.08] rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh] animate-scale-in"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header */}
-        <div className="flex items-center justify-between p-4 sm:p-5 border-b border-border bg-muted/30">
+        <div className="flex items-center justify-between px-5 pt-4 pb-3 border-b border-white/[0.06] bg-white/[0.02]">
           <div>
-            <h3 className="text-base font-bold text-fg">انتخاب شبکه مبادله (۱۵ زنجیره دیفای)</h3>
-            <p className="text-xs text-fgMuted mt-0.5">پوشش کامل دکس‌های اصلی، روتینگ هوشمند و کارمزد لحظه‌ای</p>
+            <h3 className="text-base font-bold text-foreground">انتخاب شبکه مبادله</h3>
+            <p className="text-xs text-muted-foreground mt-0.5">پوشش ۱۵ بلاکچین دیفای با روتینگ خودکار استخرها</p>
           </div>
           <button 
             type="button" 
             onClick={onClose}
-            className="p-1.5 rounded-lg text-fgSubtle hover:text-fg hover:bg-muted transition-colors"
+            className="p-1.5 rounded-xl text-muted-foreground hover:text-foreground hover:bg-white/[0.08] transition-colors"
+            aria-label="بستن"
           >
             <X size={18} />
           </button>
         </div>
 
-        {/* Search Bar */}
-        <div className="p-3 border-b border-border bg-bg/50">
+        {/* Search Bar & Wrap Category Pills (No horizontal scrolling) */}
+        <div className="p-4 border-b border-white/[0.06] space-y-3">
           <div className="relative">
+            <Search size={16} className="absolute right-3.5 top-3.5 text-muted-foreground pointer-events-none" />
             <input
               type="text"
               placeholder="جستجوی نام شبکه، نماد یا دکس (بیس، آربیتروم، یونی‌سواپ...)"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-3 pr-9 py-2 rounded-xl bg-card border border-border text-sm text-fg placeholder-fgSubtle focus:outline-none focus:border-accent font-sans"
+              className="w-full pr-10 pl-9 py-2.5 rounded-2xl bg-white/[0.04] border border-white/[0.08] text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-accent/60 focus:bg-white/[0.07] transition-all font-sans"
               autoFocus
             />
-            <Search size={16} className="absolute right-3 top-2.5 text-fgSubtle" />
+            {search && (
+              <button 
+                type="button"
+                onClick={() => setSearch('')}
+                className="absolute left-3 top-3 text-muted-foreground hover:text-foreground p-0.5 rounded-full"
+              >
+                <X size={14} />
+              </button>
+            )}
           </div>
 
-          {/* Category Filter Pills */}
-          <div className="flex gap-1 mt-2.5 overflow-x-auto no-scrollbar pb-0.5">
+          {/* Category Filter Pills - Flex-wrap to eliminate horizontal scrolling */}
+          <div className="flex flex-wrap gap-1.5 pt-0.5">
             {CHAIN_CATEGORIES.map(cat => (
               <button
                 key={cat.id}
                 type="button"
                 onClick={() => setSelectedCategory(cat.id)}
-                className={`px-2.5 py-1 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors ${
+                className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
                   selectedCategory === cat.id
-                    ? 'bg-accentSoft text-accent border border-accent/30'
-                    : 'text-fgSubtle hover:text-fg hover:bg-muted'
+                    ? 'bg-accent/20 text-accent border border-accent/40 shadow-sm'
+                    : 'bg-white/[0.03] text-muted-foreground hover:text-foreground hover:bg-white/[0.08] border border-white/[0.06]'
                 }`}
               >
                 {cat.name}
@@ -80,8 +93,8 @@ export default function ChainSelectorModal({ isOpen, onClose, activeChain, onSel
           </div>
         </div>
 
-        {/* Chain List */}
-        <div className="max-h-80 overflow-y-auto p-2 space-y-1">
+        {/* Chain List - Vertical only (overflow-x-hidden) */}
+        <div className="flex-1 overflow-y-auto overflow-x-hidden p-2 space-y-1 divide-y divide-white/[0.02]">
           {filteredChains.length > 0 ? (
             filteredChains.map((chain) => {
               const isSelected = chain.id === activeChain;
@@ -93,26 +106,31 @@ export default function ChainSelectorModal({ isOpen, onClose, activeChain, onSel
                     onSelectChain(chain.id);
                     onClose();
                   }}
-                  className={`w-full flex items-center justify-between p-3 rounded-xl transition-all text-right group ${
+                  className={`w-full flex items-center justify-between p-3 rounded-2xl transition-all text-right group ${
                     isSelected
-                      ? 'bg-accentSoft border border-accent/40 text-fg'
-                      : 'hover:bg-muted/70 border border-transparent'
+                      ? 'bg-accent/10 border border-accent/30'
+                      : 'hover:bg-white/[0.04] border border-transparent'
                   }`}
                 >
                   <div className="flex items-center gap-3 min-w-0">
-                    <div className="w-9 h-9 rounded-xl bg-white/[0.04] border border-white/[0.06] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                      <ChainLogo chainId={chain.id} size={20} />
+                    <div className="w-10 h-10 rounded-2xl bg-white/[0.04] border border-white/[0.06] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                      <ChainLogo chainId={chain.id} size={24} />
                     </div>
                     <div className="truncate">
                       <div className="flex items-center gap-2">
-                        <span className="font-bold text-sm text-fg truncate">
+                        <span className="font-bold text-sm text-foreground truncate">
                           {chain.name}
                         </span>
-                        <span className="text-[10px] font-mono font-semibold px-1.5 py-0.2 rounded bg-muted text-fgMuted border border-border/80">
+                        <span className="text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded bg-white/[0.05] text-muted-foreground border border-white/[0.08]">
                           {chain.nativeSymbol}
                         </span>
+                        {isSelected && (
+                          <span className="flex items-center text-accent text-xs">
+                            <Check size={14} className="stroke-[3]" />
+                          </span>
+                        )}
                       </div>
-                      <div className="flex items-center gap-2 mt-0.5 text-xs text-fgSubtle">
+                      <div className="flex items-center gap-2 mt-0.5 text-xs text-muted-foreground">
                         <span>{chain.mainDex}</span>
                         <span>•</span>
                         <span className="text-[11px] text-accent/80 font-mono" dir="ltr">{chain.defaultGas}</span>
@@ -120,28 +138,29 @@ export default function ChainSelectorModal({ isOpen, onClose, activeChain, onSel
                     </div>
                   </div>
 
-                  {isSelected ? (
-                    <div className="flex items-center gap-1.5 text-accent text-xs font-bold pl-2 shrink-0">
-                      <Check size={16} />
-                      <span>فعال</span>
-                    </div>
-                  ) : (
-                    <span className="text-xs text-fgSubtle group-hover:text-accent transition-colors pl-2 shrink-0">
-                      انتخاب ➔
-                    </span>
-                  )}
+                  <div className="shrink-0 pl-1">
+                    {isSelected ? (
+                      <span className="text-xs text-accent font-bold px-2 py-1 rounded-lg bg-accent/15 border border-accent/20">
+                        فعال
+                      </span>
+                    ) : (
+                      <span className="text-xs text-muted-foreground group-hover:text-accent transition-colors">
+                        انتخاب ➔
+                      </span>
+                    )}
+                  </div>
                 </button>
               );
             })
           ) : (
-            <div className="text-center py-8 text-xs text-fgSubtle">
+            <div className="text-center py-10 text-xs text-muted-foreground">
               شبکه‌ای با این مشخصات یافت نشد.
             </div>
           )}
         </div>
 
         {/* Footer info */}
-        <div className="p-3 bg-muted/20 border-t border-border flex items-center justify-between text-[11px] text-fgMuted px-4">
+        <div className="px-5 py-2.5 bg-white/[0.01] border-t border-white/[0.06] flex items-center justify-between text-[11px] text-muted-foreground">
           <span>روتر غیرحضانتی هوشمند JSWAP</span>
           <span className="text-accent font-mono font-medium">۱۵ شبکه وب۳</span>
         </div>

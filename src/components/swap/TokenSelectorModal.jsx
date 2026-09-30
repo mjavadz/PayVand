@@ -1,15 +1,6 @@
-import React, { useState } from 'react';
-import { X, Search, AlertCircle } from 'lucide-react';
-import { 
-  EthereumIcon, 
-  SolanaIcon, 
-  TonIcon, 
-  TronIcon, 
-  UsdtIcon,
-  BnbIcon,
-  ArbitrumIcon,
-  PolygonIcon
-} from '../Icons';
+import React, { useState, useMemo } from 'react';
+import { X, Search, Check, AlertCircle, Sparkles } from 'lucide-react';
+import { TokenLogo } from '../Icons';
 import { getTokenPrice } from '../../services/priceService';
 import { formatToman } from '../../utils/format';
 
@@ -19,78 +10,122 @@ export default function TokenSelectorModal({
   tokens = [], 
   selectedToken, 
   onSelectToken,
-  chainName,
+  chainName = '',
   getTokenBalance
 }) {
   const [search, setSearch] = useState('');
 
+  // Common/popular tokens on this chain for quick 1-click selection
+  const quickTokens = useMemo(() => {
+    if (!tokens || tokens.length === 0) return [];
+    // Prioritize native, then USDT, USDC, WBTC
+    const popularSymbols = ['ETH', 'SOL', 'TON', 'TRX', 'BNB', 'AVAX', 'POL', 'SUI', 'APT', 'USDT', 'USDC', 'WBTC'];
+    const sorted = [...tokens].sort((a, b) => {
+      const idxA = popularSymbols.indexOf(a.symbol.toUpperCase());
+      const idxB = popularSymbols.indexOf(b.symbol.toUpperCase());
+      if (idxA !== -1 && idxB !== -1) return idxA - idxB;
+      if (idxA !== -1) return -1;
+      if (idxB !== -1) return 1;
+      return 0;
+    });
+    return sorted.slice(0, 5);
+  }, [tokens]);
+
+  const filteredTokens = useMemo(() => {
+    const q = search.trim().toLowerCase();
+    if (!q) return tokens;
+    return tokens.filter(t => 
+      t.symbol.toLowerCase().includes(q) ||
+      t.name.toLowerCase().includes(q) ||
+      (t.address && t.address.toLowerCase().includes(q))
+    );
+  }, [tokens, search]);
+
   if (!isOpen) return null;
 
-  const filteredTokens = tokens.filter(t => 
-    t.symbol.toLowerCase().includes(search.toLowerCase()) ||
-    t.name.toLowerCase().includes(search.toLowerCase()) ||
-    (t.address && t.address.toLowerCase().includes(search.toLowerCase()))
-  );
-
-  const renderTokenIcon = (token) => {
-    switch (token.icon) {
-      case 'eth': return <EthereumIcon size={20} />;
-      case 'sol': return <SolanaIcon size={20} />;
-      case 'ton': return <TonIcon size={20} />;
-      case 'trx': return <TronIcon size={20} />;
-      case 'usdt': return <UsdtIcon size={20} />;
-      case 'bnb': return <BnbIcon size={20} />;
-      case 'arb': return <ArbitrumIcon size={20} />;
-      case 'pol': return <PolygonIcon size={20} />;
-      default:
-        return (
-          <div className="w-5 h-5 rounded-full bg-muted flex items-center justify-center text-[10px] font-bold text-fgSubtle">
-            {token.symbol.slice(0, 3)}
-          </div>
-        );
-    }
-  };
-
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
+    <div 
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/75 backdrop-blur-md animate-fade-in"
+      onClick={onClose}
+    >
       <div 
-        className="w-full max-w-sm bg-card border border-border rounded-xl shadow-lg overflow-hidden animate-scale-in"
+        className="w-full max-w-md bg-[#12141a] border border-white/[0.08] rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh] animate-scale-in"
         onClick={(e) => e.stopPropagation()}
       >
         
         {/* Header */}
-        <div className="flex items-center justify-between p-3 border-b border-border bg-muted/30">
-          <div>
-            <h3 className="text-sm font-semibold text-fg">انتخاب توکن</h3>
-            <span className="text-xs text-fgSubtle">{chainName}</span>
+        <div className="flex items-center justify-between px-5 pt-4 pb-3 border-b border-white/[0.06] bg-white/[0.02]">
+          <div className="flex items-center gap-2">
+            <h3 className="text-base font-bold text-foreground">انتخاب توکن</h3>
+            {chainName && (
+              <span className="text-[11px] font-mono px-2 py-0.5 rounded-full bg-white/[0.05] border border-white/[0.08] text-muted-foreground font-semibold">
+                {chainName}
+              </span>
+            )}
           </div>
           <button 
             type="button" 
             onClick={onClose}
-            className="p-1 rounded-lg text-fgSubtle hover:text-fg hover:bg-muted transition-colors"
-            aria-label="Close"
+            className="p-1.5 rounded-xl text-muted-foreground hover:text-foreground hover:bg-white/[0.08] transition-colors"
+            aria-label="بستن"
           >
-            <X size={16} />
+            <X size={18} />
           </button>
         </div>
 
-        {/* Search Input */}
-        <div className="p-2.5 border-b border-border bg-muted/30">
+        {/* Search Bar */}
+        <div className="p-4 border-b border-white/[0.06] space-y-3">
           <div className="relative">
+            <Search size={16} className="absolute right-3.5 top-3.5 text-muted-foreground pointer-events-none" />
             <input
               type="text"
-              placeholder="جستجو با نماد یا نام..."
+              placeholder="جستجو با نماد یا نام توکن..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-2.5 pr-8 py-1.5 rounded-lg bg-card border border-border text-xs text-fg placeholder-fgSubtle focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors"
+              className="w-full pr-10 pl-9 py-2.5 rounded-2xl bg-white/[0.04] border border-white/[0.08] text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-accent/60 focus:bg-white/[0.07] transition-all font-sans"
               autoFocus
             />
-            <Search size={14} className="absolute right-2 top-2 text-fgSubtle" />
+            {search && (
+              <button 
+                type="button"
+                onClick={() => setSearch('')}
+                className="absolute left-3 top-3 text-muted-foreground hover:text-foreground p-0.5 rounded-full"
+              >
+                <X size={14} />
+              </button>
+            )}
           </div>
+
+          {/* Quick Select Popular Tokens (No horizontal scroll: flex-wrap) */}
+          {quickTokens.length > 0 && !search && (
+            <div className="flex flex-wrap gap-1.5 pt-0.5">
+              {quickTokens.map(tok => {
+                const isSelected = selectedToken?.symbol === tok.symbol;
+                return (
+                  <button
+                    key={tok.symbol}
+                    type="button"
+                    onClick={() => {
+                      onSelectToken(tok);
+                      onClose();
+                    }}
+                    className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-xs font-bold transition-all ${
+                      isSelected
+                        ? 'bg-accent/20 border border-accent/50 text-accent shadow-sm'
+                        : 'bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.06] text-foreground'
+                    }`}
+                  >
+                    <TokenLogo symbol={tok.symbol} size={18} />
+                    <span>{tok.symbol}</span>
+                  </button>
+                );
+              })}
+            </div>
+          )}
         </div>
 
         {/* Tokens List */}
-        <div className="max-h-[300px] overflow-y-auto divide-y divide-border/50 p-1">
+        <div className="flex-1 overflow-y-auto overflow-x-hidden p-2 space-y-1 divide-y divide-white/[0.02]">
           {filteredTokens.length > 0 ? (
             filteredTokens.map((token) => {
               const isSelected = selectedToken?.symbol === token.symbol;
@@ -105,38 +140,68 @@ export default function TokenSelectorModal({
                     onSelectToken(token);
                     onClose();
                   }}
-                  className={`token-row ${isSelected ? 'token-row-selected' : ''}`}
+                  className={`w-full flex items-center justify-between p-3 rounded-2xl transition-all text-right group ${
+                    isSelected 
+                      ? 'bg-accent/10 border border-accent/30' 
+                      : 'hover:bg-white/[0.04] border border-transparent'
+                  }`}
                 >
-                  <div className="flex items-center gap-2.5">
-                    <div className="shrink-0">{renderTokenIcon(token)}</div>
-                    <div>
-                      <div className="flex items-center gap-1.5">
-                        <strong className="text-sm font-semibold text-fg">{token.symbol}</strong>
+                  {/* Right side (RTL): Token Logo & Symbol/Name */}
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className="w-10 h-10 rounded-2xl bg-white/[0.04] border border-white/[0.06] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                      <TokenLogo symbol={token.symbol} size={30} />
+                    </div>
+
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm font-bold text-foreground">
+                          {token.symbol}
+                        </span>
                         {token.isNative && (
-                          <span className="badge badge-accent text-[9px]">کوین اصلی</span>
+                          <span className="text-[10px] px-1.5 py-0.2 rounded-md bg-accent/15 text-accent font-semibold border border-accent/20">
+                            کوین اصلی
+                          </span>
+                        )}
+                        {isSelected && (
+                          <span className="flex items-center text-accent text-xs">
+                            <Check size={14} className="stroke-[3]" />
+                          </span>
                         )}
                       </div>
-                      <span className="text-xs text-fgSubtle">{token.name}</span>
+                      <span className="text-xs text-muted-foreground block truncate mt-0.5">
+                        {token.name}
+                      </span>
                     </div>
                   </div>
 
-                  <div className="text-left">
-                    <div className="text-xs font-mono font-bold text-fg" dir="ltr">
+                  {/* Left side (RTL): User Balance & Live USD Price */}
+                  <div className="text-left shrink-0 pl-1">
+                    <div className="text-sm font-mono font-bold text-foreground" dir="ltr">
                       {userBalance}
                     </div>
-                    <span className="text-[10px] text-fgSubtle">
-                      ${livePrice < 0.01 ? livePrice.toFixed(6) : livePrice.toFixed(2)}
+                    <span className="text-[11px] font-mono text-muted-foreground block mt-0.5" dir="ltr">
+                      ${livePrice < 0.01 
+                        ? livePrice.toFixed(6) 
+                        : livePrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                      }
                     </span>
                   </div>
                 </button>
               );
             })
           ) : (
-            <div className="py-6 text-center text-fgSubtle text-xs space-y-1">
-              <AlertCircle size={20} className="mx-auto text-fgMuted opacity-50" />
-              <p>توکنی یافت نشد</p>
+            <div className="py-12 text-center text-muted-foreground text-xs space-y-2">
+              <AlertCircle size={24} className="mx-auto text-muted-foreground/40" />
+              <p className="font-semibold text-sm">توکنی یافت نشد</p>
+              <p className="text-muted-foreground/70 text-[11px]">نماد یا آدرس قرارداد را بررسی کنید</p>
             </div>
           )}
+        </div>
+
+        {/* Modal Footer */}
+        <div className="px-5 py-2.5 bg-white/[0.01] border-t border-white/[0.06] flex items-center justify-between text-[11px] text-muted-foreground">
+          <span>روتر سواپ چندزنجیره‌ای JSWAP</span>
+          <span className="font-mono text-accent/80 font-medium">نقدینگی استخر خودکار</span>
         </div>
 
       </div>
