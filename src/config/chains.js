@@ -3,7 +3,7 @@
 
 export const CHAIN_CATEGORIES = [
   { id: 'all', name: 'همه شبکه‌ها' },
-  { id: 'privacy', name: 'حریم خصوصی (Privacy & zk)' },
+  { id: 'privacy', name: 'توکن‌های محرمانه (Privacy Coins)' },
   { id: 'evm', name: 'اتریوم و زنجیره‌های EVM' },
   { id: 'l2', name: 'لایه‌های ۲ اتریوم (L2)' },
   { id: 'speed', name: 'شبکه‌های پرسرعت و تلگرام' },
@@ -270,7 +270,7 @@ export const CHAINS = {
     nativeSymbol: 'ZEC',
     type: 'zcash',
     category: 'privacy',
-    mainDex: 'Noir & Zashi Shielded',
+    mainDex: 'Zodl & Noir Shielded',
     badge: 'دانش صفر (zk-SNARKs)',
     color: '#ECB244',
     rpcUrls: ['https://mainnet.lightwalletd.com:9067'],

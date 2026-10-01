@@ -54,21 +54,15 @@ export const WalletLogo = ({ walletId, size = 24, className = '' }) => {
         return '/assets/icons/wallets/coinbase.svg';
       case 'okx':
         return '/assets/icons/wallets/okx.svg';
+      case 'zodl':
+      case 'zashi':
+        return '/assets/icons/wallets/zodl.png';
       default:
         return null;
     }
   };
 
   const src = getWalletSrc(walletId);
-  if (walletId === 'zashi') {
-    return (
-      <svg width={size} height={size} viewBox="0 0 32 32" className={`rounded-xl shrink-0 ${className}`}>
-        <rect width="32" height="32" rx="8" fill="#1C1E24" />
-        <circle cx="16" cy="16" r="11" fill="#ECB244" />
-        <path d="M13 11h6.5l-4.5 7H19v3h-6.5l4.5-7H13v-3z" fill="#1C1E24" />
-      </svg>
-    );
-  }
   if (walletId === 'noir') {
     return (
       <svg width={size} height={size} viewBox="0 0 32 32" className={`rounded-xl shrink-0 ${className}`}>

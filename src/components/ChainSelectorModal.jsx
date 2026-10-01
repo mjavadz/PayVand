@@ -39,7 +39,7 @@ export default function ChainSelectorModal({ isOpen, onClose, activeChain, onSel
         <div className="flex items-center justify-between px-5 pt-4 pb-3 border-b border-white/[0.06] bg-white/[0.02]">
           <div>
             <h3 className="text-base font-bold text-foreground">انتخاب شبکه مبادله</h3>
-            <p className="text-xs text-muted-foreground mt-0.5">پوشش ۱۶ بلاکچین دیفای و حفظ حریم خصوصی با روتینگ خودکار</p>
+            <p className="text-xs text-muted-foreground mt-0.5">پوشش ۱۶ بلاکچین دیفای و توکن‌های محرمانه (Privacy Coins) با روتینگ خودکار</p>
           </div>
           <button 
             type="button" 

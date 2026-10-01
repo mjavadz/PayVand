@@ -157,18 +157,18 @@ const WALLET_OPTIONS = {
   ],
   zcash: [
     {
-      id: 'zashi',
-      name: 'Zashi Wallet',
-      desc: 'کیف‌پول رسمی شیلدد و دانش صفر بنیاد Electric Coin Company',
+      id: 'zodl',
+      name: 'Zodl Wallet (سابقاً Zashi)',
+      desc: 'کیف‌پول رسمی شیلدد و دانش‌صفر بنیاد ZODL Lab (پیش‌تر Zashi ECC)',
       badge: 'پیشنهادی',
-      checkInstalled: () => typeof window !== 'undefined' && Boolean(window.zashi),
-      installUrl: 'https://zashi.app/'
+      checkInstalled: () => typeof window !== 'undefined' && Boolean(window.zodl || window.zashi),
+      installUrl: 'https://zodl.com/'
     },
     {
       id: 'noir',
       name: 'Noir Wallet',
       desc: 'کیف‌پول وب۳ زی‌کش با قابلیت سواپ آنی و ارتباط با لایه‌های اتریوم',
-      badge: 'حفظ حریم خصوصی',
+      badge: 'توکن‌های محرمانه (Privacy Coins)',
       checkInstalled: () => typeof window !== 'undefined' && Boolean(window.noirWallet),
       installUrl: 'https://noirwallet.com/'
     },

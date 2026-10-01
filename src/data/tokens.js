@@ -148,8 +148,8 @@ export const SUPPORTED_CHAINS = [
     name: 'زی‌کش (Zcash Shielded)', 
     nativeSymbol: 'ZEC', 
     category: 'privacy',
-    mainDex: 'Noir & Zashi Shielded',
-    badge: 'حفظ حریم خصوصی و ضد فریز',
+    mainDex: 'Zodl & Noir Shielded',
+    badge: 'توکن‌های محرمانه (Privacy Coins) و ضد فریز',
     color: '#ECB244' 
   }
 ];
