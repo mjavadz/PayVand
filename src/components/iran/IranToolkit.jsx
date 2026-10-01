@@ -509,234 +509,228 @@ export default function IranToolkit({ initialSubTab = 'cashout' }) {
 
       {/* SUBTAB 3: ANTI-SANCTION & SHIELD PROTOCOL */}
       {subTab === 'anti_sanction' && (
-        <div className="card card-hover p-4 sm:p-6 space-y-6 animate-fade-in text-start">
+        <div className="card card-hover p-4 sm:p-6 space-y-5 animate-fade-in text-start">
           
           {/* Header */}
-          <div className="border-b border-border/40 pb-4">
-            <div className="flex items-center gap-2 mb-1.5">
+          <div className="border-b border-border/40 pb-3.5">
+            <div className="flex items-center gap-2 mb-1">
               <span className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                 <ShieldAlert size={18} />
               </span>
               <h2 className="text-base font-bold text-foreground">
-                سپر ضد فریز و قطع منشأ آن‌چین (Anti-Taint Shield)
+                سپر ضد فریز و قطع ردپای آن‌چین (Anti-Freeze Shield)
               </h2>
             </div>
             <p className="text-xs text-muted-foreground leading-relaxed">
-              راهنمای جامع مصونیت از فریز تتر، پاک‌سازی ریسک اسکور ولت و قطع ارتباط دارایی‌ها با صرافی‌های متمرکز بر پایه اثبات‌های دانش‌صفر (zk-SNARKs).
+              راهنمای ساده و گام‌به‌گام برای جلوگیری از مسدود شدن تتر و حفظ ۱۰۰٪ حریم خصوصی در کیف‌پول‌های شخصی.
             </p>
           </div>
 
-          {/* Section 1: The Core Threat (Why Tether gets flagged) */}
-          <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 space-y-2">
-            <div className="flex items-center gap-2 text-amber-400 font-bold text-xs">
-              <AlertTriangle size={15} />
-              <span>چرا تتر (USDT) برای کاربران ایرانی پرریسک است؟</span>
+          {/* Quick TL;DR Note Box */}
+          <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs space-y-1.5">
+            <div className="flex items-center gap-1.5 font-bold text-amber-400">
+              <AlertTriangle size={14} />
+              <span>ریشه خطر: چرا تتر (USDT) فریز می‌شود؟</span>
             </div>
-            <p className="text-xs text-amber-200/90 leading-relaxed font-normal">
-              برخلاف بیت‌کوین و اتریوم، قرارداد هوشمند تتر روی شبکه‌های ترون و اتریوم شامل توابع مالکیتی <code className="px-1.5 py-0.5 rounded bg-black/30 font-mono text-[11px] text-amber-300">addBlackList</code> و <code className="px-1.5 py-0.5 rounded bg-black/30 font-mono text-[11px] text-amber-300">destroyFrozenFunds</code> است. شرکت‌های نظارت آن‌چین (مانند Chainalysis و Elliptic) آدرس‌های مرتبط با صرافی‌های داخلی را علامت‌گذاری (Flag) کرده و در صورت انتقال مستقیم، کل موجودی آدرس توسط شرکت تتر در چند ثانیه مسدود می‌شود.
+            <p className="text-[11px] text-amber-200/90 leading-relaxed font-normal">
+              شرکت صادرکنندهٔ تتر به دستور نهادهای نظارتی می‌تواند هر آدرسی را در چند ثانیه مسدود (Freeze) کند. در صورت ارسال مستقیم از صرافی ایرانی به کیف‌پول‌های بین‌المللی، آدرس شما شناسایی و ریسک مسدودسازی دارایی به شدت بالا می‌رود.
             </p>
           </div>
 
-          {/* Section 2: 4-Step Clean Route via ZEC Shielded & L2 */}
-          <div className="space-y-3">
+          {/* 3-Step Simple Roadmap */}
+          <div className="space-y-2.5">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-bold text-foreground flex items-center gap-2">
-                <Zap size={15} className="text-accent" />
-                <span>متد ۴ مرحله‌ای قطع ردپای آن‌چین (روش ZEC zk-Shielded & L2)</span>
+              <h3 className="text-xs sm:text-sm font-bold text-foreground flex items-center gap-1.5">
+                <Zap size={14} className="text-accent" />
+                <span>فرمول ۳ مرحله‌ای خروج امن و تمیز از صرافی</span>
               </h3>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-accent/15 text-accent border border-accent/25">
-                توصیه تخصصی
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-accent/15 text-accent font-semibold">
+                مسیر پیشنهادی
               </span>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
               {/* Step 1 */}
-              <div className="p-3.5 rounded-xl bg-muted/60 border border-border space-y-1.5">
+              <div className="p-3 rounded-xl bg-muted/60 border border-border space-y-1">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold text-foreground flex items-center gap-1.5">
-                    <span className="w-5 h-5 rounded-full bg-accent text-background font-mono text-[11px] font-black flex items-center justify-center">۱</span>
-                    <span>خرید رمزارز واسط (ZEC)</span>
+                    <span className="w-5 h-5 rounded-full bg-accent text-background font-mono text-[11px] font-black flex items-center justify-center shrink-0">۱</span>
+                    <span>خرید رمزارز واسط</span>
                   </span>
                   <span className="text-[10px] text-muted-foreground font-mono">گام اول</span>
                 </div>
-                <p className="text-xs text-muted-foreground leading-relaxed">
-                  به جای خرید مستقیم تتر، در صرافی ایرانی رمزارز <strong className="text-foreground">زی‌کش ($ZEC)</strong> یا لایت‌کوین خریداری کنید.
+                <p className="text-[11px] text-muted-foreground leading-relaxed">
+                  در صرافی ایرانی به جای تتر مستقیم، <strong className="text-foreground">زی‌کش (ZEC)</strong>، <strong className="text-foreground">تون (TON)</strong> یا لایت‌کوین بخرید.
                 </p>
               </div>
 
               {/* Step 2 */}
-              <div className="p-3.5 rounded-xl bg-muted/60 border border-border space-y-1.5">
+              <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/25 space-y-1">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-foreground flex items-center gap-1.5">
-                    <span className="w-5 h-5 rounded-full bg-accent text-background font-mono text-[11px] font-black flex items-center justify-center">۲</span>
-                    <span>انتقال به کیف‌پول شخصی</span>
+                  <span className="text-xs font-bold text-emerald-300 flex items-center gap-1.5">
+                    <span className="w-5 h-5 rounded-full bg-emerald-400 text-background font-mono text-[11px] font-black flex items-center justify-center shrink-0">۲</span>
+                    <span>انتقال به ولت شخصی</span>
                   </span>
-                  <span className="text-[10px] text-muted-foreground font-mono">گام دوم</span>
+                  <span className="text-[10px] text-emerald-400 font-mono">قطع ردپا</span>
                 </div>
-                <p className="text-xs text-muted-foreground leading-relaxed">
-                  ارز را به یک ولت غیرحضانتی شخصی پشتیبانی‌کننده از حریم خصوصی (مثل Noir Wallet یا Zashi) واریز فرمایید.
+                <p className="text-[11px] text-emerald-200/90 leading-relaxed font-normal">
+                  دارایی را به کیف‌پول شخصی (نه صرافی خارجی) و به یک آدرس امن یا محرمانه منتقل کنید تا پیوند صرافی قطع شود.
                 </p>
               </div>
 
               {/* Step 3 */}
-              <div className="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/25 space-y-1.5">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-emerald-300 flex items-center gap-1.5">
-                    <span className="w-5 h-5 rounded-full bg-emerald-400 text-background font-mono text-[11px] font-black flex items-center justify-center">۳</span>
-                    <span>انتقال به آدرس محرمانه (Shielded)</span>
-                  </span>
-                  <span className="text-[10px] text-emerald-400 font-mono">نقطه عطف zk</span>
-                </div>
-                <p className="text-xs text-emerald-200/90 leading-relaxed font-normal">
-                  داخل والت، دارایی را به آدرس Shielded (پیشوند zs یا u) بفرستید. در این گام با الگوریتم <strong className="text-emerald-300">zk-SNARKs</strong> پیوند میان فرستنده و گیرنده برای همیشه از روی اکسپلورر شکسته می‌شود.
-                </p>
-              </div>
-
-              {/* Step 4 */}
-              <div className="p-3.5 rounded-xl bg-muted/60 border border-border space-y-1.5">
+              <div className="p-3 rounded-xl bg-muted/60 border border-border space-y-1">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold text-foreground flex items-center gap-1.5">
-                    <span className="w-5 h-5 rounded-full bg-accent text-background font-mono text-[11px] font-black flex items-center justify-center">۴</span>
-                    <span>سواپ به لایه ۲ (Base یا Arbitrum)</span>
+                    <span className="w-5 h-5 rounded-full bg-accent text-background font-mono text-[11px] font-black flex items-center justify-center shrink-0">۳</span>
+                    <span>سواپ تمیز در JSWAP</span>
                   </span>
                   <span className="text-[10px] text-muted-foreground font-mono">مقصد نهایی</span>
                 </div>
-                <p className="text-xs text-muted-foreground leading-relaxed">
-                  از داخل والت، ZEC شیلددشده را به <strong className="text-foreground">ETH یا استیبل‌کوین در شبکه Base</strong> سواپ کنید. دارایی مقصد کاملاً پاک و با ریسک اسکور صفر خواهد بود.
+                <p className="text-[11px] text-muted-foreground leading-relaxed">
+                  در JSWAP ارز خود را به <strong className="text-foreground">ETH</strong>، <strong className="text-foreground">DAI</strong> یا دلار دلخواه تبدیل کنید؛ دارایی شما کاملاً پاک و با ریسک صفر است.
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Section 3: Asset Risk & Resistance Matrix */}
-          <div className="space-y-3">
-            <h3 className="text-sm font-bold text-foreground flex items-center gap-2">
-              <Layers size={15} className="text-accent" />
-              <span>ماتریس مقایسه ریسک فریز و مسدودسازی استیبل‌کوین‌ها</span>
+          {/* Asset Risk Comparison (Compact & Responsive - No 2-line wraps) */}
+          <div className="space-y-2.5">
+            <h3 className="text-xs sm:text-sm font-bold text-foreground flex items-center gap-1.5">
+              <Layers size={14} className="text-accent" />
+              <span>کدام ارزها ضد فریز هستند؟ (مقایسه سریع ریسک)</span>
             </h3>
 
             <div className="space-y-2">
               {/* LUSD */}
-              <div className="p-3 rounded-xl bg-card border border-border/70 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <div className="flex items-center gap-2.5">
+              <div className="p-3 rounded-xl bg-card border border-border/70 flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2.5 min-w-0">
                   <div className="w-8 h-8 rounded-full bg-[#2E3A59] flex items-center justify-center text-xs font-bold text-[#7E92B6] shrink-0 border border-white/10">
                     LUSD
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <div className="flex items-center gap-2">
-                      <span className="font-bold text-xs text-foreground">Liquity USD (LUSD)</span>
-                      <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-emerald-500/15 text-emerald-400 font-bold border border-emerald-500/25">
+                      <span className="font-bold text-xs text-foreground">Liquity (LUSD)</span>
+                      <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-emerald-500/15 text-emerald-400 font-bold border border-emerald-500/25 whitespace-nowrap">
                         مصونیت ۱۰۰٪
                       </span>
                     </div>
-                    <p className="text-[11px] text-muted-foreground">
-                      قرارداد هوشمند تغییرناپذیر (Immutable)، فاقد کلید ادمین، فاقد هرگونه تابع مسدودسازی.
-                    </p>
+                    <span className="text-[11px] text-muted-foreground block truncate">
+                      قرارداد تغییرناپذیر، بدون کلید ادمین، فاقد هرگونه تابع فریز
+                    </span>
                   </div>
                 </div>
-                <span className="text-[11px] font-bold text-emerald-400 shrink-0">بهترین برای نگهداری دلاری</span>
+                <span className="text-[10px] sm:text-[11px] font-bold text-emerald-400 shrink-0 whitespace-nowrap">
+                  بهترین برای دلار
+                </span>
               </div>
 
               {/* DAI */}
-              <div className="p-3 rounded-xl bg-card border border-border/70 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <div className="flex items-center gap-2.5">
+              <div className="p-3 rounded-xl bg-card border border-border/70 flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2.5 min-w-0">
                   <div className="w-8 h-8 rounded-full bg-[#F4B731] flex items-center justify-center text-xs font-bold text-white shrink-0">
                     DAI
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <div className="flex items-center gap-2">
-                      <span className="font-bold text-xs text-foreground">Dai Stablecoin (DAI)</span>
-                      <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-emerald-500/15 text-emerald-400 font-bold border border-emerald-500/25">
-                        غیرمتمرکز و امن
+                      <span className="font-bold text-xs text-foreground">Dai Stablecoin</span>
+                      <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-emerald-500/15 text-emerald-400 font-bold border border-emerald-500/25 whitespace-nowrap">
+                        غیرمتمرکز
                       </span>
                     </div>
-                    <p className="text-[11px] text-muted-foreground">
-                      مدیریت توسط حاکمیت چندامضایی MakerDAO؛ فاقد لیست سیاه اختصاصی یا تابع فریز دلخواه.
-                    </p>
+                    <span className="text-[11px] text-muted-foreground block truncate">
+                      استیبل‌کوین وثیقه‌ای غیرمتمرکز؛ بدون لیست سیاه دلخواه
+                    </span>
                   </div>
                 </div>
-                <span className="text-[11px] font-bold text-emerald-400 shrink-0">نقدینگی عمیق دیفای</span>
+                <span className="text-[10px] sm:text-[11px] font-bold text-emerald-400 shrink-0 whitespace-nowrap">
+                  نقدینگی بالا
+                </span>
               </div>
 
-              {/* Native Coins (TON / SOL / ETH) */}
-              <div className="p-3 rounded-xl bg-card border border-border/70 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <div className="flex items-center gap-2.5">
+              {/* Native Coins */}
+              <div className="p-3 rounded-xl bg-card border border-border/70 flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2.5 min-w-0">
                   <div className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-xs font-bold text-accent shrink-0 border border-accent/30">
                     L1
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <div className="flex items-center gap-2">
-                      <span className="font-bold text-xs text-foreground">ارزهای بومی شبکه (TON / SOL / ETH / TRX)</span>
-                      <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-emerald-500/15 text-emerald-400 font-bold border border-emerald-500/25">
+                      <span className="font-bold text-xs text-foreground">کوین‌های بومی (TON / SOL / ETH)</span>
+                      <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-emerald-500/15 text-emerald-400 font-bold border border-emerald-500/25 whitespace-nowrap">
                         غیرقابل فریز
                       </span>
                     </div>
-                    <p className="text-[11px] text-muted-foreground">
-                      کوین پایه بلاکچین هستند و هیچ شرکت یا قراردادی از نظر فنی قادر به فریز آدرس آنها نیست.
-                    </p>
+                    <span className="text-[11px] text-muted-foreground block truncate">
+                      ارزهای اصلی شبکه؛ از نظر فنی مسدودسازی آن ناممکن است
+                    </span>
                   </div>
                 </div>
-                <span className="text-[11px] font-bold text-emerald-400 shrink-0">بالاترین سطح امنیت</span>
+                <span className="text-[10px] sm:text-[11px] font-bold text-emerald-400 shrink-0 whitespace-nowrap">
+                  امنیت کامل
+                </span>
               </div>
 
-              {/* USDT (Tron/Ethereum) */}
-              <div className="p-3 rounded-xl bg-card border border-rose-500/20 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <div className="flex items-center gap-2.5">
+              {/* USDT - FIXED 1-LINE WRAP */}
+              <div className="p-3 rounded-xl bg-card border border-rose-500/30 flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2.5 min-w-0">
                   <div className="w-8 h-8 rounded-full bg-[#26A17B] flex items-center justify-center text-xs font-bold text-white shrink-0">
                     USDT
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <div className="flex items-center gap-2">
-                      <span className="font-bold text-xs text-foreground">تتر ترون و اتریوم (USDT - TRC20 / ERC20)</span>
-                      <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-rose-500/15 text-rose-400 font-bold border border-rose-500/25">
+                      <span className="font-bold text-xs text-foreground">تتر (USDT)</span>
+                      <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-rose-500/15 text-rose-400 font-bold border border-rose-500/25 whitespace-nowrap">
                         ریسک بالای فریز
                       </span>
                     </div>
-                    <p className="text-[11px] text-muted-foreground">
-                      هدف اصلی مانیتورینگ Chainalysis؛ دارای تابع اختصاصی فریز و مسدودسازی کامل موجودی.
-                    </p>
+                    <span className="text-[11px] text-muted-foreground block truncate">
+                      دارای تابع مسدودسازی؛ رصد دائمی توسط شرکت‌های نظارتی
+                    </span>
                   </div>
                 </div>
-                <span className="text-[11px] font-bold text-rose-400 shrink-0">برای نگهداری طولانی پرهیز شود</span>
+                <span className="text-[10px] sm:text-[11px] font-bold text-rose-400 shrink-0 whitespace-nowrap">
+                  پرهیز از نگهداری
+                </span>
               </div>
             </div>
           </div>
 
           {/* Section 4: Network Tools & Anti-Sanction DNS */}
-          <div className="space-y-3 pt-2 border-t border-border/40">
-            <h3 className="text-sm font-bold text-foreground flex items-center gap-2">
-              <Cpu size={15} className="text-accent" />
-              <span>اتصال مستقیم نودها و DNSهای ضدتحریم (بدون نیاز به وی‌پی‌ان)</span>
+          <div className="space-y-2.5 pt-3 border-t border-border/40">
+            <h3 className="text-xs sm:text-sm font-bold text-foreground flex items-center gap-1.5">
+              <Cpu size={14} className="text-accent" />
+              <span>اتصال مستقیم نودها و DNSهای ضدتحریم (بدون وی‌پی‌ان)</span>
             </h3>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-              <div className="p-3 rounded-xl bg-card border border-border space-y-1.5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
+              <div className="p-3 rounded-xl bg-card border border-border space-y-1">
                 <div className="flex items-center justify-between">
-                  <span className="font-bold text-foreground">شکن (Shecan)</span>
+                  <span className="font-bold text-foreground text-xs">شکن (Shecan)</span>
                   <button
                     type="button"
                     onClick={() => copyToClipboard('178.22.122.100, 185.51.200.2')}
                     className="text-[10px] text-accent hover:underline flex items-center gap-1 font-semibold"
                   >
-                    <Copy size={12} />
+                    <Copy size={11} />
                     <span>کپی DNS</span>
                   </button>
                 </div>
                 <p className="font-mono text-muted-foreground text-[11px]" dir="ltr">
                   178.22.122.100 • 185.51.200.2
                 </p>
-                <p className="text-[10px] text-muted-foreground pt-0.5">
-                  دورزدن خطای ۴۰۳ صرافی‌های خارجی و کیف‌پول‌های وب۳ بدون افت سرعت.
+                <p className="text-[10px] text-muted-foreground">
+                  دورزدن تحریم‌های وب۳ و خطای ۴۰۳ صرافی‌ها بدون افت پینگ.
                 </p>
               </div>
 
-              <div className="p-3 rounded-xl bg-card border border-border space-y-1.5">
+              <div className="p-3 rounded-xl bg-card border border-border space-y-1">
                 <div className="flex items-center justify-between">
-                  <span className="font-bold text-foreground">نودهای لبه کلودفلر JSWAP</span>
-                  <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-accent/15 text-accent font-semibold">فعال</span>
+                  <span className="font-bold text-foreground text-xs">نودهای لبه کلودفلر</span>
+                  <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-accent/15 text-accent font-semibold">فعال</span>
                 </div>
                 <p className="text-muted-foreground text-[11px] leading-relaxed">
-                  تمامی درخواست‌های بلاکچین از طریق ورکرز کلادفلر بدون واسطه‌های تحریم‌کننده (Infura/Alchemy) عبور می‌کنند.
+                  ترافیک سواپ مستقیماً از طریق شبکه لبه کلودفلر JSWAP بدون نیاز به فیلترشکن عبور می‌کند.
                 </p>
               </div>
             </div>
