@@ -39,6 +39,7 @@ const ECOSYSTEM_TABS = [
   { id: 'solana', name: 'سولانا (SOL)', isEvm: false, iconChainId: 'solana' },
   { id: 'ton', name: 'تون (TON)', isEvm: false, iconChainId: 'ton' },
   { id: 'tron', name: 'ترون (TRX)', isEvm: false, iconChainId: 'tron' },
+  { id: 'zcash', name: 'زی‌کش (ZEC)', isEvm: false, iconChainId: 'zcash' },
   { id: 'sui', name: 'سویی (SUI)', isEvm: false, iconChainId: 'sui' },
   { id: 'aptos', name: 'آپتوس (APT)', isEvm: false, iconChainId: 'aptos' },
 ];
@@ -152,6 +153,31 @@ const WALLET_OPTIONS = {
       desc: 'کیف‌پول تخصصی دیفای و صرافی‌های آپتوس',
       checkInstalled: () => typeof window !== 'undefined' && Boolean(window.pontem),
       installUrl: 'https://pontem.network/'
+    }
+  ],
+  zcash: [
+    {
+      id: 'zashi',
+      name: 'Zashi Wallet',
+      desc: 'کیف‌پول رسمی شیلدد و دانش صفر بنیاد Electric Coin Company',
+      badge: 'پیشنهادی',
+      checkInstalled: () => typeof window !== 'undefined' && Boolean(window.zashi),
+      installUrl: 'https://zashi.app/'
+    },
+    {
+      id: 'noir',
+      name: 'Noir Wallet',
+      desc: 'کیف‌پول وب۳ زی‌کش با قابلیت سواپ آنی و ارتباط با لایه‌های اتریوم',
+      badge: 'حفظ حریم خصوصی',
+      checkInstalled: () => typeof window !== 'undefined' && Boolean(window.noirWallet),
+      installUrl: 'https://noirwallet.com/'
+    },
+    {
+      id: 'ywallet',
+      name: 'YWallet',
+      desc: 'کیف‌پول سبک و پرسرعت برای استخرهای سپلینگ و اورکید زی‌کش',
+      checkInstalled: () => typeof window !== 'undefined' && Boolean(window.ywallet),
+      installUrl: 'https://ywallet.app/'
     }
   ]
 };

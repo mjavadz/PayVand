@@ -15,6 +15,9 @@ let CACHED_PRICES = {
   sun: 0.024,
   ston: 3.85,
   ray: 2.15,
+  zec: 1307.00,
+  lusd: 1.00,
+  dai: 1.00,
 };
 
 let IRAN_TETHER_RATE = 234000; // Baseline average Toman
@@ -137,6 +140,11 @@ export function getTokenPrice(symbol) {
     case 'sun': return CACHED_PRICES.sun;
     case 'ston': return CACHED_PRICES.ston;
     case 'ray': return CACHED_PRICES.ray;
+    case 'zec':
+    case 'zcash':
+    case 'zec-z': return CACHED_PRICES.zec || 1307.00;
+    case 'lusd': return CACHED_PRICES.lusd || 1.00;
+    case 'dai': return CACHED_PRICES.dai || 1.00;
     default: return 1.0;
   }
 }

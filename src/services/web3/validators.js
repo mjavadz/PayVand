@@ -35,7 +35,14 @@ export function isValidSuiAddress(address) {
 
 export function isValidAptosAddress(address) {
   if (!address || typeof address !== 'string') return false;
-  return /^0x[a-fA-F0-9]{64}$/.test(address.trim());
+  return /^0x[a-fA-F0-9]{1,64}$/.test(address.trim());
+}
+
+export function isValidZcashAddress(address) {
+  if (!address || typeof address !== 'string') return false;
+  const clean = address.trim();
+  // Transparent (t1/t3 ~35 chars), Sapling Shielded (zs1... 78 chars), or Unified Address (u1...)
+  return /^(t[13][a-km-zA-HJ-NP-Z1-9]{33}|zs1[a-z0-9]{75}|u1[a-z0-9]+)$/.test(clean);
 }
 
 export function validateAddress(chainType, address) {
@@ -62,6 +69,8 @@ export function validateAddress(chainType, address) {
       return isValidSuiAddress(address);
     case 'aptos':
       return isValidAptosAddress(address);
+    case 'zcash':
+      return isValidZcashAddress(address);
     default:
       return Boolean(address && address.length > 10);
   }

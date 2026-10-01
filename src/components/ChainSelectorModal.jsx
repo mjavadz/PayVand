@@ -39,7 +39,7 @@ export default function ChainSelectorModal({ isOpen, onClose, activeChain, onSel
         <div className="flex items-center justify-between px-5 pt-4 pb-3 border-b border-white/[0.06] bg-white/[0.02]">
           <div>
             <h3 className="text-base font-bold text-foreground">انتخاب شبکه مبادله</h3>
-            <p className="text-xs text-muted-foreground mt-0.5">پوشش ۱۵ بلاکچین دیفای با روتینگ خودکار استخرها</p>
+            <p className="text-xs text-muted-foreground mt-0.5">پوشش ۱۶ بلاکچین دیفای و حفظ حریم خصوصی با روتینگ خودکار</p>
           </div>
           <button 
             type="button" 
@@ -162,7 +162,7 @@ export default function ChainSelectorModal({ isOpen, onClose, activeChain, onSel
         {/* Footer info */}
         <div className="px-5 py-2.5 bg-white/[0.01] border-t border-white/[0.06] flex items-center justify-between text-[11px] text-muted-foreground">
           <span>روتر غیرحضانتی هوشمند JSWAP</span>
-          <span className="text-accent font-mono font-medium">۱۵ شبکه وب۳</span>
+          <span className="text-accent font-mono font-medium">۱۶ شبکه وب۳</span>
         </div>
       </div>
     </div>

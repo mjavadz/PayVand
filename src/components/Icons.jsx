@@ -2,6 +2,9 @@ import React from 'react';
 
 // Official Authentic Blockchain Logos
 export const ChainLogo = ({ chainId, size = 20, className = '' }) => {
+  if (chainId === 'zcash') {
+    return <ZcashIcon size={size} className={className} />;
+  }
   const normId = chainId === 'binance' ? 'bsc' : (chainId === 'avalanchec' ? 'avalanche' : chainId);
   return (
     <img
@@ -57,6 +60,32 @@ export const WalletLogo = ({ walletId, size = 24, className = '' }) => {
   };
 
   const src = getWalletSrc(walletId);
+  if (walletId === 'zashi') {
+    return (
+      <svg width={size} height={size} viewBox="0 0 32 32" className={`rounded-xl shrink-0 ${className}`}>
+        <rect width="32" height="32" rx="8" fill="#1C1E24" />
+        <circle cx="16" cy="16" r="11" fill="#ECB244" />
+        <path d="M13 11h6.5l-4.5 7H19v3h-6.5l4.5-7H13v-3z" fill="#1C1E24" />
+      </svg>
+    );
+  }
+  if (walletId === 'noir') {
+    return (
+      <svg width={size} height={size} viewBox="0 0 32 32" className={`rounded-xl shrink-0 ${className}`}>
+        <rect width="32" height="32" rx="8" fill="#121826" />
+        <circle cx="16" cy="16" r="10" stroke="#00E599" strokeWidth="2" fill="none" />
+        <path d="M11 16l3.5 3.5L21 12" stroke="#00E599" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      </svg>
+    );
+  }
+  if (walletId === 'ywallet') {
+    return (
+      <svg width={size} height={size} viewBox="0 0 32 32" className={`rounded-xl shrink-0 ${className}`}>
+        <rect width="32" height="32" rx="8" fill="#1E2330" />
+        <path d="M10 10l6 7v6h2v-6l6-7h-3.5L17 14.5 13.5 10H10z" fill="#ECB244" />
+      </svg>
+    );
+  }
   if (!src) {
     return <WalletIcon size={size} className={className} />;
   }
@@ -104,7 +133,9 @@ export const TokenLogo = ({ symbol = '', size = 20, className = '' }) => {
     blast: 'blast',
     sui: 'sui',
     apt: 'aptos',
-    aptos: 'aptos'
+    aptos: 'aptos',
+    zec: 'zcash',
+    zcash: 'zcash'
   };
 
   if (chainMap[norm]) {
@@ -129,6 +160,10 @@ export const TokenLogo = ({ symbol = '', size = 20, className = '' }) => {
         <circle cx="16" cy="16" r="13" stroke="#7E92B6" strokeWidth="1.5" fill="none" />
       </svg>
     );
+  }
+
+  if (norm === 'zec' || norm === 'zcash' || norm === 'zec-z') {
+    return <ZcashIcon size={size} className={className} />;
   }
 
   // Token asset mapping
@@ -218,6 +253,15 @@ export const LineaIcon = ({ size = 24, className = '' }) => (
 export const BlastIcon = ({ size = 24, className = '' }) => (
   <ChainLogo chainId="blast" size={size} className={className} />
 );
+
+export const ZcashIcon = ({ size = 24, className = '' }) => (
+  <svg width={size} height={size} viewBox="0 0 32 32" className={`rounded-full shrink-0 ${className}`}>
+    <circle cx="16" cy="16" r="16" fill="#ECB244" />
+    <path fill="#FFF" fillRule="nonzero" d="M15.096 19.846h6.297v3.35h-3.875c.064.958.097 1.847.161 2.804h-3.261v-2.77h-3.876c0-1.093-.129-2.187.065-3.213.097-.547.678-1.026 1.033-1.504a462.137 462.137 0 013.714-4.581c.485-.582.969-1.129 1.518-1.778h-6.04v-3.35h3.586V6h3.132v2.735h3.908c0 1.128.129 2.222-.065 3.248-.097.547-.678 1.026-1.065 1.504a462.138 462.138 0 01-3.714 4.581 37.083 37.083 0 01-1.518 1.778z" />
+  </svg>
+);
+
+export const ZecIcon = ZcashIcon;
 
 export const UsdtIcon = ({ size = 24, className = '' }) => (
   <TokenLogo symbol="usdt" size={size} className={className} />

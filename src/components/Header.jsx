@@ -41,6 +41,7 @@ export default function Header({
       blast: 'بلاست',
       sui: 'سویی',
       aptos: 'آپتوس',
+      zcash: 'زی‌کش',
     };
     return names[activeChain] || 'شبکه';
   };

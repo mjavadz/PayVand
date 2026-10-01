@@ -15,7 +15,8 @@ import {
   SuiIcon,
   AptosIcon,
   LineaIcon,
-  BlastIcon
+  BlastIcon,
+  ZcashIcon
 } from './Icons';
 import { SUPPORTED_CHAINS } from '../data/tokens';
 
@@ -41,6 +42,7 @@ export default function NetworkDropdown({ activeChain, onSelectChain }) {
       case 'aptos': return <AptosIcon size={size} />;
       case 'linea': return <LineaIcon size={size} />;
       case 'blast': return <BlastIcon size={size} />;
+      case 'zcash': return <ZcashIcon size={size} />;
       default: return <EthereumIcon size={size} />;
     }
   };

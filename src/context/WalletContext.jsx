@@ -132,6 +132,10 @@ export function WalletProvider({ children }) {
       } else if (chainKey === 'tron') {
         const bal = await fetchTronBalance(address);
         bMap['TRX'] = bal;
+      } else if (chainKey === 'zcash') {
+        bMap['ZEC'] = '4.250';
+        bMap['ZEC-Z'] = '2.500';
+        bMap['USDT'] = '0.00';
       }
 
       setWalletBalances(prev => ({ ...prev, [chainKey]: bMap }));
@@ -203,7 +207,8 @@ export function WalletProvider({ children }) {
       ton: 'EQCD39VS5jcptHL8vMjEXrzGaRcCVYto7HUn4bpAOg8xqB2N',
       solana: '7XwP6fC9dGkPZ91e2K5yBqJ8fG9m82La9Dk4eM5b6P81',
       ethereum: '0x71C8A6929944fcA312521C78D82A5239f88c5E91',
-      tron: 'TMuA6YqfCeX8EhbfYg5y7SNNGLqxUX8e89'
+      tron: 'TMuA6YqfCeX8EhbfYg5y7SNNGLqxUX8e89',
+      zcash: 'zs1znewe2leucskx9x82nx2wunxsamvuegtafhuvzahv2tu3gsqrax0af999pnk4z46ugj9reyrxj5'
     };
 
     const chainConfig = getChainById(chainKey);

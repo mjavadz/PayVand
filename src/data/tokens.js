@@ -142,6 +142,15 @@ export const SUPPORTED_CHAINS = [
     mainDex: 'Liquidswap & Pontem',
     badge: 'زبان Move مقیاس‌پذیر',
     color: '#202020' 
+  },
+  { 
+    id: 'zcash', 
+    name: 'زی‌کش (Zcash Shielded)', 
+    nativeSymbol: 'ZEC', 
+    category: 'privacy',
+    mainDex: 'Noir & Zashi Shielded',
+    badge: 'حفظ حریم خصوصی و ضد فریز',
+    color: '#ECB244' 
   }
 ];
 
@@ -235,5 +244,11 @@ export const TOKENS = {
   aptos: [
     { symbol: 'APT', name: 'Aptos Token', decimals: 8, address: 'native', priceUSD: 8.40, icon: 'apt', isNative: true },
     { symbol: 'USDT', name: 'Tether USD (Aptos)', decimals: 6, address: 'native', priceUSD: 1.00, icon: 'usdt', isNative: false }
+  ],
+
+  zcash: [
+    { symbol: 'ZEC', name: 'Zcash (Shielded & Transparent)', decimals: 8, address: 'native', priceUSD: 1307.00, icon: 'zec', isNative: true, censorshipResistant: true, securityLabel: 'کوین محرمانه (zk-SNARKs)' },
+    { symbol: 'ZEC-Z', name: 'ZEC Shielded Pool', decimals: 8, address: 'shielded_pool', priceUSD: 1307.00, icon: 'zec', isNative: false, censorshipResistant: true, securityLabel: 'استخر شیلدد دانش صفر' },
+    { symbol: 'USDT', name: 'Tether USD (Bridged)', decimals: 6, address: 'bridged_usdt', priceUSD: 1.00, icon: 'usdt', isNative: false, freezable: true, securityLabel: 'متمرکز (تابع فریز)' }
   ]
 };

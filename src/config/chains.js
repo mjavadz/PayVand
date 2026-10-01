@@ -3,6 +3,7 @@
 
 export const CHAIN_CATEGORIES = [
   { id: 'all', name: 'همه شبکه‌ها' },
+  { id: 'privacy', name: 'حریم خصوصی (Privacy & zk)' },
   { id: 'evm', name: 'اتریوم و زنجیره‌های EVM' },
   { id: 'l2', name: 'لایه‌های ۲ اتریوم (L2)' },
   { id: 'speed', name: 'شبکه‌های پرسرعت و تلگرام' },
@@ -261,6 +262,21 @@ export const CHAINS = {
     blockExplorer: 'https://explorer.aptoslabs.com',
     decimals: 8,
     defaultGas: '0.001 APT'
+  },
+  zcash: {
+    id: 'zcash',
+    name: 'زی‌کش',
+    englishName: 'Zcash (Shielded)',
+    nativeSymbol: 'ZEC',
+    type: 'zcash',
+    category: 'privacy',
+    mainDex: 'Noir & Zashi Shielded',
+    badge: 'دانش صفر (zk-SNARKs)',
+    color: '#ECB244',
+    rpcUrls: ['https://mainnet.lightwalletd.com:9067'],
+    blockExplorer: 'https://blockchair.com/zcash',
+    decimals: 8,
+    defaultGas: '0.0001 ZEC'
   }
 };
 
