@@ -111,6 +111,26 @@ export const TokenLogo = ({ symbol = '', size = 20, className = '' }) => {
     return <ChainLogo chainId={chainMap[norm]} size={size} className={className} />;
   }
 
+  if (norm === 'dai') {
+    return (
+      <svg width={size} height={size} viewBox="0 0 32 32" className={`rounded-full shrink-0 ${className}`}>
+        <circle cx="16" cy="16" r="16" fill="#F4B731" />
+        <path d="M9 7.5h7.2c4.4 0 7.8 3.4 7.8 8.5s-3.4 8.5-7.8 8.5H9v-17zm3.2 3.1v10.8h4c2.8 0 4.6-2.1 4.6-5.4s-1.8-5.4-4.6-5.4h-4z" fill="#FFF" />
+        <path d="M7 13h18v2.1H7zM7 17h18v2.1H7z" fill="#FFF" />
+      </svg>
+    );
+  }
+
+  if (norm === 'lusd') {
+    return (
+      <svg width={size} height={size} viewBox="0 0 32 32" className={`rounded-full shrink-0 ${className}`}>
+        <circle cx="16" cy="16" r="16" fill="#2E3A59" />
+        <path d="M12 8v16h10v-3.5h-6V8H12z" fill="#7E92B6" />
+        <circle cx="16" cy="16" r="13" stroke="#7E92B6" strokeWidth="1.5" fill="none" />
+      </svg>
+    );
+  }
+
   // Token asset mapping
   const tokenMap = {
     usdt: '/assets/icons/tokens/usdt.png',

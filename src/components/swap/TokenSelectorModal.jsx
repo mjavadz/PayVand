@@ -153,13 +153,23 @@ export default function TokenSelectorModal({
                     </div>
 
                     <div className="min-w-0">
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-1.5 flex-wrap">
                         <span className="text-sm font-bold text-foreground">
                           {token.symbol}
                         </span>
                         {token.isNative && (
-                          <span className="text-[10px] px-1.5 py-0.2 rounded-md bg-accent/15 text-accent font-semibold border border-accent/20">
+                          <span className="text-[10px] px-1.5 py-0.5 rounded-md bg-accent/15 text-accent font-semibold border border-accent/20">
                             کوین اصلی
+                          </span>
+                        )}
+                        {token.censorshipResistant && !token.isNative && (
+                          <span className="text-[9px] px-1.5 py-0.5 rounded-md bg-emerald-500/15 text-emerald-400 font-semibold border border-emerald-500/25">
+                            ضد فریز
+                          </span>
+                        )}
+                        {token.freezable && (
+                          <span className="text-[9px] px-1.5 py-0.5 rounded-md bg-amber-500/10 text-amber-400/90 font-medium border border-amber-500/20">
+                            تابع فریز
                           </span>
                         )}
                         {isSelected && (

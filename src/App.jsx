@@ -31,6 +31,7 @@ export default function App() {
   } = useWallet();
 
   const [activeTab, setActiveTab] = useState('swap');
+  const [iranSubTab, setIranSubTab] = useState('cashout');
   const [isWalletModalOpen, setIsWalletModalOpen] = useState(false);
   const [isChainModalOpen, setIsChainModalOpen] = useState(false);
 
@@ -94,6 +95,10 @@ export default function App() {
             <SwapCard 
               onOpenWalletModal={() => setIsWalletModalOpen(true)} 
               onOpenChainSelector={() => setIsChainModalOpen(true)}
+              onSwitchToShieldTab={() => {
+                setIranSubTab('anti_sanction');
+                setActiveTab('iran');
+              }}
             />
           </div>
         )}
@@ -108,7 +113,7 @@ export default function App() {
         {/* Tab 3: Iran Web3 Toolkit */}
         {activeTab === 'iran' && (
           <div className="animate-fade-in">
-            <IranToolkit />
+            <IranToolkit initialSubTab={iranSubTab} />
           </div>
         )}
 

@@ -7,7 +7,8 @@ import {
   RefreshCw,
   AlertCircle,
   ExternalLink,
-  Fuel
+  Fuel,
+  ShieldAlert
 } from 'lucide-react';
 import { TokenLogo, ChainLogo } from '../Icons';
 import TokenSelectorModal from './TokenSelectorModal';
@@ -17,7 +18,7 @@ import { getIranTetherRate } from '../../services/priceService';
 import { useWallet } from '../../context/WalletContext';
 import { formatToman } from '../../utils/format';
 
-export default function SwapCard({ onOpenWalletModal, onOpenChainSelector }) {
+export default function SwapCard({ onOpenWalletModal, onOpenChainSelector, onSwitchToShieldTab }) {
   const { 
     activeChain, 
     activeChainConfig,
@@ -343,6 +344,30 @@ export default function SwapCard({ onOpenWalletModal, onOpenChainSelector }) {
           <div className="p-3 rounded-2xl bg-destructiveSoft border border-destructive/30 flex items-center gap-2 text-xs text-red-300 animate-fade-in">
             <AlertCircle size={15} className="text-destructive shrink-0" />
             <span>{swapError}</span>
+          </div>
+        )}
+
+        {/* Anti-Freeze Security Notice for USDT */}
+        {(fromToken?.symbol === 'USDT' || toToken?.symbol === 'USDT') && (
+          <div className="p-3 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-300 space-y-1.5 animate-fade-in">
+            <div className="flex items-center justify-between">
+              <span className="flex items-center gap-1.5 font-bold text-amber-400">
+                <ShieldAlert size={14} />
+                <span>هشدارهای امنیتی تتر (USDT)</span>
+              </span>
+              {onSwitchToShieldTab && (
+                <button
+                  type="button"
+                  onClick={onSwitchToShieldTab}
+                  className="text-[10px] text-accent hover:underline font-semibold"
+                >
+                  راهنمای قطع ردپای آن‌چین ←
+                </button>
+              )}
+            </div>
+            <p className="text-[11px] text-amber-200/80 leading-relaxed font-normal">
+              تتر به دلیل متمرکز بودن دارای تابع مسدودسازی (فریز) است. برای نگهداری امن، سواپ به ارزهای بومی ({activeChain.toUpperCase()}) یا استیبل‌کوین‌های غیرمتمرکز (DAI / LUSD) پیشنهاد می‌شود.
+            </p>
           </div>
         )}
 
