@@ -38,7 +38,6 @@ export default function Header({
       avalanche: 'آوالانچ',
       zksync: 'زد‌کی‌سینک',
       linea: 'لینیا',
-      blast: 'بلاست',
       sui: 'سویی',
       aptos: 'آپتوس',
       zcash: 'زی‌کش',

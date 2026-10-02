@@ -114,15 +114,6 @@ export const SUPPORTED_CHAINS = [
     badge: 'شبکه لایه ۲ Consensys',
     color: '#61DFFF' 
   },
-  { 
-    id: 'blast', 
-    name: 'بلاست (Blast)', 
-    nativeSymbol: 'ETH', 
-    category: 'l2',
-    mainDex: 'Thruster & Uniswap v3',
-    badge: 'بازدهی خودکار Native Yield',
-    color: '#FCFC03' 
-  },
 
   // --- Next-Gen Non-EVM ---
   { 
@@ -229,11 +220,6 @@ export const TOKENS = {
   linea: [
     { symbol: 'ETH', name: 'Ethereum (Linea)', decimals: 18, address: 'native', priceUSD: 2692.00, icon: 'eth', isNative: true },
     { symbol: 'USDC', name: 'USD Coin (Linea)', decimals: 6, address: '0x176211869cA2b568f2A7D4EE941E073a821EE1ff', priceUSD: 1.00, icon: 'usdc', isNative: false }
-  ],
-
-  blast: [
-    { symbol: 'ETH', name: 'Ethereum (Blast)', decimals: 18, address: 'native', priceUSD: 2692.00, icon: 'eth', isNative: true },
-    { symbol: 'USDB', name: 'USD Blast Yield', decimals: 18, address: '0x4300000000000000000000000000000000000003', priceUSD: 1.00, icon: 'usdb', isNative: false }
   ],
 
   sui: [

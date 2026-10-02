@@ -153,7 +153,7 @@ export default function App() {
           <Stat
             size="sm"
             title="شبکه‌های متصل"
-            value="۱۶"
+            value="۱۵"
             unit="زنجیره"
           />
         </div>

@@ -214,23 +214,6 @@ export const CHAINS = {
     decimals: 18,
     defaultGas: '0.00004 ETH'
   },
-  blast: {
-    id: 'blast',
-    name: 'بلاست',
-    englishName: 'Blast Mainnet',
-    nativeSymbol: 'ETH',
-    type: 'evm',
-    chainId: 81457,
-    chainIdHex: '0x13e31',
-    category: 'l2',
-    mainDex: 'Thruster & Uniswap v3',
-    badge: 'بازدهی خودکار Native Yield',
-    color: '#FCFC03',
-    rpcUrls: ['https://rpc.blast.io'],
-    blockExplorer: 'https://blastscan.io',
-    decimals: 18,
-    defaultGas: '0.00003 ETH'
-  },
 
   // --- Next-Gen Move Ecosystem ---
   sui: {

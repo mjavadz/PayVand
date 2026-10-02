@@ -28,7 +28,6 @@ const EVM_NETWORKS = [
   { id: 'optimism', name: 'آپتیمیزم (Optimism OP)', symbol: 'OP', tag: 'سوپرچین', desc: 'معماری مقیاس‌پذیری آپتیمیستیک' },
   { id: 'zksync', name: 'زد‌کی‌سینک (zkSync Era)', symbol: 'ZK', tag: 'zk-Rollup', desc: 'امنیت محاسباتی بر پایه دانش صفر' },
   { id: 'linea', name: 'لینیا (Linea zkEVM)', symbol: 'LINEA', tag: 'ConsenSys', desc: 'لایه ۲ رسمی توسعه‌دهنده متامسک' },
-  { id: 'blast', name: 'بلاست (Blast)', symbol: 'BLAST', tag: 'لایه ۲', desc: 'لایه دوم دارای سودآوری ذاتی برای اتر و تتر' },
 ];
 
 const EVM_ID_SET = new Set(EVM_NETWORKS.map(c => c.id));

@@ -57,7 +57,6 @@ export function validateAddress(chainType, address) {
     case 'avalanche':
     case 'zksync':
     case 'linea':
-    case 'blast':
       return isValidEVMAddress(address);
     case 'solana':
       return isValidSolanaAddress(address);

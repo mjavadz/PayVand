@@ -124,7 +124,6 @@ export const TokenLogo = ({ symbol = '', size = 20, className = '' }) => {
     zk: 'zksync',
     zksync: 'zksync',
     linea: 'linea',
-    blast: 'blast',
     sui: 'sui',
     apt: 'aptos',
     aptos: 'aptos',
@@ -242,10 +241,6 @@ export const AptosIcon = ({ size = 24, className = '' }) => (
 
 export const LineaIcon = ({ size = 24, className = '' }) => (
   <ChainLogo chainId="linea" size={size} className={className} />
-);
-
-export const BlastIcon = ({ size = 24, className = '' }) => (
-  <ChainLogo chainId="blast" size={size} className={className} />
 );
 
 export const ZcashIcon = ({ size = 24, className = '' }) => (
