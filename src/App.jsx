@@ -16,10 +16,11 @@ import { GridBackground } from '@/components/backgrounds/grid';
 import { TextShimmer } from '@/components/animations/text-shimmer';
 import { Stat } from '@/components/ui/stat';
 import { Accordion } from '@/components/ui/accordion';
+import InteractiveBanner from './components/ui/InteractiveBanner';
 
 export default function App() {
   React.useEffect(() => {
-    document.title = 'JSWAP Farsi | صرافی غیرحضانتی و خرید مستقیم استارز تلگرام';
+    document.title = 'JSWAP Farsi | پروتکل مبادله غیرحضانتی چندزنجیره‌ای و تلگرام';
   }, []);
 
   const { 
@@ -79,15 +80,8 @@ export default function App() {
       {/* Main Content Area (Focused centered DEX layout like Uniswap) */}
       <main className="flex-1 max-w-xl w-full mx-auto px-4 py-6 sm:py-8 relative z-10 space-y-6">
         
-        {/* Subtle Minimal Pill */}
-        <div className="text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.06] text-xs font-mono font-medium text-muted-foreground shadow-sm">
-            <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-            <TextShimmer className="text-accent font-semibold" duration={3}>
-              JSWAP • پروتکل غیرحضانتی چندزنجیره‌ای و استارز
-            </TextShimmer>
-          </div>
-        </div>
+        {/* Interactive Mouse-Following Spotlight Banner */}
+        <InteractiveBanner />
 
         {/* Tab 1: Multi-Chain Crypto Swap (Uniswap-style minimal centerpiece) */}
         {activeTab === 'swap' && (
