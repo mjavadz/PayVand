@@ -4,9 +4,9 @@ export const SUPPORTED_CHAINS = [
   // --- Telegram & High Speed ---
   { 
     id: 'ton', 
-    name: 'شبکه تون (TON)', 
+    name: 'شبکه تون (The Open Network)', 
     nativeSymbol: 'TON', 
-    category: 'telegram',
+    category: 'ton',
     mainDex: 'STON.fi & DeDust',
     badge: 'کارمزد ناچیز تلگرام',
     color: '#0088CC' 
@@ -15,7 +15,7 @@ export const SUPPORTED_CHAINS = [
     id: 'solana', 
     name: 'سولانا (Solana)', 
     nativeSymbol: 'SOL', 
-    category: 'l1',
+    category: 'solana',
     mainDex: 'Jupiter & Raydium',
     badge: 'پرسرعت‌ترین شبکه جهانی',
     color: '#9945FF' 
@@ -24,18 +24,18 @@ export const SUPPORTED_CHAINS = [
     id: 'tron', 
     name: 'ترون (TRON TRC-20)', 
     nativeSymbol: 'TRX', 
-    category: 'l1',
+    category: 'tron',
     mainDex: 'SunSwap v2.0',
     badge: 'استاندارد انتقال تتر',
     color: '#EF0027' 
   },
 
-  // --- Uniswap Major L1s ---
+  // --- Uniswap Major L1s & EVMs ---
   { 
     id: 'ethereum', 
     name: 'اتریوم (Ethereum)', 
     nativeSymbol: 'ETH', 
-    category: 'l1',
+    category: 'evm',
     mainDex: 'Uniswap v3 / 1inch',
     badge: 'بزرگترین نقدینگی دیفای',
     color: '#627EEA' 
@@ -44,7 +44,7 @@ export const SUPPORTED_CHAINS = [
     id: 'bsc', 
     name: 'بایننس چین (BNB Chain)', 
     nativeSymbol: 'BNB', 
-    category: 'l1',
+    category: 'evm',
     mainDex: 'PancakeSwap v3',
     badge: 'شبکه اقتصادی BEP-20',
     color: '#F3BA2F' 
@@ -53,7 +53,7 @@ export const SUPPORTED_CHAINS = [
     id: 'avalanche', 
     name: 'آوالانچ (Avalanche C-Chain)', 
     nativeSymbol: 'AVAX', 
-    category: 'l1',
+    category: 'evm',
     mainDex: 'Trader Joe & Uniswap',
     badge: 'نقدینگی بالا و سریع',
     color: '#E84142' 
@@ -184,43 +184,43 @@ export const TOKENS = {
   ],
 
   base: [
-    { symbol: 'ETH', name: 'Ethereum (Base)', decimals: 18, address: 'native', priceUSD: 2692.00, icon: 'eth', isNative: true },
+    { symbol: 'ETH', name: 'Ethereum (Base)', decimals: 18, address: 'native', priceUSD: 2692.00, icon: 'base', isNative: true },
     { symbol: 'USDC', name: 'USD Coin (Base)', decimals: 6, address: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913', priceUSD: 1.00, icon: 'usdc', isNative: false },
-    { symbol: 'AERO', name: 'Aerodrome Finance', decimals: 18, address: '0x940181a94A35A4569E4529A3CDfB74e38FD98631', priceUSD: 1.15, icon: 'aero', isNative: false }
+    { symbol: 'AERO', name: 'Aerodrome Finance', decimals: 18, address: '0x940181a94A35A4569E4529A3CDfB74e38FD98631', priceUSD: 1.15, icon: 'base', isNative: false }
   ],
 
   arbitrum: [
-    { symbol: 'ETH', name: 'Ethereum (Arbitrum)', decimals: 18, address: 'native', priceUSD: 2692.00, icon: 'eth', isNative: true },
+    { symbol: 'ETH', name: 'Ethereum (Arbitrum)', decimals: 18, address: 'native', priceUSD: 2692.00, icon: 'arbitrum', isNative: true },
     { symbol: 'ARB', name: 'Arbitrum Token', decimals: 18, address: '0x912CE59144191C1204E64559FE8253a0e49E6548', priceUSD: 0.58, icon: 'arb', isNative: false },
     { symbol: 'USDT', name: 'Tether USD (Arbitrum)', decimals: 6, address: '0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9', priceUSD: 1.00, icon: 'usdt', isNative: false }
   ],
 
   optimism: [
-    { symbol: 'ETH', name: 'Ethereum (Optimism)', decimals: 18, address: 'native', priceUSD: 2692.00, icon: 'eth', isNative: true },
+    { symbol: 'ETH', name: 'Ethereum (Optimism)', decimals: 18, address: 'native', priceUSD: 2692.00, icon: 'optimism', isNative: true },
     { symbol: 'OP', name: 'Optimism Token', decimals: 18, address: '0x4200000000000000000000000000000000000042', priceUSD: 1.55, icon: 'op', isNative: false },
     { symbol: 'USDT', name: 'Tether USD (Optimism)', decimals: 6, address: '0x94b008aA00579c1307B0EF2c499aD98a8ce58e58', priceUSD: 1.00, icon: 'usdt', isNative: false }
   ],
 
   polygon: [
-    { symbol: 'POL', name: 'Polygon Ecosystem Token', decimals: 18, address: 'native', priceUSD: 0.42, icon: 'pol', isNative: true },
+    { symbol: 'POL', name: 'Polygon Ecosystem Token', decimals: 18, address: 'native', priceUSD: 0.42, icon: 'polygon', isNative: true },
     { symbol: 'USDT', name: 'Tether USD (Polygon)', decimals: 6, address: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F', priceUSD: 1.00, icon: 'usdt', isNative: false },
     { symbol: 'USDC', name: 'USD Coin (Polygon)', decimals: 6, address: '0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359', priceUSD: 1.00, icon: 'usdc', isNative: false }
   ],
 
   avalanche: [
-    { symbol: 'AVAX', name: 'Avalanche', decimals: 18, address: 'native', priceUSD: 28.50, icon: 'avax', isNative: true },
+    { symbol: 'AVAX', name: 'Avalanche', decimals: 18, address: 'native', priceUSD: 28.50, icon: 'avalanche', isNative: true },
     { symbol: 'USDT', name: 'Tether USD (Avalanche)', decimals: 6, address: '0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7', priceUSD: 1.00, icon: 'usdt', isNative: false },
-    { symbol: 'JOE', name: 'Trader Joe', decimals: 18, address: '0x6e84a6216eA6dACC71eE8E6b0a5B7322EEbC0fDd', priceUSD: 0.45, icon: 'joe', isNative: false }
+    { symbol: 'JOE', name: 'Trader Joe', decimals: 18, address: '0x6e84a6216eA6dACC71eE8E6b0a5B7322EEbC0fDd', priceUSD: 0.45, icon: 'avalanche', isNative: false }
   ],
 
   zksync: [
-    { symbol: 'ETH', name: 'Ethereum (zkSync Era)', decimals: 18, address: 'native', priceUSD: 2692.00, icon: 'eth', isNative: true },
+    { symbol: 'ETH', name: 'Ethereum (zkSync Era)', decimals: 18, address: 'native', priceUSD: 2692.00, icon: 'zksync', isNative: true },
     { symbol: 'USDC', name: 'USD Coin (zkSync)', decimals: 6, address: '0x1d17CBcF0D6D143135aE902365D2E5e2A16538D4', priceUSD: 1.00, icon: 'usdc', isNative: false },
-    { symbol: 'ZK', name: 'zkSync Token', decimals: 18, address: '0x5A7d6b2F92C77FAD6CCaBd100e1E9286CB32A4f0', priceUSD: 0.14, icon: 'zk', isNative: false }
+    { symbol: 'ZK', name: 'zkSync Token', decimals: 18, address: '0x5A7d6b2F92C77FAD6CCaBd100e1E9286CB32A4f0', priceUSD: 0.14, icon: 'zksync', isNative: false }
   ],
 
   linea: [
-    { symbol: 'ETH', name: 'Ethereum (Linea)', decimals: 18, address: 'native', priceUSD: 2692.00, icon: 'eth', isNative: true },
+    { symbol: 'ETH', name: 'Ethereum (Linea)', decimals: 18, address: 'native', priceUSD: 2692.00, icon: 'linea', isNative: true },
     { symbol: 'USDC', name: 'USD Coin (Linea)', decimals: 6, address: '0x176211869cA2b568f2A7D4EE941E073a821EE1ff', priceUSD: 1.00, icon: 'usdc', isNative: false }
   ],
 

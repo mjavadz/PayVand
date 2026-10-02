@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 import { getChainIcon, getWalletIcon } from './Icons';
 import { useWallet } from '../context/WalletContext';
-import { getChainById } from '../config/chains';
+import { getChainById, isEVMChain } from '../config/chains';
 import { shortenAddress } from '../utils/format';
 
 // All EVM-compatible networks sharing the standard 0x Ethereum address format
@@ -32,15 +32,23 @@ const EVM_NETWORKS = [
 
 const EVM_ID_SET = new Set(EVM_NETWORKS.map(c => c.id));
 
-// Top Ecosystem Tabs: Unified EVM family + Non-EVM standalone blockchains
+// Top Ecosystem Tabs: Dedicated tabs with authentic logos for each blockchain
 const ECOSYSTEM_TABS = [
-  { id: 'evm', name: 'اتریوم و زنجیره‌های EVM', isEvm: true, iconChainId: 'ethereum' },
-  { id: 'solana', name: 'سولانا (SOL)', isEvm: false, iconChainId: 'solana' },
-  { id: 'ton', name: 'تون (TON)', isEvm: false, iconChainId: 'ton' },
-  { id: 'tron', name: 'ترون (TRX)', isEvm: false, iconChainId: 'tron' },
-  { id: 'zcash', name: 'زی‌کش (ZEC)', isEvm: false, iconChainId: 'zcash' },
-  { id: 'sui', name: 'سویی (SUI)', isEvm: false, iconChainId: 'sui' },
-  { id: 'aptos', name: 'آپتوس (APT)', isEvm: false, iconChainId: 'aptos' },
+  { id: 'ton', name: 'تون (TON)', iconChainId: 'ton' },
+  { id: 'solana', name: 'سولانا (SOL)', iconChainId: 'solana' },
+  { id: 'ethereum', name: 'اتریوم (ETH)', iconChainId: 'ethereum' },
+  { id: 'arbitrum', name: 'آربیتروم (ARB)', iconChainId: 'arbitrum' },
+  { id: 'base', name: 'بیس (Base)', iconChainId: 'base' },
+  { id: 'bsc', name: 'بایننس (BNB)', iconChainId: 'bsc' },
+  { id: 'polygon', name: 'پالیگان (POL)', iconChainId: 'polygon' },
+  { id: 'avalanche', name: 'آوالانچ (AVAX)', iconChainId: 'avalanche' },
+  { id: 'optimism', name: 'آپتیمیزم (OP)', iconChainId: 'optimism' },
+  { id: 'zksync', name: 'زد‌کی‌سینک (ZK)', iconChainId: 'zksync' },
+  { id: 'linea', name: 'لینیا (Linea)', iconChainId: 'linea' },
+  { id: 'zcash', name: 'زی‌کش (ZEC)', iconChainId: 'zcash' },
+  { id: 'tron', name: 'ترون (TRX)', iconChainId: 'tron' },
+  { id: 'sui', name: 'سویی (SUI)', iconChainId: 'sui' },
+  { id: 'aptos', name: 'آپتوس (APT)', iconChainId: 'aptos' },
 ];
 
 const WALLET_OPTIONS = {
@@ -193,38 +201,28 @@ export default function WalletModal({ isOpen, onClose }) {
     connectError 
   } = useWallet();
 
-  const isCurrentEvm = EVM_ID_SET.has(activeChain);
-  const [selectedTab, setSelectedTab] = useState(isCurrentEvm ? 'evm' : activeChain);
-  const [selectedEvmChain, setSelectedEvmChain] = useState(isCurrentEvm ? activeChain : 'ethereum');
-  const [isEvmDropdownOpen, setIsEvmDropdownOpen] = useState(false);
+  const [selectedTab, setSelectedTab] = useState(activeChain || 'ton');
   const [copied, setCopied] = useState(false);
   const [localError, setLocalError] = useState(null);
 
   // Sync state whenever modal opens or activeChain updates
   useEffect(() => {
     if (isOpen) {
-      if (EVM_ID_SET.has(activeChain)) {
-        setSelectedTab('evm');
-        setSelectedEvmChain(activeChain);
-      } else {
-        setSelectedTab(activeChain);
-      }
+      setSelectedTab(activeChain || 'ton');
       setLocalError(null);
-      setIsEvmDropdownOpen(false);
     }
   }, [isOpen, activeChain]);
 
   if (!isOpen) return null;
 
   // The actual blockchain network targeted for connection
-  const targetChainId = selectedTab === 'evm' ? selectedEvmChain : selectedTab;
-  const chainConfig = getChainById(targetChainId) || getChainById('ethereum');
+  const targetChainId = selectedTab;
+  const chainConfig = getChainById(targetChainId) || getChainById('ton');
   const currentWallet = connectedWallets[targetChainId];
 
   // Resolve wallet options depending on chain type
-  const chainType = chainConfig?.type || 'evm';
+  const chainType = isEVMChain(chainConfig) ? 'evm' : (chainConfig?.type || 'evm');
   const availableWallets = WALLET_OPTIONS[chainType] || WALLET_OPTIONS.evm;
-  const currentEvmObj = EVM_NETWORKS.find(n => n.id === selectedEvmChain) || EVM_NETWORKS[0];
 
   const handleCopy = (text) => {
     navigator.clipboard.writeText(text);
@@ -284,7 +282,7 @@ export default function WalletModal({ isOpen, onClose }) {
         </div>
 
         {/* Primary Ecosystem Tabs - Flex-wrap to prevent horizontal scrolling */}
-        <div className="p-3 bg-white/[0.02] border-b border-white/[0.06] flex flex-wrap gap-1.5">
+        <div className="p-3 bg-white/[0.02] border-b border-white/[0.06] flex flex-wrap gap-1.5 max-h-36 overflow-y-auto">
           {ECOSYSTEM_TABS.map(tab => {
             const isTabActive = selectedTab === tab.id;
             return (
@@ -294,7 +292,6 @@ export default function WalletModal({ isOpen, onClose }) {
                 onClick={() => {
                   setSelectedTab(tab.id);
                   setLocalError(null);
-                  setIsEvmDropdownOpen(false);
                 }}
                 className={`flex items-center gap-1.5 py-1.5 px-3 rounded-full text-xs font-semibold transition-all ${
                   isTabActive 
@@ -302,85 +299,23 @@ export default function WalletModal({ isOpen, onClose }) {
                     : 'text-muted-foreground hover:text-foreground hover:bg-white/[0.05] border border-white/[0.06]'
                 }`}
               >
-                {tab.isEvm ? (
-                  <div className="flex items-center gap-1.5">
-                    {getChainIcon('ethereum', 15)}
-                    <span>{tab.name}</span>
-                  </div>
-                ) : (
-                  <>
-                    {getChainIcon(tab.iconChainId, 15)}
-                    <span>{tab.name}</span>
-                  </>
-                )}
+                {getChainIcon(tab.iconChainId, 15)}
+                <span>{tab.name}</span>
               </button>
             );
           })}
         </div>
 
-        {/* Unified EVM Networks Dropdown Menu (Ethereum + L2s + BSC + Avalanche) */}
-        {selectedTab === 'evm' && (
-          <div className="px-4 py-3 bg-muted/40 border-b border-border/40 space-y-2 animate-fade-in relative z-20">
-            <div className="flex items-center justify-between gap-3">
-              <div className="flex items-center gap-1.5">
-                <span className="text-xs font-bold text-foreground">انتخاب زنجیره EVM:</span>
-              </div>
-
-              {/* EVM Chain Dropdown Trigger */}
-              <div className="relative">
-                <button
-                  type="button"
-                  onClick={() => setIsEvmDropdownOpen(!isEvmDropdownOpen)}
-                  className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-card border border-border hover:border-accent/40 text-xs font-bold text-foreground transition-all shadow-sm"
-                >
-                  {getChainIcon(selectedEvmChain, 16)}
-                  <span>{currentEvmObj.name}</span>
-                  <ChevronDown size={14} className={`text-muted-foreground transition-transform duration-200 ${isEvmDropdownOpen ? 'rotate-180' : ''}`} />
-                </button>
-
-                {/* Dropdown Options */}
-                {isEvmDropdownOpen && (
-                  <div className="absolute left-0 mt-1.5 w-64 max-h-72 overflow-y-auto bg-card border border-border rounded-2xl shadow-2xl p-1.5 z-30 space-y-1 animate-scale-in">
-                    <div className="px-2.5 py-1 text-[11px] font-bold text-muted-foreground border-b border-border/40 mb-1">
-                      زنجیره‌های سازگار با آدرس اتریوم (0x...)
-                    </div>
-                    {EVM_NETWORKS.map(evm => {
-                      const isSelected = selectedEvmChain === evm.id;
-                      return (
-                        <button
-                          key={evm.id}
-                          type="button"
-                          onClick={() => {
-                            setSelectedEvmChain(evm.id);
-                            setIsEvmDropdownOpen(false);
-                            setLocalError(null);
-                          }}
-                          className={`w-full flex items-center justify-between p-2 rounded-xl text-xs transition-colors text-right ${
-                            isSelected 
-                              ? 'bg-accentSoft text-accent font-bold' 
-                              : 'text-muted-foreground hover:text-foreground hover:bg-muted'
-                          }`}
-                        >
-                          <div className="flex items-center gap-2 min-w-0">
-                            {getChainIcon(evm.id, 18)}
-                            <div className="truncate">
-                              <span className="font-bold block truncate">{evm.name}</span>
-                              <span className="text-[10px] text-muted-foreground">{evm.tag}</span>
-                            </div>
-                          </div>
-                          {isSelected && <Check size={14} className="text-accent shrink-0 mr-1" />}
-                        </button>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {/* Reassurance Badge: All EVM chains use the same Ethereum address */}
-            <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground bg-white/[0.02] border border-white/[0.04] px-2.5 py-1 rounded-lg">
+        {/* Informational banner for EVM chains */}
+        {isEVMChain(chainConfig) && (
+          <div className="px-4 py-2 bg-muted/40 border-b border-border/40 flex items-center justify-between text-[11px] text-muted-foreground animate-fade-in">
+            <div className="flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-accent shrink-0" />
-              <span>تمام این شبکه‌ها با آدرس اتریوم (0x...) و کیف‌پول‌های یکسان کار می‌کنند.</span>
+              <span>سازگار با استاندارد آدرس اتریوم (0x...)</span>
+            </div>
+            <div className="flex items-center gap-1.5 font-bold text-foreground">
+              {getChainIcon(chainConfig.id, 14)}
+              <span>{chainConfig.name}</span>
             </div>
           </div>
         )}

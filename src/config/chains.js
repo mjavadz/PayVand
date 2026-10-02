@@ -3,9 +3,10 @@
 
 export const CHAIN_CATEGORIES = [
   { id: 'all', name: 'همه شبکه‌ها' },
-  { id: 'privacy', name: 'توکن‌های محرمانه (Privacy Coins)' },
+  { id: 'ton', name: 'اکوسیستم تلگرام (TON)' },
+  { id: 'solana', name: 'اکوسیستم سولانا (Solana)' },
   { id: 'evm', name: 'اتریوم و زنجیره‌های EVM' },
-  { id: 'speed', name: 'شبکه‌های پرسرعت و تلگرام' },
+  { id: 'privacy', name: 'توکن‌های محرمانه (Privacy Coins)' },
   { id: 'move', name: 'شبکه‌های نسل نو (Move)' }
 ];
 
@@ -17,7 +18,7 @@ export const CHAINS = {
     englishName: 'The Open Network',
     nativeSymbol: 'TON',
     type: 'ton',
-    category: 'speed',
+    category: 'ton',
     mainDex: 'STON.fi & DeDust',
     badge: 'کارمزد ناچیز تلگرام',
     color: '#0088CC',
@@ -32,7 +33,7 @@ export const CHAINS = {
     englishName: 'Solana',
     nativeSymbol: 'SOL',
     type: 'solana',
-    category: 'speed',
+    category: 'solana',
     mainDex: 'Jupiter & Raydium',
     badge: 'پرسرعت‌ترین شبکه جهانی',
     color: '#9945FF',
@@ -66,7 +67,7 @@ export const CHAINS = {
     type: 'evm',
     chainId: 1,
     chainIdHex: '0x1',
-    category: 'l1',
+    category: 'evm',
     mainDex: 'Uniswap v3 / 1inch',
     badge: 'بزرگترین نقدینگی دیفای',
     color: '#627EEA',
@@ -83,7 +84,7 @@ export const CHAINS = {
     type: 'evm',
     chainId: 56,
     chainIdHex: '0x38',
-    category: 'l1',
+    category: 'evm',
     mainDex: 'PancakeSwap v3',
     badge: 'شبکه اقتصادی BEP-20',
     color: '#F3BA2F',
@@ -100,7 +101,7 @@ export const CHAINS = {
     type: 'evm',
     chainId: 43114,
     chainIdHex: '0xa86a',
-    category: 'l1',
+    category: 'evm',
     mainDex: 'Trader Joe & Uniswap',
     badge: 'نقدینگی بالا و سریع',
     color: '#E84142',
