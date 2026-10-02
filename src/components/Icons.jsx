@@ -159,6 +159,14 @@ export const TokenLogo = ({ symbol = '', size = 20, className = '' }) => {
     return <ZcashIcon size={size} className={className} />;
   }
 
+  if (norm === 'stars') {
+    return <StarsIcon size={size} className={className} />;
+  }
+
+  if (norm === 'gram') {
+    return <GramIcon size={size} className={className} />;
+  }
+
   // Token asset mapping
   const tokenMap = {
     usdt: '/assets/icons/tokens/usdt.png',
@@ -358,6 +366,69 @@ export const ShieldCheckIcon = ({ size = 20, className = '' }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
     <path d="m9 12 2 2 4-4" />
+  </svg>
+);
+
+// Authentic Iranian Lion and Sun Flag (شیر و خورشید)
+export const IranFlagIcon = ({ size = 20, className = '' }) => {
+  const height = Math.round(size * 0.67);
+  return (
+    <svg 
+      width={size} 
+      height={height} 
+      viewBox="0 0 48 32" 
+      fill="none" 
+      className={`shrink-0 inline-block align-middle rounded-[3px] shadow-xs ${className}`}
+    >
+      <defs>
+        <clipPath id="iranFlagClipInline">
+          <rect width="48" height="32" rx="4" fill="#fff"/>
+        </clipPath>
+      </defs>
+      <g clipPath="url(#iranFlagClipInline)">
+        <rect width="48" height="10.67" fill="#239F40"/>
+        <rect y="10.67" width="48" height="10.66" fill="#FFFFFF"/>
+        <rect y="21.33" width="48" height="10.67" fill="#DA0000"/>
+        
+        {/* Sun */}
+        <circle cx="23.5" cy="14.5" r="4.2" fill="#F59E0B"/>
+        <path d="M23.5 8.5L24.5 11H22.5Z" fill="#D97706"/>
+        <path d="M19.2 10.2L21.5 12L20.5 12.8Z" fill="#D97706"/>
+        <path d="M27.8 10.2L26.5 12.8L25.5 12Z" fill="#D97706"/>
+        <path d="M16.5 13.5L19.2 14.2L18.8 13.2Z" fill="#D97706"/>
+        <path d="M30.5 13.5L28.2 13.2L27.8 14.2Z" fill="#D97706"/>
+
+        {/* Lion */}
+        <path d="M16.5 17.5C15.5 15.5 16 13.5 17.5 12.8C18 12.5 18.5 13 18.2 13.5C17.2 14 17 15.5 17.8 17Z" fill="#B45309"/>
+        <path d="M17.5 17C18.5 15.5 20.5 15 22.5 15C24.5 15 26 15.5 27 14.5C28 13.8 29.5 14.2 30 15C30.5 15.8 30 17 28.5 17.8C27 18.5 24 18.8 21.5 18.8C19.5 18.8 18 18 17.5 17Z" fill="#D97706"/>
+        <circle cx="29" cy="14" r="2.2" fill="#D97706"/>
+        <circle cx="29" cy="14" r="1.4" fill="#F59E0B"/>
+        <circle cx="29.8" cy="13.6" r="0.4" fill="#78350F"/>
+        <rect x="18" y="17.5" width="1.6" height="3.5" rx="0.6" fill="#B45309"/>
+        <rect x="21" y="17.8" width="1.5" height="3.2" rx="0.6" fill="#D97706"/>
+        <rect x="25.5" y="17.8" width="1.6" height="3.2" rx="0.6" fill="#D97706"/>
+        <path d="M28 16.5L30.5 15" stroke="#B45309" strokeWidth="1.8" strokeLinecap="round"/>
+        <path d="M29.5 16.5L31.5 13.5C32.5 12 34 11 35.5 10.5C35.8 10.5 35.8 11 35.2 11.5C33.8 12.5 32.8 13.8 32 15.8L30.5 17.2Z" fill="#1E293B"/>
+        <path d="M30 15.5C31.5 13 33 11.8 35.2 11" stroke="#FBBF24" strokeWidth="0.8" strokeLinecap="round"/>
+      </g>
+      <rect x="0.5" y="0.5" width="47" height="31" rx="3.5" stroke="rgba(255,255,255,0.25)" strokeWidth="1"/>
+    </svg>
+  );
+};
+
+// Telegram Gram Token Vector Icon
+export const GramIcon = ({ size = 20, className = '' }) => (
+  <svg width={size} height={size} viewBox="0 0 32 32" fill="none" className={`shrink-0 ${className}`}>
+    <defs>
+      <linearGradient id="gramGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#2AABEE" />
+        <stop offset="100%" stopColor="#229ED9" />
+      </linearGradient>
+    </defs>
+    <rect width="32" height="32" rx="16" fill="url(#gramGrad)" />
+    <path d="M16 6L24.5 12L16 26L7.5 12L16 6Z" fill="#FFFFFF" fillOpacity="0.9" />
+    <path d="M16 6L24.5 12H7.5L16 6Z" fill="#FFFFFF" fillOpacity="0.4" />
+    <path d="M16 26L7.5 12H16V26Z" fill="#000000" fillOpacity="0.12" />
   </svg>
 );
 

@@ -2,8 +2,7 @@ import React from 'react';
 
 export default function Footer({ onSwitchTab }) {
   const links = [
-    { label: 'سواپ غیرحضانتی', tab: 'swap' },
-    { label: 'استارز تلگرام', tab: 'stars' },
+    { label: 'سواپ چندزنجیره‌ای و تلگرام', tab: 'swap' },
     { label: 'ابزارهای ایران', tab: 'iran' },
     { label: 'پیگیری سفارشات', tab: 'orders' },
   ];
@@ -29,20 +28,14 @@ export default function Footer({ onSwitchTab }) {
         {/* Bottom Minimal Info Bar */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-2.5 text-xs text-muted-foreground/70 border-t border-border/30 pt-4 font-sans">
           <div className="flex items-center gap-2">
+            <img src="/logo.svg" alt="JSWAP" className="w-4 h-4 object-contain" />
             <span className="font-bold text-foreground/90">JSWAP</span>
             <span>•</span>
             <span>پروتکل مبادله غیرحضانتی و امن چندزنجیره‌ای</span>
           </div>
-          <div className="flex items-center gap-3 text-[11px]">
-            <span className="flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-              <span>تسویه مستقیم روی استخرهای غیرمتمرکز</span>
-            </span>
-            <span>•</span>
-            <span className="flex items-center gap-1.5">
-              <img src="/logo.svg" alt="JSWAP" className="w-3.5 h-3.5 object-contain" />
-              <span className="font-sans font-bold text-foreground">JSWAP</span>
-            </span>
+          <div className="flex items-center gap-1.5 text-[11px]">
+            <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+            <span>تسویه مستقیم روی استخرهای غیرمتمرکز</span>
           </div>
         </div>
 

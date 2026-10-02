@@ -110,9 +110,33 @@ export function WalletProvider({ children }) {
   }, []);
 
   // Fetch on-chain balances for connected wallet
-  const fetchAddressBalance = useCallback(async (chainKey, address) => {
+  const fetchAddressBalance = useCallback(async (chainKey, address, isDemoOverride = false) => {
     if (!address) {
       setWalletBalances(prev => ({ ...prev, [chainKey]: {} }));
+      return;
+    }
+
+    const demoMap = {
+      ton: { TON: '12.500', STARS: '350', GRAM: '2500.00', USDT: '45.00', STON: '8.20' },
+      solana: { SOL: '3.850', USDT: '120.00', USDC: '85.00', JUP: '64.00' },
+      ethereum: { ETH: '1.450', LUSD: '250.00', DAI: '420.00', USDT: '180.00', USDC: '150.00', WBTC: '0.045' },
+      tron: { TRX: '750.00', USDT: '95.00', BTT: '1000000' },
+      zcash: { ZEC: '4.250', 'ZEC-Z': '2.500', USDT: '0.00' },
+      bsc: { BNB: '2.400', USDT: '150.00', BUSD: '100.00', CAKE: '35.00' },
+      arbitrum: { ETH: '0.850', ARB: '320.00', USDC: '120.00' },
+      optimism: { ETH: '0.650', OP: '180.00', USDC: '95.00' },
+      base: { ETH: '1.100', AERO: '450.00', USDC: '210.00' },
+      polygon: { POL: '540.00', MATIC: '540.00', USDT: '80.00' },
+      avalanche: { AVAX: '18.50', JOE: '120.00', USDC: '65.00' },
+      zksync: { ETH: '0.450', ZK: '650.00', USDC: '75.00' },
+      linea: { ETH: '0.520', USDC: '110.00' },
+      sui: { SUI: '85.00', USDC: '50.00' },
+      aptos: { APT: '24.00', USDT: '60.00' }
+    };
+
+    if (isDemoOverride || connectedWallets[chainKey]?.isDemo) {
+      const bMap = demoMap[chainKey] || { [getChainById(chainKey)?.nativeSymbol || 'ETH']: '5.000' };
+      setWalletBalances(prev => ({ ...prev, [chainKey]: bMap }));
       return;
     }
 
@@ -225,7 +249,7 @@ export function WalletProvider({ children }) {
     }));
 
     setActiveChainState(chainKey);
-    fetchAddressBalance(chainKey, addr);
+    fetchAddressBalance(chainKey, addr, true);
   }, [fetchAddressBalance]);
 
   // Disconnect handler

@@ -64,7 +64,7 @@ export const SUPPORTED_CHAINS = [
     id: 'base', 
     name: 'بیس (Base - کوین‌بیس)', 
     nativeSymbol: 'ETH', 
-    category: 'l2',
+    category: 'evm',
     mainDex: 'Aerodrome & Uniswap v3',
     badge: 'اکوسیستم رسمی Coinbase',
     color: '#0052FF' 
@@ -73,7 +73,7 @@ export const SUPPORTED_CHAINS = [
     id: 'arbitrum', 
     name: 'آربیتروم (Arbitrum One)', 
     nativeSymbol: 'ETH', 
-    category: 'l2',
+    category: 'evm',
     mainDex: 'Uniswap v3 & Camelot',
     badge: 'برترین لایه ۲ اتریوم',
     color: '#28A0F0' 
@@ -82,7 +82,7 @@ export const SUPPORTED_CHAINS = [
     id: 'optimism', 
     name: 'آپتیمیزم (OP Mainnet)', 
     nativeSymbol: 'ETH', 
-    category: 'l2',
+    category: 'evm',
     mainDex: 'Velodrome & Uniswap v3',
     badge: 'سوپرچین امن اتریوم',
     color: '#FF0420' 
@@ -91,7 +91,7 @@ export const SUPPORTED_CHAINS = [
     id: 'polygon', 
     name: 'پالیگان (Polygon PoS)', 
     nativeSymbol: 'POL', 
-    category: 'l2',
+    category: 'evm',
     mainDex: 'QuickSwap & Uniswap v3',
     badge: 'مقیاس‌پذیر و ارزان',
     color: '#8247E5' 
@@ -100,7 +100,7 @@ export const SUPPORTED_CHAINS = [
     id: 'zksync', 
     name: 'زد‌کی‌سینک (zkSync Era)', 
     nativeSymbol: 'ETH', 
-    category: 'l2',
+    category: 'evm',
     mainDex: 'SyncSwap & Uniswap v3',
     badge: 'فناوری دانش صفر (ZK)',
     color: '#8C8DFC' 
@@ -109,7 +109,7 @@ export const SUPPORTED_CHAINS = [
     id: 'linea', 
     name: 'لینیا (Linea)', 
     nativeSymbol: 'ETH', 
-    category: 'l2',
+    category: 'evm',
     mainDex: 'SyncSwap & Lynex',
     badge: 'شبکه لایه ۲ Consensys',
     color: '#61DFFF' 
@@ -147,7 +147,9 @@ export const SUPPORTED_CHAINS = [
 
 export const TOKENS = {
   ton: [
-    { symbol: 'TON', name: 'Toncoin', decimals: 9, address: 'native', priceUSD: 1.60, icon: 'ton', isNative: true, censorshipResistant: true, securityLabel: 'کوین بومی (فاقد فریز)' },
+    { symbol: 'TON', name: 'Toncoin', decimals: 9, address: 'native', priceUSD: 1.60, icon: 'ton', isNative: true, censorshipResistant: true, securityLabel: 'کوین بومی تلگرام (فاقد فریز)' },
+    { symbol: 'STARS', name: 'Telegram Stars', decimals: 0, address: 'telegram_stars_desk', priceUSD: 0.015, icon: 'stars', isNative: false, securityLabel: 'استارز رسمی تلگرام' },
+    { symbol: 'GRAM', name: 'Gram Token (PoW)', decimals: 9, address: 'EQC47093oX5Xhb0xuk2lCr2RhS8YjShmgGliysiIrCYAcFD5', priceUSD: 0.008, icon: 'gram', isNative: false, securityLabel: 'توکن بومی تلگرام' },
     { symbol: 'USDT', name: 'Tether USD (TON)', decimals: 6, address: 'EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs', priceUSD: 1.00, icon: 'usdt', isNative: false, freezable: true, securityLabel: 'متمرکز (تابع فریز)' },
     { symbol: 'STON', name: 'STON.fi Token', decimals: 9, address: 'EQA2kCVNwVsilYfTqRIdbmBmOC05w4aabG6TrqqJrqO26OHt', priceUSD: 3.85, icon: 'ston', isNative: false }
   ],

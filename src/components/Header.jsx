@@ -6,7 +6,8 @@ import {
 } from 'lucide-react';
 import { 
   ChainLogo,
-  StarsIcon
+  StarsIcon,
+  IranFlagIcon
 } from './Icons';
 import { shortenAddress } from '../utils/format';
 import { Badge } from '@/components/ui/badge';
@@ -46,9 +47,8 @@ export default function Header({
   };
 
   const tabs = [
-    { id: 'swap', label: 'سواپ', icon: <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m3 16 4 4 4-4"/><path d="M7 20V4"/><path d="m21 8-4-4-4 4"/><path d="M17 4v16"/></svg> },
-    { id: 'stars', label: 'استارز', icon: <StarsIcon size={14} /> },
-    { id: 'iran', label: 'ایران', icon: <CreditCard size={14} /> },
+    { id: 'swap', label: 'سواپ و تلگرام', icon: <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m3 16 4 4 4-4"/><path d="M7 20V4"/><path d="m21 8-4-4-4 4"/><path d="M17 4v16"/></svg> },
+    { id: 'iran', label: 'ایران', icon: <IranFlagIcon size={16} /> },
     { id: 'orders', label: 'سفارشات', icon: <Clock size={14} /> },
   ];
 

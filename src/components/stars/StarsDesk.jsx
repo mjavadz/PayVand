@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { 
   Send, 
   AtSign,
-  HelpCircle
+  HelpCircle,
+  ArrowRight
 } from 'lucide-react';
 import { 
   TonIcon, 
@@ -21,7 +22,7 @@ import { toPersianDigits, formatToman } from '../../utils/format';
 import { getIranTetherRate } from '../../services/priceService';
 import StarsInvoiceModal from './StarsInvoiceModal';
 
-export default function StarsDesk({ onOrderCreated }) {
+export default function StarsDesk({ onOrderCreated, onBackToSwap }) {
   const [mode, setMode] = useState('buy'); // 'buy' | 'sell'
   const [selectedStars, setSelectedStars] = useState(500);
   const [customStars, setCustomStars] = useState('');
@@ -126,6 +127,16 @@ export default function StarsDesk({ onOrderCreated }) {
 
   return (
     <div className="w-full max-w-2xl mx-auto space-y-4">
+      {onBackToSwap && (
+        <button
+          type="button"
+          onClick={onBackToSwap}
+          className="flex items-center gap-1.5 text-xs font-semibold text-accent hover:underline mb-1 transition-all"
+        >
+          <ArrowRight size={14} />
+          <span>بازگشت به سواپ چندزنجیره‌ای</span>
+        </button>
+      )}
       
       {/* Top Desk Card */}
       <div className="card p-5 sm:p-6 shadow-sm">

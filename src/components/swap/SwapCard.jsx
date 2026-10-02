@@ -10,8 +10,9 @@ import {
   Fuel,
   ShieldAlert
 } from 'lucide-react';
-import { TokenLogo, ChainLogo } from '../Icons';
+import { TokenLogo, ChainLogo, StarsIcon } from '../Icons';
 import TokenSelectorModal from './TokenSelectorModal';
+import StarsDesk from '../stars/StarsDesk';
 import { TOKENS } from '../../data/tokens';
 import { getSwapQuote, executeSwap } from '../../services/swapService';
 import { getIranTetherRate } from '../../services/priceService';
@@ -46,6 +47,7 @@ export default function SwapCard({ onOpenWalletModal, onOpenChainSelector, onSwi
   const [slippage, setSlippage] = useState('0.5');
   const [showSettings, setShowSettings] = useState(false);
   const [selectorTarget, setSelectorTarget] = useState(null);
+  const [viewMode, setViewMode] = useState('swap'); // 'swap' | 'stars'
 
   const [isSwapping, setIsSwapping] = useState(false);
   const [swapResult, setSwapResult] = useState(null);
@@ -124,51 +126,99 @@ export default function SwapCard({ onOpenWalletModal, onOpenChainSelector, onSwi
   const isButtonDisabled = isSwapping || (isConnected && (!fromAmount || numFromAmount <= 0 || isInsufficientBalance));
 
   return (
-    <div className="w-full max-w-[460px] mx-auto animate-fade-in">
+    <div className={`w-full ${viewMode === 'stars' ? 'max-w-2xl' : 'max-w-[460px]'} mx-auto animate-fade-in space-y-3`}>
       
-      {/* Uniswap / Sushi Minimalist Container */}
-      <div className="bg-card/95 border border-white/[0.08] rounded-[28px] p-3.5 sm:p-4 shadow-2xl backdrop-blur-2xl space-y-2.5">
-        
-        {/* Header Bar */}
-        <div className="flex items-center justify-between px-2 pt-1 pb-2 border-b border-border/40">
-          <div className="flex items-center gap-2">
-            <h2 className="text-sm font-bold text-foreground">سواپ</h2>
+      {/* Top Toggle Switcher: Multi-Chain Swap vs. Telegram Stars & TON Desk */}
+      <div className="flex items-center p-1 bg-white/[0.04] border border-white/[0.08] rounded-2xl max-w-fit mx-auto shadow-sm">
+        <button
+          type="button"
+          onClick={() => setViewMode('swap')}
+          className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+            viewMode === 'swap'
+              ? 'bg-card text-foreground border border-white/[0.1] shadow-xs'
+              : 'text-muted-foreground hover:text-foreground'
+          }`}
+        >
+          سواپ چندزنجیره‌ای
+        </button>
+        <button
+          type="button"
+          onClick={() => setViewMode('stars')}
+          className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+            viewMode === 'stars'
+              ? 'bg-amber-500/15 text-amber-400 border border-amber-500/30 shadow-xs'
+              : 'text-muted-foreground hover:text-foreground'
+          }`}
+        >
+          <StarsIcon size={14} />
+          <span>استارز تلگرام (TON & Stars)</span>
+        </button>
+      </div>
+
+      {viewMode === 'stars' ? (
+        <StarsDesk onBackToSwap={() => setViewMode('swap')} />
+      ) : (
+        <>
+          {/* Uniswap / Sushi Minimalist Container */}
+          <div className="bg-card/95 border border-white/[0.08] rounded-[28px] p-3.5 sm:p-4 shadow-2xl backdrop-blur-2xl space-y-2.5">
             
-            {/* Active Chain Selector Pill */}
-            <button
-              type="button"
-              onClick={onOpenChainSelector}
-              className="px-2.5 py-1 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.06] text-xs text-foreground font-semibold flex items-center gap-1.5 transition-all shadow-sm"
-              title="تغییر شبکه مبادله"
-            >
-              <ChainLogo chainId={activeChain} size={15} />
-              <span>{activeChainConfig?.name || activeChain.toUpperCase()}</span>
-              <ChevronDown size={12} className="text-muted-foreground" />
-            </button>
+            {/* Header Bar */}
+            <div className="flex items-center justify-between px-2 pt-1 pb-2 border-b border-border/40">
+              <div className="flex items-center gap-2">
+                <h2 className="text-sm font-bold text-foreground">سواپ</h2>
+                
+                {/* Active Chain Selector Pill */}
+                <button
+                  type="button"
+                  onClick={onOpenChainSelector}
+                  className="px-2.5 py-1 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.06] text-xs text-foreground font-semibold flex items-center gap-1.5 transition-all shadow-sm"
+                  title="تغییر شبکه مبادله"
+                >
+                  <ChainLogo chainId={activeChain} size={15} />
+                  <span>{activeChainConfig?.name || activeChain.toUpperCase()}</span>
+                  <ChevronDown size={12} className="text-muted-foreground" />
+                </button>
 
-            {isDemo && (
-              <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 font-bold">
-                دمو
-              </span>
+                {isDemo && (
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 font-bold">
+                    دمو
+                  </span>
+                )}
+              </div>
+
+              <div className="flex items-center gap-1">
+                <button
+                  type="button"
+                  onClick={() => setShowSettings(!showSettings)}
+                  className={`p-1.5 rounded-xl border transition-all ${
+                    showSettings 
+                      ? 'bg-accent/15 border-accent/40 text-accent' 
+                      : 'bg-white/[0.03] border-white/[0.06] text-muted-foreground hover:text-foreground hover:bg-white/[0.06]'
+                  }`}
+                  title="تنظیمات تلرانس و اسلیپیج"
+                  aria-label="Slippage settings"
+                >
+                  <Settings2 size={15} />
+                </button>
+              </div>
+            </div>
+
+            {/* Telegram Ecosystem Banner when TON is active */}
+            {activeChain === 'ton' && (
+              <div className="p-2.5 rounded-2xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-between text-xs animate-fade-in">
+                <div className="flex items-center gap-2 text-sky-300 font-medium">
+                  <StarsIcon size={15} />
+                  <span>پشتیبانی از TON، استارز و Gram تلگرام</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setViewMode('stars')}
+                  className="text-accent hover:underline font-bold text-xs shrink-0"
+                >
+                  میز استارز ←
+                </button>
+              </div>
             )}
-          </div>
-
-          <div className="flex items-center gap-1">
-            <button
-              type="button"
-              onClick={() => setShowSettings(!showSettings)}
-              className={`p-1.5 rounded-xl border transition-all ${
-                showSettings 
-                  ? 'bg-accent/15 border-accent/40 text-accent' 
-                  : 'bg-white/[0.03] border-white/[0.06] text-muted-foreground hover:text-foreground hover:bg-white/[0.06]'
-              }`}
-              title="تنظیمات تلرانس و اسلیپیج"
-              aria-label="Slippage settings"
-            >
-              <Settings2 size={15} />
-            </button>
-          </div>
-        </div>
 
         {/* Slippage Settings Drawer */}
         {showSettings && (
@@ -451,6 +501,8 @@ export default function SwapCard({ onOpenWalletModal, onOpenChainSelector, onSwi
             </button>
           </div>
         </div>
+      )}
+      </>
       )}
 
     </div>

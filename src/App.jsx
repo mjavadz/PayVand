@@ -9,7 +9,7 @@ import WalletModal from './components/WalletModal';
 import ChainSelectorModal from './components/ChainSelectorModal';
 import { useWallet } from './context/WalletContext';
 import { Clock, ShieldCheck, CreditCard, ArrowDownUp, HelpCircle } from 'lucide-react';
-import { StarsIcon } from './components/Icons';
+import { StarsIcon, IranFlagIcon } from './components/Icons';
 
 // VibeFarsi RTL Components & Backgrounds
 import { GridBackground } from '@/components/backgrounds/grid';
@@ -179,40 +179,29 @@ export default function App() {
         <button
           type="button"
           onClick={() => setActiveTab('swap')}
-          className={`flex flex-col items-center gap-1 py-1 px-2.5 rounded-lg transition-all ${
+          className={`flex flex-col items-center gap-1 py-1 px-3 rounded-lg transition-all ${
             activeTab === 'swap' ? 'text-accent font-semibold' : 'text-muted-foreground'
           }`}
         >
           <ArrowDownUp size={16} />
-          <span className="text-xs">سواپ</span>
-        </button>
-
-        <button
-          type="button"
-          onClick={() => setActiveTab('stars')}
-          className={`flex flex-col items-center gap-1 py-1 px-2.5 rounded-lg transition-all ${
-            activeTab === 'stars' ? 'text-amber-400 font-semibold' : 'text-muted-foreground'
-          }`}
-        >
-          <StarsIcon size={16} />
-          <span className="text-xs">استارز</span>
+          <span className="text-xs">سواپ و تلگرام</span>
         </button>
 
         <button
           type="button"
           onClick={() => setActiveTab('iran')}
-          className={`flex flex-col items-center gap-1 py-1 px-2.5 rounded-lg transition-all ${
+          className={`flex flex-col items-center gap-1 py-1 px-3 rounded-lg transition-all ${
             activeTab === 'iran' ? 'text-accent font-semibold' : 'text-muted-foreground'
           }`}
         >
-          <CreditCard size={16} />
+          <IranFlagIcon size={18} />
           <span className="text-xs">ایران</span>
         </button>
 
         <button
           type="button"
           onClick={() => setActiveTab('orders')}
-          className={`flex flex-col items-center gap-1 py-1 px-2.5 rounded-lg transition-all ${
+          className={`flex flex-col items-center gap-1 py-1 px-3 rounded-lg transition-all ${
             activeTab === 'orders' ? 'text-sky-400 font-semibold' : 'text-muted-foreground'
           }`}
         >
@@ -223,7 +212,7 @@ export default function App() {
         <button
           type="button"
           onClick={() => setIsWalletModalOpen(true)}
-          className={`flex flex-col items-center gap-1 py-1 px-2.5 rounded-lg transition-all ${
+          className={`flex flex-col items-center gap-1 py-1 px-3 rounded-lg transition-all ${
             isConnected ? 'text-accent font-semibold' : 'text-muted-foreground'
           }`}
         >

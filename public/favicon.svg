@@ -1,34 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
   <defs>
-    <linearGradient id="favChev1" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="favFluxEmerald" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#10B981" />
       <stop offset="100%" stop-color="#06B6D4" />
     </linearGradient>
-    <linearGradient id="favChev2" x1="100%" y1="100%" x2="0%" y2="0%">
+    <linearGradient id="favFluxCyan" x1="100%" y1="100%" x2="0%" y2="0%">
       <stop offset="0%" stop-color="#38BDF8" />
-      <stop offset="100%" stop-color="#34D399" />
-    </linearGradient>
-    <style>
-      @media (prefers-color-scheme: light) {
-        .chev-stroke-1 { stroke: url(#favLight1) !important; }
-        .chev-stroke-2 { stroke: url(#favLight2) !important; }
-      }
-    </style>
-    <linearGradient id="favLight1" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#059669" />
-      <stop offset="100%" stop-color="#0891B2" />
-    </linearGradient>
-    <linearGradient id="favLight2" x1="100%" y1="100%" x2="0%" y2="0%">
-      <stop offset="0%" stop-color="#0284C7" />
-      <stop offset="100%" stop-color="#059669" />
+      <stop offset="100%" stop-color="#10B981" />
     </linearGradient>
   </defs>
-
-  <!-- Upper-Left Chevron / J-Hook -->
-  <path class="chev-stroke-1" d="M 72 20 L 36 20 C 22 20, 14 30, 14 44 C 14 58, 22 66, 36 66 L 48 66" 
-        stroke="url(#favChev1)" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" />
-
-  <!-- Lower-Right Chevron / Counter J-Hook -->
-  <path class="chev-stroke-2" d="M 28 80 L 64 80 C 78 80, 86 70, 86 56 C 86 42, 78 34, 64 34 L 52 34" 
-        stroke="url(#favChev2)" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" />
+  
+  <!-- Upper J-Arc -->
+  <path d="M 68 18 L 38 18 C 24 18, 16 28, 16 42 C 16 56, 26 64, 40 64 L 56 64" 
+        stroke="url(#favFluxEmerald)" stroke-width="14" stroke-linecap="round" />
+        
+  <!-- Lower S-Arc -->
+  <path d="M 32 82 L 62 82 C 76 82, 84 72, 84 58 C 84 44, 74 36, 60 36 L 44 36" 
+        stroke="url(#favFluxCyan)" stroke-width="14" stroke-linecap="round" />
 </svg>

@@ -26,7 +26,8 @@ import {
   EthereumIcon, 
   TronIcon, 
   UsdtIcon, 
-  StarsIcon 
+  StarsIcon,
+  IranFlagIcon
 } from '../Icons';
 import { detectBankFromIBAN } from '../../utils/bankDetector';
 import { formatToman } from '../../utils/format';
@@ -134,6 +135,20 @@ export default function IranToolkit({ initialSubTab = 'cashout' }) {
   return (
     <div className="w-full max-w-2xl mx-auto space-y-4">
       
+      {/* Title & Badge with Lion & Sun Flag */}
+      <div className="flex items-center justify-between px-2">
+        <div className="flex items-center gap-2.5">
+          <IranFlagIcon size={26} />
+          <div>
+            <h1 className="text-sm sm:text-base font-bold text-foreground">جعبه‌ابزار تخصصی کاربران ایران</h1>
+            <p className="text-[11px] text-muted-foreground">تسویه آنی ریالی، نرخ ۵ صرافی برتر و سپر ضد فریز</p>
+          </div>
+        </div>
+        <span className="hidden sm:inline-flex text-[10px] px-2 py-0.5 rounded-full bg-accent/15 text-accent font-semibold border border-accent/30">
+          فعال و تضمین‌شده
+        </span>
+      </div>
+
       {/* Sub Tabs */}
       <div className="flex items-center p-1 bg-muted/50 border border-border rounded-lg max-w-fit mx-auto">
         <button
