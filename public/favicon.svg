@@ -1,25 +1,25 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
   <defs>
-    <linearGradient id="favPGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#10B981" />
-      <stop offset="40%" stop-color="#06B6D4" />
-      <stop offset="85%" stop-color="#F59E0B" />
-      <stop offset="100%" stop-color="#FDE047" />
+    <linearGradient id="favGoldMaster" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFE082" />
+      <stop offset="50%" stop-color="#FFB300" />
+      <stop offset="100%" stop-color="#E65100" />
     </linearGradient>
-    <linearGradient id="favRing" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FDE047" />
-      <stop offset="100%" stop-color="#F59E0B" />
+    <linearGradient id="favCyanMaster" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00E676" />
+      <stop offset="50%" stop-color="#00E5FF" />
+      <stop offset="100%" stop-color="#2979FF" />
     </linearGradient>
   </defs>
 
-  <!-- Minimalist Aerodynamic Faravahar Wing & P Streamline -->
-  <path d="M 28 84 L 28 26 C 28 16, 36 12, 46 12 C 58 12, 88 12, 94 12 C 78 20, 68 28, 68 38 C 68 50, 58 58, 46 58 L 28 58" 
-        stroke="url(#favPGrad)" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" />
+  <!-- Dynamic Sovereign Wing Arc (Simurgh / Faravahar Upper Wing) -->
+  <path d="M 28 82 L 28 26 C 28 16, 36 10, 48 10 C 64 10, 86 11, 93 11 C 76 18, 66 26, 66 38 C 66 52, 54 60, 42 60 L 28 60" 
+        stroke="url(#favCyanMaster)" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" />
 
-  <!-- Sacred Ring of Covenant -->
-  <circle cx="48" cy="35" r="9" stroke="url(#favRing)" stroke-width="5.5" />
-  <circle cx="48" cy="35" r="3.5" fill="#FDE047" />
+  <!-- Sacred Ring of Covenant (حلقه پیمان و پیوند اهورا مزدا) -->
+  <circle cx="46" cy="35" r="10" stroke="url(#favGoldMaster)" stroke-width="5" />
+  <circle cx="46" cy="35" r="4" fill="#FFD54F" />
 
-  <!-- Lower Faravahar Ribbon Arc -->
-  <path d="M 28 68 C 20 76, 14 80, 8 82" stroke="url(#favPGrad)" stroke-width="6" stroke-linecap="round" />
+  <!-- Persian Cyber Streamer / Khvarenah Tail (روبان فَرّ کیانی) -->
+  <path d="M 28 66 C 20 74, 14 78, 8 80" stroke="url(#favCyanMaster)" stroke-width="6" stroke-linecap="round" />
 </svg>

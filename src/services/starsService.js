@@ -117,7 +117,7 @@ export function createStarsOrder({ type = 'buy', stars, username, methodId, payo
   return order;
 }
 
-const STORAGE_ORDERS_KEY = 'jswap_stars_orders';
+const STORAGE_ORDERS_KEY = 'payvand_stars_orders';
 
 export function getOrderHistory() {
   try {

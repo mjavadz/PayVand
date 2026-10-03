@@ -1,4 +1,4 @@
-// Official Treasury & Settlement Receiving Addresses for JSWAP Farsi
+// Official Treasury & Settlement Receiving Addresses for PayVand (پی‌وند) Protocol
 // Verified checksum addresses for OTC Stars desk, Iran cashout, and multi-chain settlement
 
 export const TREASURY_WALLETS = {

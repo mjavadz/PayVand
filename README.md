@@ -58,7 +58,7 @@ npm run build
 
 1. وارد داشبورد کلودفلر ([dash.cloudflare.com](https://dash.cloudflare.com)) شوید.
 2. به بخش **Workers & Pages ➔ Create application ➔ Pages ➔ Connect to Git** بروید.
-3. ریپازیتوری `mjavadz/jswap-farsi` را انتخاب کنید.
+3. ریپازیتوری `mjavadz/PayVand` را انتخاب کنید.
 4. تنظیمات بیلد را به صورت زیر قرار دهید:
    * **Framework preset:** `Vite`
    * **Build command:** `npm run build`

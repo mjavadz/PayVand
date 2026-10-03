@@ -1,4 +1,4 @@
--- JSWAP Swap History Database Schema
+-- PayVand Swap History Database Schema
 -- For Neon Serverless Postgres + Cloudflare Workers
 
 CREATE TABLE IF NOT EXISTS swaps (

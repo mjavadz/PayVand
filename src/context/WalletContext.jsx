@@ -9,8 +9,8 @@ import { fetchLivePrices } from '../services/priceService';
 
 const WalletContext = createContext(null);
 
-const STORAGE_KEY_CHAIN = 'jswap_active_chain';
-const STORAGE_KEY_WALLETS = 'jswap_connected_wallets';
+const STORAGE_KEY_CHAIN = 'payvand_active_chain';
+const STORAGE_KEY_WALLETS = 'payvand_connected_wallets';
 
 export function WalletProvider({ children }) {
   const [activeChain, setActiveChainState] = useState(() => {

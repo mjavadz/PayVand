@@ -1,4 +1,4 @@
-// Formatters and Persian numeral utilities for JSWAP Farsi
+// Formatters and Persian numeral utilities for PayVand (پی‌وند) Protocol
 
 const PERSIAN_DIGITS = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
 
