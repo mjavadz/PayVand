@@ -5,10 +5,12 @@ import SwapCard from './components/swap/SwapCard';
 import StarsDesk from './components/stars/StarsDesk';
 import OrderTracker from './components/orders/OrderTracker';
 import IranToolkit from './components/iran/IranToolkit';
+import PayVandWallet from './components/wallet/PayVandWallet';
+import PayVandCheckout from './components/merchant/PayVandCheckout';
 import WalletModal from './components/WalletModal';
 import ChainSelectorModal from './components/ChainSelectorModal';
 import { useWallet } from './context/WalletContext';
-import { Clock, ShieldCheck, CreditCard, ArrowDownUp, HelpCircle } from 'lucide-react';
+import { Clock, ShieldCheck, CreditCard, ArrowDownUp, HelpCircle, Wallet, Store } from 'lucide-react';
 import { StarsIcon, IranFlagIcon } from './components/Icons';
 
 // VibeFarsi RTL Components & Backgrounds
@@ -97,21 +99,35 @@ export default function App() {
           </div>
         )}
 
-        {/* Tab 2: Direct Telegram Stars OTC Desk */}
+        {/* Tab 2: Non-Custodial PayVand Multi-Chain Wallet */}
+        {activeTab === 'wallet' && (
+          <div className="animate-fade-in">
+            <PayVandWallet onNavigateToSwap={() => setActiveTab('swap')} />
+          </div>
+        )}
+
+        {/* Tab 3: PayVand Merchant Checkout & Plugins */}
+        {activeTab === 'checkout' && (
+          <div className="animate-fade-in">
+            <PayVandCheckout />
+          </div>
+        )}
+
+        {/* Tab 4: Direct Telegram Stars OTC Desk */}
         {activeTab === 'stars' && (
           <div className="animate-fade-in">
             <StarsDesk />
           </div>
         )}
 
-        {/* Tab 3: Iran Web3 Toolkit */}
+        {/* Tab 5: Iran Web3 Toolkit */}
         {activeTab === 'iran' && (
           <div className="animate-fade-in">
             <IranToolkit initialSubTab={iranSubTab} />
           </div>
         )}
 
-        {/* Tab 4: Order Tracker */}
+        {/* Tab 6: Order Tracker */}
         {activeTab === 'orders' && (
           <div className="animate-fade-in">
             <OrderTracker />
@@ -169,49 +185,60 @@ export default function App() {
       <Footer onSwitchTab={(tab) => setActiveTab(tab)} />
 
       {/* Mobile Floating Bottom Navigation Bar */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-card/95 backdrop-blur-sm border-t border-border px-3 py-2 flex items-center justify-around">
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-card/95 backdrop-blur-sm border-t border-border px-2 py-1.5 flex items-center justify-around font-sans">
         <button
           type="button"
           onClick={() => setActiveTab('swap')}
-          className={`flex flex-col items-center gap-1 py-1 px-3 rounded-lg transition-all ${
+          className={`flex flex-col items-center gap-0.5 py-1 px-2 rounded-lg transition-all ${
             activeTab === 'swap' ? 'text-accent font-semibold' : 'text-muted-foreground'
           }`}
         >
           <ArrowDownUp size={16} />
-          <span className="text-xs">سواپ و تلگرام</span>
+          <span className="text-[10px]">سواپ</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setActiveTab('wallet')}
+          className={`flex flex-col items-center gap-0.5 py-1 px-2 rounded-lg transition-all ${
+            activeTab === 'wallet' ? 'text-accent font-semibold' : 'text-muted-foreground'
+          }`}
+        >
+          <Wallet size={16} />
+          <span className="text-[10px]">کیف‌پول</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setActiveTab('checkout')}
+          className={`flex flex-col items-center gap-0.5 py-1 px-2 rounded-lg transition-all ${
+            activeTab === 'checkout' ? 'text-accent font-semibold' : 'text-muted-foreground'
+          }`}
+        >
+          <Store size={16} />
+          <span className="text-[10px]">درگاه</span>
         </button>
 
         <button
           type="button"
           onClick={() => setActiveTab('iran')}
-          className={`flex flex-col items-center gap-1 py-1 px-3 rounded-lg transition-all ${
+          className={`flex flex-col items-center gap-0.5 py-1 px-2 rounded-lg transition-all ${
             activeTab === 'iran' ? 'text-accent font-semibold' : 'text-muted-foreground'
           }`}
         >
-          <IranFlagIcon size={18} />
-          <span className="text-xs">ایران</span>
+          <IranFlagIcon size={16} />
+          <span className="text-[10px]">ایران</span>
         </button>
 
         <button
           type="button"
           onClick={() => setActiveTab('orders')}
-          className={`flex flex-col items-center gap-1 py-1 px-3 rounded-lg transition-all ${
+          className={`flex flex-col items-center gap-0.5 py-1 px-2 rounded-lg transition-all ${
             activeTab === 'orders' ? 'text-sky-400 font-semibold' : 'text-muted-foreground'
           }`}
         >
           <Clock size={16} />
-          <span className="text-xs">سفارشات</span>
-        </button>
-
-        <button
-          type="button"
-          onClick={() => setIsWalletModalOpen(true)}
-          className={`flex flex-col items-center gap-1 py-1 px-3 rounded-lg transition-all ${
-            isConnected ? 'text-accent font-semibold' : 'text-muted-foreground'
-          }`}
-        >
-          <ShieldCheck size={16} />
-          <span className="text-xs">{isConnected ? (isDemo ? 'دمو' : 'ولت') : 'اتصال'}</span>
+          <span className="text-[10px]">سفارشات</span>
         </button>
       </div>
 

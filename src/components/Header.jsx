@@ -2,7 +2,9 @@ import React from 'react';
 import { 
   WalletIcon, 
   Clock, 
-  CreditCard 
+  CreditCard,
+  Wallet,
+  Store
 } from 'lucide-react';
 import { 
   ChainLogo,
@@ -48,7 +50,9 @@ export default function Header({
 
   const tabs = [
     { id: 'swap', label: 'سواپ و تلگرام', icon: <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m3 16 4 4 4-4"/><path d="M7 20V4"/><path d="m21 8-4-4-4 4"/><path d="M17 4v16"/></svg> },
-    { id: 'iran', label: 'ایران', icon: <IranFlagIcon size={16} /> },
+    { id: 'wallet', label: 'کیف‌پول پی‌وند', icon: <Wallet size={14} /> },
+    { id: 'checkout', label: 'درگاه و افزونه', icon: <Store size={14} /> },
+    { id: 'iran', label: 'جعبه‌ابزار ایران', icon: <IranFlagIcon size={16} /> },
     { id: 'orders', label: 'سفارشات', icon: <Clock size={14} /> },
   ];
 
