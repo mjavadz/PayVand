@@ -361,53 +361,47 @@ export const ShieldCheckIcon = ({ size = 20, className = '' }) => (
   </svg>
 );
 
-// Authentic Iranian Lion and Sun Flag (شیر و خورشید بدون کلیپ‌پث و بدون باگ رندر)
+// Authentic Iranian Lion and Sun Flag (شیر و خورشید اصیل و باشکوه)
 export const IranFlagIcon = ({ size = 20, className = '' }) => {
   const height = Math.round(size * 0.67);
   return (
     <svg 
       width={size} 
       height={height} 
-      viewBox="0 0 48 32" 
+      viewBox="0 0 120 80" 
       fill="none" 
       className={`shrink-0 inline-block align-middle rounded-[3px] shadow-xs ${className}`}
     >
-      {/* Top Forest Green Band */}
-      <rect width="48" height="10.67" fill="#1E824C" rx="1"/>
-      {/* Middle Pure White Band */}
-      <rect y="10.67" width="48" height="10.66" fill="#FFFFFF"/>
-      {/* Bottom Persian Crimson Band */}
-      <rect y="21.33" width="48" height="10.67" fill="#C01823" rx="1"/>
+      {/* Tricolor Bands */}
+      <rect width="120" height="26.67" fill="#1E824C" rx="2"/>
+      <rect y="26.67" width="120" height="26.66" fill="#FFFFFF"/>
+      <rect y="53.33" width="120" height="26.67" fill="#C01823" rx="2"/>
 
-      {/* Gold Radiant Sun (Center behind Lion) */}
-      <circle cx="23.5" cy="14" r="4.8" fill="#F59E0B"/>
-      <circle cx="23.5" cy="14" r="3.2" fill="#FDE047"/>
-      {/* Sharp Radiant Sunbeams */}
-      <polygon points="23.5,7 24.5,10 22.5,10" fill="#D97706"/>
-      <polygon points="19.2,8.8 21.6,11.2 20.2,12" fill="#D97706"/>
-      <polygon points="27.8,8.8 26.8,12 25.4,11.2" fill="#D97706"/>
-      <polygon points="16,12.5 19,13.2 18.2,12" fill="#D97706"/>
-      <polygon points="31,12.5 28.8,12 28,13.2" fill="#D97706"/>
+      {/* The Radiant Sun of Mithra */}
+      <g transform="translate(60, 36)">
+        <circle cx="0" cy="0" r="13" fill="#F59E0B"/>
+        <circle cx="0" cy="0" r="9.5" fill="#FDE047"/>
+        <path d="M 0 -22 L 2.5 -13 L -2.5 -13 Z" fill="#D97706"/>
+        <path d="M 12 -18 L 11 -9 L 7 -12 Z" fill="#D97706"/>
+        <path d="M -12 -18 L -7 -12 L -11 -9 Z" fill="#D97706"/>
+        <path d="M 20 -9 L 14 -5 L 13 -10 Z" fill="#D97706"/>
+        <path d="M -20 -9 L -13 -10 L -14 -5 Z" fill="#D97706"/>
+      </g>
 
-      {/* The Imperial Golden Lion (Passant Guardant holding Shamshir) */}
-      <path d="M 15 18.5 C 13.5 15.5, 14.5 12.8, 16.5 12 C 17.2 11.5, 17.8 12.2, 17.4 13 C 16.2 14, 15.8 16, 17 18 Z" fill="#B45309"/>
-      <path d="M 16.5 17.5 C 18 15.2, 20.8 14.5, 23.5 14.5 C 26 14.5, 28 15.2, 29 14 C 29.8 13.2, 31.5 13.5, 32 14.6 C 32.5 15.5, 31.8 16.8, 30.2 17.6 C 28.2 18.5, 24.5 18.8, 21.5 18.8 C 19.2 18.8, 17.5 18.2, 16.5 17.5 Z" fill="#D97706"/>
-      <circle cx="29.8" cy="13.8" r="2.4" fill="#B45309"/>
-      <circle cx="29.8" cy="13.8" r="1.6" fill="#F59E0B"/>
-      <circle cx="30.6" cy="13.4" r="0.5" fill="#451A03"/>
-
-      {/* Legs */}
-      <rect x="17.2" y="17.8" width="1.8" height="3.6" rx="0.8" fill="#B45309"/>
-      <rect x="20.5" y="18" width="1.7" height="3.4" rx="0.8" fill="#D97706"/>
-      <rect x="25.2" y="18" width="1.7" height="3.4" rx="0.8" fill="#D97706"/>
-      <path d="M 28.2 16.8 L 31.2 14.8" stroke="#B45309" strokeWidth="2.2" strokeLinecap="round"/>
-
-      {/* Curved Persian Shamshir Sword */}
-      <path d="M 30 16.4 L 32.5 12.8 C 33.5 11, 35.5 9.8, 37.2 9.2 C 37.5 9.2, 37.4 9.8, 36.8 10.5 C 35 11.8, 33.8 13.6, 32.8 16 L 31 17.5 Z" fill="#1E293B"/>
-      <path d="M 30.8 15 C 32.5 12.2, 34.2 10.8, 36.8 10" stroke="#FDE047" strokeWidth="1.0" strokeLinecap="round"/>
-
-      {/* Border Stroke */}
-      <rect x="0.5" y="0.5" width="47" height="31" rx="3" stroke="rgba(255,255,255,0.25)" strokeWidth="1"/>
+      {/* The Imperial Persian Lion */}
+      <g transform="translate(60, 42)">
+        <path d="M -22 5 C -25 -2, -24 -10, -18 -14 C -15 -16, -13 -14, -15 -11 C -18 -8, -18 -2, -14 4" stroke="#B45309" strokeWidth="3" strokeLinecap="round" fill="none"/>
+        <path d="M -18 3 C -19 -3, -14 -6, -8 -6 C 0 -6, 6 -4, 12 -7 C 14 -8, 17 -8, 20 -4 C 23 0, 22 6, 17 8 C 12 10, -2 11, -12 11 C -16 11, -18 8, -18 3 Z" fill="#D97706"/>
+        <path d="M 6 -6 C 8 -12, 14 -16, 20 -15 C 24 -14, 26 -10, 25 -5 C 25 0, 20 4, 15 2 Z" fill="#B45309"/>
+        <circle cx="21" cy="-8" r="4.5" fill="#F59E0B"/>
+        <path d="M -16 6 L -12 16" stroke="#B45309" strokeWidth="3" strokeLinecap="round"/>
+        <path d="M -8 7 L -4 16" stroke="#D97706" strokeWidth="3" strokeLinecap="round"/>
+        <path d="M 7 5 L 11 16" stroke="#D97706" strokeWidth="3" strokeLinecap="round"/>
+        <path d="M 16 2 L 23 0" stroke="#B45309" strokeWidth="3.5" strokeLinecap="round"/>
+        <path d="M 25 -4 C 28 -12, 33 -18, 41 -22 C 41.5 -22, 41.2 -21, 39.5 -19 C 34 -13, 30 -5, 27 1 Z" fill="#1E293B"/>
+        <path d="M 26 -3 C 29 -11, 34 -17, 41 -21" stroke="#FDE047" strokeWidth="1.5" strokeLinecap="round"/>
+      </g>
+      <rect x="0.5" y="0.5" width="119" height="79" rx="3" stroke="rgba(255,255,255,0.25)" strokeWidth="1"/>
     </svg>
   );
 };
