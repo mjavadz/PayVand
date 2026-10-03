@@ -181,34 +181,34 @@ export default function SwapCard({ onOpenWalletModal, onOpenChainSelector, onSwi
 
             {/* Telegram & TON (GRAM) Dedicated Ecosystem Hub - Active only when TON is selected */}
             {activeChain === 'ton' && (
-              <div className="p-3 rounded-2xl bg-gradient-to-r from-sky-500/10 via-sky-500/5 to-amber-500/10 border border-sky-500/25 space-y-2.5 animate-fade-in">
+              <div className="p-2.5 sm:p-3 rounded-2xl bg-gradient-to-r from-sky-500/10 via-sky-500/5 to-amber-500/10 border border-sky-500/25 space-y-2 animate-fade-in">
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex items-center gap-2 min-w-0">
-                    <div className="w-8 h-8 rounded-xl bg-sky-500/20 border border-sky-500/30 flex items-center justify-center text-sky-400 shrink-0">
-                      <TonIcon size={18} />
+                    <div className="w-7 h-7 rounded-lg bg-sky-500/20 border border-sky-500/30 flex items-center justify-center text-sky-400 shrink-0">
+                      <TonIcon size={16} />
                     </div>
                     <div className="min-w-0">
                       <div className="flex items-center gap-1.5 flex-wrap">
                         <span className="text-xs font-bold text-foreground">اکوسیستم TON (GRAM) و تلگرام</span>
-                        <span className="text-[10px] px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300 font-mono font-bold">بومی</span>
+                        <span className="text-[10px] px-1.5 py-0.2 rounded bg-sky-500/20 text-sky-300 font-mono font-bold">بومی</span>
                       </div>
-                      <p className="text-[10px] text-muted-foreground truncate">دسترسی سریع به توکن‌ها و میز اختصاصی استارز</p>
+                      <p className="text-[10px] text-muted-foreground truncate">دسترسی سریع به توکن‌ها و میز استارز</p>
                     </div>
                   </div>
 
                   <button
                     type="button"
                     onClick={() => setViewMode('stars')}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-background font-extrabold text-xs shrink-0 transition-all shadow-sm group"
+                    className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-amber-500 hover:bg-amber-400 text-background font-black text-xs shrink-0 transition-all shadow-sm group"
                   >
-                    <StarsIcon size={13} />
+                    <StarsIcon size={12} />
                     <span>میز استارز تلگرام</span>
                     <span className="group-hover:translate-x-0.5 transition-transform">←</span>
                   </button>
                 </div>
 
-                {/* Quick Token Selector Pills right beside each other */}
-                <div className="flex items-center gap-1.5 pt-1.5 border-t border-sky-500/15 overflow-x-auto no-scrollbar">
+                {/* Quick Token Selector Pills right beside each other - flex-wrap ensures all tokens like STON show */}
+                <div className="flex flex-wrap items-center gap-1.5 pt-1.5 border-t border-sky-500/15">
                   <span className="text-[10px] font-semibold text-muted-foreground shrink-0">توکن‌های بستر تون:</span>
                   {currentChainTokens.map((tok) => {
                     const isActive = fromToken?.symbol === tok.symbol;
@@ -224,7 +224,7 @@ export default function SwapCard({ onOpenWalletModal, onOpenChainSelector, onSwi
                             setFromToken(tok);
                           }
                         }}
-                        className={`px-2.5 py-1 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shrink-0 ${
+                        className={`px-2 py-0.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1 shrink-0 ${
                           isActive
                             ? 'bg-sky-500 text-background font-black shadow-sm'
                             : isStars
