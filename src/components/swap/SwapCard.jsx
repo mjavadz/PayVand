@@ -10,7 +10,7 @@ import {
   Fuel,
   ShieldAlert
 } from 'lucide-react';
-import { TokenLogo, ChainLogo, StarsIcon } from '../Icons';
+import { TokenLogo, ChainLogo, StarsIcon, TonIcon } from '../Icons';
 import TokenSelectorModal from './TokenSelectorModal';
 import StarsDesk from '../stars/StarsDesk';
 import { TOKENS } from '../../data/tokens';
@@ -131,35 +131,6 @@ export default function SwapCard({ onOpenWalletModal, onOpenChainSelector, onSwi
   return (
     <div className={`w-full ${viewMode === 'stars' ? 'max-w-2xl' : 'max-w-[460px]'} mx-auto animate-fade-in space-y-3`}>
       
-      {/* Telegram Ecosystem Switcher: ONLY shown when TON network is active */}
-      {activeChain === 'ton' && (
-        <div className="flex items-center p-1 bg-sky-500/[0.08] border border-sky-500/25 rounded-2xl max-w-fit mx-auto shadow-sm animate-fade-in">
-          <button
-            type="button"
-            onClick={() => setViewMode('swap')}
-            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
-              viewMode === 'swap'
-                ? 'bg-card text-foreground border border-white/[0.1] shadow-xs'
-                : 'text-muted-foreground hover:text-foreground'
-            }`}
-          >
-            تبدیل توکن‌های TON (GRAM)
-          </button>
-          <button
-            type="button"
-            onClick={() => setViewMode('stars')}
-            className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
-              viewMode === 'stars'
-                ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-xs'
-                : 'text-amber-400/90 hover:text-amber-300'
-            }`}
-          >
-            <StarsIcon size={14} />
-            <span>میز استارز تلگرام (Stars)</span>
-          </button>
-        </div>
-      )}
-
       {viewMode === 'stars' ? (
         <StarsDesk onBackToSwap={() => setViewMode('swap')} />
       ) : (
@@ -208,21 +179,66 @@ export default function SwapCard({ onOpenWalletModal, onOpenChainSelector, onSwi
               </div>
             </div>
 
-            {/* Telegram Ecosystem Banner when TON is active */}
+            {/* Telegram & TON (GRAM) Dedicated Ecosystem Hub - Active only when TON is selected */}
             {activeChain === 'ton' && (
-              <div className="p-2.5 rounded-2xl bg-gradient-to-r from-sky-500/10 via-amber-500/10 to-sky-500/10 border border-sky-500/25 flex items-center justify-between text-xs animate-fade-in">
-                <div className="flex items-center gap-2 text-sky-300 font-medium">
-                  <StarsIcon size={15} />
-                  <span>پشتیبانی از TON، توکن‌های GRAM و استارز رسمی تلگرام</span>
+              <div className="p-3 rounded-2xl bg-gradient-to-r from-sky-500/10 via-sky-500/5 to-amber-500/10 border border-sky-500/25 space-y-2.5 animate-fade-in">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <div className="w-8 h-8 rounded-xl bg-sky-500/20 border border-sky-500/30 flex items-center justify-center text-sky-400 shrink-0">
+                      <TonIcon size={18} />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <span className="text-xs font-bold text-foreground">اکوسیستم TON (GRAM) و تلگرام</span>
+                        <span className="text-[10px] px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300 font-mono font-bold">بومی</span>
+                      </div>
+                      <p className="text-[10px] text-muted-foreground truncate">دسترسی سریع به توکن‌ها و میز اختصاصی استارز</p>
+                    </div>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => setViewMode('stars')}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-background font-extrabold text-xs shrink-0 transition-all shadow-sm group"
+                  >
+                    <StarsIcon size={13} />
+                    <span>میز استارز تلگرام</span>
+                    <span className="group-hover:translate-x-0.5 transition-transform">←</span>
+                  </button>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => setViewMode('stars')}
-                  className="text-amber-400 hover:text-amber-300 hover:underline font-bold text-xs shrink-0 flex items-center gap-1"
-                >
-                  <span>ورود به میز استارز</span>
-                  <span>←</span>
-                </button>
+
+                {/* Quick Token Selector Pills right beside each other */}
+                <div className="flex items-center gap-1.5 pt-1.5 border-t border-sky-500/15 overflow-x-auto no-scrollbar">
+                  <span className="text-[10px] font-semibold text-muted-foreground shrink-0">توکن‌های بستر تون:</span>
+                  {currentChainTokens.map((tok) => {
+                    const isActive = fromToken?.symbol === tok.symbol;
+                    const isStars = tok.symbol === 'STARS';
+                    return (
+                      <button
+                        key={tok.symbol}
+                        type="button"
+                        onClick={() => {
+                          if (isStars) {
+                            setViewMode('stars');
+                          } else {
+                            setFromToken(tok);
+                          }
+                        }}
+                        className={`px-2.5 py-1 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shrink-0 ${
+                          isActive
+                            ? 'bg-sky-500 text-background font-black shadow-sm'
+                            : isStars
+                            ? 'bg-amber-500/15 text-amber-300 hover:bg-amber-500/25 border border-amber-500/30'
+                            : 'bg-white/[0.04] text-muted-foreground hover:text-foreground hover:bg-white/[0.08] border border-white/[0.06]'
+                        }`}
+                      >
+                        <TokenLogo symbol={tok.symbol} size={14} />
+                        <span>{tok.symbol}</span>
+                        {isStars && <span className="text-[10px] text-amber-300">⭐</span>}
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             )}
 

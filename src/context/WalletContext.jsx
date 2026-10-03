@@ -11,9 +11,16 @@ const WalletContext = createContext(null);
 
 const STORAGE_KEY_CHAIN = 'payvand_active_chain';
 const STORAGE_KEY_WALLETS = 'payvand_connected_wallets';
+const STORAGE_KEY_ETH_DEFAULT = 'payvand_eth_default_v2';
 
 export function WalletProvider({ children }) {
   const [activeChain, setActiveChainState] = useState(() => {
+    // If user has not yet received the new Ethereum default configuration, set it to ethereum
+    if (!localStorage.getItem(STORAGE_KEY_ETH_DEFAULT)) {
+      localStorage.setItem(STORAGE_KEY_ETH_DEFAULT, 'true');
+      localStorage.setItem(STORAGE_KEY_CHAIN, 'ethereum');
+      return 'ethereum';
+    }
     return localStorage.getItem(STORAGE_KEY_CHAIN) || 'ethereum';
   });
 

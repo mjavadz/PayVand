@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Footer({ onSwitchTab }) {
   const links = [
-    { label: 'سواپ چندزنجیره‌ای و تلگرام', tab: 'swap' },
+    { label: 'تبدیل (SWAP) چندزنجیره‌ای', tab: 'swap' },
     { label: 'ابزارهای ایران', tab: 'iran' },
     { label: 'پیگیری سفارشات', tab: 'orders' },
   ];

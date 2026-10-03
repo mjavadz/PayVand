@@ -64,7 +64,7 @@ export default function Header({
         <div className="flex items-center gap-4">
           <a href="/" className="flex items-center gap-2.5 group" aria-label="PayVand Home">
             <div className="w-9 h-9 flex items-center justify-center group-hover:scale-105 transition-transform duration-200">
-              <img src="/logo.svg" alt="PayVand Logo" className="w-full h-full object-contain filter drop-shadow-[0_0_12px_rgba(6,182,212,0.4)]" />
+              <img src="/logo.svg" alt="PayVand Logo" className="w-full h-full object-contain" />
             </div>
             <div className="flex items-baseline gap-1.5">
               <span className="text-xl font-black text-foreground tracking-tight hidden sm:block font-sans">PayVand</span>

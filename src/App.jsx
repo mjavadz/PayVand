@@ -22,7 +22,7 @@ import InteractiveBanner from './components/ui/InteractiveBanner';
 
 export default function App() {
   React.useEffect(() => {
-    document.title = 'پی‌وند (PayVand) | پروتکل مبادله غیرحضانتی چندزنجیره‌ای و تلگرام';
+    document.title = 'پی‌وند (PayVand) | پروتکل تبدیل غیرحضانتی چندزنجیره‌ای وب۳';
   }, []);
 
   const { 
