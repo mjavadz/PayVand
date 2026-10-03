@@ -161,7 +161,7 @@ export default function ChainSelectorModal({ isOpen, onClose, activeChain, onSel
 
         {/* Footer info */}
         <div className="px-5 py-2.5 bg-white/[0.01] border-t border-white/[0.06] flex items-center justify-between text-[11px] text-muted-foreground">
-          <span>روتر غیرحضانتی هوشمند JSWAP</span>
+          <span>روتر غیرحضانتی هوشمند پیوند (Peyvand Router)</span>
           <span className="text-accent font-mono font-medium">۱۵ شبکه وب۳</span>
         </div>
       </div>

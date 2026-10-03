@@ -210,7 +210,7 @@ export default function TokenSelectorModal({
 
         {/* Modal Footer */}
         <div className="px-5 py-2.5 bg-white/[0.01] border-t border-white/[0.06] flex items-center justify-between text-[11px] text-muted-foreground">
-          <span>روتر سواپ چندزنجیره‌ای JSWAP</span>
+          <span>روتر سواپ چندزنجیره‌ای پیوند (Peyvand)</span>
           <span className="font-mono text-accent/80 font-medium">نقدینگی استخر خودکار</span>
         </div>
 

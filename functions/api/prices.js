@@ -57,7 +57,7 @@ export async function onRequestGet(context) {
   const iranPromise = Promise.allSettled(
     iranExchanges.map(async (ex) => {
       const resp = await fetch(ex.url, {
-        headers: { 'User-Agent': 'Mozilla/5.0 (compatible; JSwapBot/1.0)' },
+        headers: { 'User-Agent': 'Mozilla/5.0 (compatible; PeyvandBot/1.0)' },
         cf: { cacheTtl: 30, cacheEverything: true },
         signal: AbortSignal.timeout(3500)
       });

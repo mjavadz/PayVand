@@ -12,7 +12,7 @@ export async function onRequestGet() {
   return new Response(JSON.stringify({
     status: 'healthy',
     version: '1.2.0',
-    platform: 'JSWAP Farsi Multi-Chain DEX',
+    platform: 'Peyvand Protocol Multi-Chain DEX',
     timestamp: Date.now(),
     features: {
       chainsSupported: 15,
