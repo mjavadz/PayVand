@@ -137,14 +137,16 @@ export default function IranToolkit({ initialSubTab = 'cashout' }) {
       
       {/* Title & Badge with Lion & Sun Flag */}
       <div className="flex items-center justify-between px-2">
-        <div className="flex items-center gap-2.5">
-          <IranFlagIcon size={26} />
+        <div className="flex items-center gap-3">
+          <div className="p-1 rounded-md bg-white/[0.04] border border-white/[0.08] shadow-xs flex items-center justify-center">
+            <IranFlagIcon size={28} />
+          </div>
           <div>
-            <h1 className="text-sm sm:text-base font-bold text-foreground">جعبه‌ابزار تخصصی کاربران ایران</h1>
-            <p className="text-[11px] text-muted-foreground">تسویه آنی ریالی، نرخ ۵ صرافی برتر و سپر ضد فریز</p>
+            <h1 className="text-sm sm:text-base font-bold text-foreground font-sans">جعبه‌ابزار تخصصی کاربران ایران</h1>
+            <p className="text-[11px] text-muted-foreground font-sans">تسویه آنی ریالی، نرخ ۵ صرافی برتر و سپر ضد فریز</p>
           </div>
         </div>
-        <span className="hidden sm:inline-flex text-[10px] px-2 py-0.5 rounded-full bg-accent/15 text-accent font-semibold border border-accent/30">
+        <span className="hidden sm:inline-flex text-[10px] px-2.5 py-0.5 rounded-full bg-accent/15 text-accent font-semibold border border-accent/30 whitespace-nowrap shrink-0">
           فعال و تضمین‌شده
         </span>
       </div>
@@ -596,14 +598,14 @@ export default function IranToolkit({ initialSubTab = 'cashout' }) {
               {/* Step 3 */}
               <div className="p-3 rounded-xl bg-muted/60 border border-border space-y-1">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-foreground flex items-center gap-1.5">
+                  <span className="text-xs font-bold text-foreground flex items-center gap-1.5 font-sans">
                     <span className="w-5 h-5 rounded-full bg-accent text-background font-mono text-[11px] font-black flex items-center justify-center shrink-0">۳</span>
-                    <span>سواپ تمیز در پروتکل پیوند</span>
+                    <span>سواپ تمیز در پروتکل پی‌وند</span>
                   </span>
                   <span className="text-[10px] text-muted-foreground font-mono">مقصد نهایی</span>
                 </div>
-                <p className="text-[11px] text-muted-foreground leading-relaxed">
-                  در پیوند (Peyvand) ارز خود را به <strong className="text-foreground">ETH</strong>، <strong className="text-foreground">DAI</strong> یا دلار دلخواه تبدیل کنید؛ دارایی شما کاملاً پاک و با ریسک صفر است.
+                <p className="text-[11px] text-muted-foreground leading-relaxed font-sans">
+                  در پی‌وند (PayVand) ارز خود را به <strong className="text-foreground">ETH</strong>، <strong className="text-foreground">DAI</strong> یا دلار دلخواه تبدیل کنید؛ دارایی شما کاملاً پاک و با ریسک صفر است.
                 </p>
               </div>
             </div>
@@ -744,8 +746,8 @@ export default function IranToolkit({ initialSubTab = 'cashout' }) {
                   <span className="font-bold text-foreground text-xs">نودهای لبه کلودفلر</span>
                   <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-accent/15 text-accent font-semibold">فعال</span>
                 </div>
-                <p className="text-muted-foreground text-[11px] leading-relaxed">
-                  ترافیک سواپ مستقیماً از طریق شبکه لبه کلودفلر پیوند بدون نیاز به فیلترشکن عبور می‌کند.
+                <p className="text-muted-foreground text-[11px] leading-relaxed font-sans">
+                  ترافیک سواپ مستقیماً از طریق شبکه لبه کلودفلر پی‌وند بدون نیاز به فیلترشکن عبور می‌کند.
                 </p>
               </div>
             </div>

@@ -374,36 +374,49 @@ export const IranFlagIcon = ({ size = 20, className = '' }) => {
     >
       <defs>
         <clipPath id="iranFlagClipInline">
-          <rect width="48" height="32" rx="4" fill="#fff"/>
+          <rect width="48" height="32" rx="3.5" fill="#fff"/>
         </clipPath>
+        <linearGradient id="iranSunGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#FDE047" />
+          <stop offset="100%" stopColor="#D97706" />
+        </linearGradient>
       </defs>
       <g clipPath="url(#iranFlagClipInline)">
-        <rect width="48" height="10.67" fill="#239F40"/>
+        {/* Tricolor Bands: Forest Green, Pure White, Crimson Red */}
+        <rect width="48" height="10.67" fill="#1E824C"/>
         <rect y="10.67" width="48" height="10.66" fill="#FFFFFF"/>
-        <rect y="21.33" width="48" height="10.67" fill="#DA0000"/>
+        <rect y="21.33" width="48" height="10.67" fill="#CF142B"/>
         
-        {/* Sun */}
-        <circle cx="23.5" cy="14.5" r="4.2" fill="#F59E0B"/>
-        <path d="M23.5 8.5L24.5 11H22.5Z" fill="#D97706"/>
-        <path d="M19.2 10.2L21.5 12L20.5 12.8Z" fill="#D97706"/>
-        <path d="M27.8 10.2L26.5 12.8L25.5 12Z" fill="#D97706"/>
-        <path d="M16.5 13.5L19.2 14.2L18.8 13.2Z" fill="#D97706"/>
-        <path d="M30.5 13.5L28.2 13.2L27.8 14.2Z" fill="#D97706"/>
+        {/* Rising Radiant Sun */}
+        <circle cx="23.5" cy="14.2" r="4.6" fill="url(#iranSunGrad)"/>
+        <path d="M23.5 7.8 L24.6 10.5 H22.4 Z" fill="#D97706"/>
+        <path d="M18.8 9.6 L21.4 11.6 L20.2 12.5 Z" fill="#D97706"/>
+        <path d="M28.2 9.6 L26.8 12.5 L25.6 11.6 Z" fill="#D97706"/>
+        <path d="M15.5 13.0 L18.5 14.0 L18.0 12.8 Z" fill="#D97706"/>
+        <path d="M31.5 13.0 L29.0 12.8 L28.5 14.0 Z" fill="#D97706"/>
 
-        {/* Lion */}
-        <path d="M16.5 17.5C15.5 15.5 16 13.5 17.5 12.8C18 12.5 18.5 13 18.2 13.5C17.2 14 17 15.5 17.8 17Z" fill="#B45309"/>
-        <path d="M17.5 17C18.5 15.5 20.5 15 22.5 15C24.5 15 26 15.5 27 14.5C28 13.8 29.5 14.2 30 15C30.5 15.8 30 17 28.5 17.8C27 18.5 24 18.8 21.5 18.8C19.5 18.8 18 18 17.5 17Z" fill="#D97706"/>
-        <circle cx="29" cy="14" r="2.2" fill="#D97706"/>
-        <circle cx="29" cy="14" r="1.4" fill="#F59E0B"/>
-        <circle cx="29.8" cy="13.6" r="0.4" fill="#78350F"/>
-        <rect x="18" y="17.5" width="1.6" height="3.5" rx="0.6" fill="#B45309"/>
-        <rect x="21" y="17.8" width="1.5" height="3.2" rx="0.6" fill="#D97706"/>
-        <rect x="25.5" y="17.8" width="1.6" height="3.2" rx="0.6" fill="#D97706"/>
-        <path d="M28 16.5L30.5 15" stroke="#B45309" strokeWidth="1.8" strokeLinecap="round"/>
-        <path d="M29.5 16.5L31.5 13.5C32.5 12 34 11 35.5 10.5C35.8 10.5 35.8 11 35.2 11.5C33.8 12.5 32.8 13.8 32 15.8L30.5 17.2Z" fill="#1E293B"/>
-        <path d="M30 15.5C31.5 13 33 11.8 35.2 11" stroke="#FBBF24" strokeWidth="0.8" strokeLinecap="round"/>
+        {/* Golden Persian Lion Passant Guardant with Shamshir */}
+        {/* Arched Tail */}
+        <path d="M15.8 18.2 C14.6 15.5 15.4 13.0 17.2 12.2 C17.8 11.8 18.4 12.4 18.0 13.0 C17.0 13.8 16.6 15.6 17.6 17.5 Z" fill="#B45309"/>
+        {/* Torso */}
+        <path d="M17.0 17.2 C18.2 15.2 20.8 14.6 23.2 14.6 C25.4 14.6 27.2 15.2 28.2 14.2 C29.2 13.4 30.8 13.8 31.4 14.8 C31.8 15.6 31.2 16.8 29.8 17.6 C28.0 18.4 24.8 18.8 22.0 18.8 C19.8 18.8 18.0 18.2 17.0 17.2 Z" fill="#D97706"/>
+        
+        {/* Head and Mane */}
+        <circle cx="29.2" cy="14.0" r="2.4" fill="#B45309"/>
+        <circle cx="29.2" cy="14.0" r="1.6" fill="#F59E0B"/>
+        <circle cx="30.0" cy="13.6" r="0.45" fill="#451A03"/>
+
+        {/* Legs */}
+        <rect x="17.8" y="17.6" width="1.7" height="3.6" rx="0.7" fill="#B45309"/>
+        <rect x="21.0" y="18.0" width="1.6" height="3.2" rx="0.7" fill="#D97706"/>
+        <rect x="25.5" y="18.0" width="1.6" height="3.2" rx="0.7" fill="#D97706"/>
+        <path d="M28.0 16.8 L30.8 15.0" stroke="#B45309" strokeWidth="2.0" strokeLinecap="round"/>
+
+        {/* Curved Shamshir Sword */}
+        <path d="M29.6 16.4 L31.8 13.2 C32.8 11.5 34.6 10.4 36.2 9.8 C36.5 9.8 36.4 10.4 35.8 11.0 C34.2 12.2 33.0 13.8 32.2 16.0 L30.6 17.4 Z" fill="#1E293B"/>
+        <path d="M30.2 15.2 C31.8 12.6 33.4 11.2 35.8 10.4" stroke="#FDE047" strokeWidth="0.9" strokeLinecap="round"/>
       </g>
-      <rect x="0.5" y="0.5" width="47" height="31" rx="3.5" stroke="rgba(255,255,255,0.25)" strokeWidth="1"/>
+      <rect x="0.5" y="0.5" width="47" height="31" rx="3" stroke="rgba(255,255,255,0.25)" strokeWidth="1"/>
     </svg>
   );
 };

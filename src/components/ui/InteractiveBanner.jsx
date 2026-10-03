@@ -53,10 +53,10 @@ export function InteractiveBanner({ className = '' }) {
 
         {/* Text in Vazirmatn Font */}
         <div className="relative z-10 flex items-center gap-2 text-[11px] sm:text-xs font-sans">
-          <span className="font-extrabold text-white tracking-wider font-sans">PEYVAND</span>
+          <span className="font-extrabold text-white tracking-tight font-sans">PayVand</span>
           <span className="text-white/25 font-light">•</span>
           <span className="font-sans font-medium text-emerald-300/90 group-hover:text-emerald-200 transition-colors">
-            پروتکل پیوند؛ مبادله غیرحضانتی چندزنجیره‌ای
+            پروتکل پی‌وند؛ مبادله غیرحضانتی چندزنجیره‌ای
           </span>
         </div>
       </div>

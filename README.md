@@ -1,4 +1,4 @@
-# پروتکل پیوند | Peyvand Protocol ⚡
+# پروتکل پی‌وند | PayVand Protocol ⚡
 
 > **پروتکل مبادله غیرحضانتی چندزنجیره‌ای (Multi-Chain DEX) و توکن‌های محرمانه**  
 > دامنه رسمی: [https://javadnode.top](https://javadnode.top)

@@ -20,7 +20,7 @@ import InteractiveBanner from './components/ui/InteractiveBanner';
 
 export default function App() {
   React.useEffect(() => {
-    document.title = 'پیوند (Peyvand) | پروتکل مبادله غیرحضانتی چندزنجیره‌ای و تلگرام';
+    document.title = 'پی‌وند (PayVand) | پروتکل مبادله غیرحضانتی چندزنجیره‌ای و تلگرام';
   }, []);
 
   const { 
@@ -41,7 +41,7 @@ export default function App() {
     {
       id: 'faq-1',
       title: 'صرافی غیرحضانتی (Non-Custodial) به چه معناست؟',
-      content: 'در پروتکل پیوند (Peyvand) دارایی‌های شما هرگز در کیف‌پول پلتفرم امانت گرفته نمی‌شود. تمام تراکنش‌ها به صورت همتا‌به‌همتا (P2P) و مستقیم از کیف‌پول شخصی شما روی استخرهای نقدینگی برتر (STON.fi, Jupiter, Uniswap, SunSwap) امضا و تسویه می‌گردند.'
+      content: 'در پروتکل پی‌وند (PayVand) دارایی‌های شما هرگز در کیف‌پول پلتفرم امانت گرفته نمی‌شود. تمام تراکنش‌ها به صورت همتا‌به‌همتا (P2P) و مستقیم از کیف‌پول شخصی شما روی استخرهای نقدینگی برتر (STON.fi, Jupiter, Uniswap, SunSwap) امضا و تسویه می‌گردند.'
     },
     {
       id: 'faq-2',
@@ -51,7 +51,7 @@ export default function App() {
     {
       id: 'faq-3',
       title: 'آیا برای مبادله ارزها یا خرید استارز به احراز هویت (KYC) نیاز است؟',
-      content: 'خیر. پیوند بر پایه آزادی مالی وب۳ طراحی شده و برای مبادله غیرحضانتی هیچ‌گونه ثبت‌نام اجباری، بارگذاری مدارک هویتی یا ثبت ایمیل نیاز نیست.'
+      content: 'خیر. پی‌وند (PayVand) بر پایه آزادی مالی وب۳ طراحی شده و برای مبادله غیرحضانتی هیچ‌گونه ثبت‌نام اجباری، بارگذاری مدارک هویتی یا ثبت ایمیل نیاز نیست.'
     },
     {
       id: 'faq-4',
@@ -156,8 +156,8 @@ export default function App() {
         <div className="pt-2 space-y-3">
           <div className="flex items-center gap-2 pb-2 border-b border-border/40">
             <HelpCircle className="w-4 h-4 text-accent" />
-            <h2 className="text-xs font-bold text-muted-foreground">
-              راهنما و پرسش‌های متداول پروتکل پیوند
+            <h2 className="text-xs font-bold text-muted-foreground font-sans">
+              راهنما و پرسش‌های متداول پروتکل پی‌وند (PayVand)
             </h2>
           </div>
           <Accordion items={faqItems} multiple defaultOpen={[]} />

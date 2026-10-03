@@ -12,7 +12,7 @@ export async function onRequestGet() {
   return new Response(JSON.stringify({
     status: 'healthy',
     version: '1.2.0',
-    platform: 'Peyvand Protocol Multi-Chain DEX',
+    platform: 'PayVand Protocol Multi-Chain DEX',
     timestamp: Date.now(),
     features: {
       chainsSupported: 15,

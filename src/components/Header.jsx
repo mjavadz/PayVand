@@ -58,13 +58,13 @@ export default function Header({
         
         {/* Brand */}
         <div className="flex items-center gap-4">
-          <a href="/" className="flex items-center gap-2.5 group" aria-label="Peyvand Home">
+          <a href="/" className="flex items-center gap-2.5 group" aria-label="PayVand Home">
             <div className="w-8 h-8 flex items-center justify-center group-hover:scale-105 transition-transform duration-200">
-              <img src="/logo.svg" alt="Peyvand Logo" className="w-full h-full object-contain filter drop-shadow-[0_0_10px_rgba(6,182,212,0.4)]" />
+              <img src="/logo.svg" alt="PayVand Logo" className="w-full h-full object-contain filter drop-shadow-[0_0_10px_rgba(245,158,11,0.35)]" />
             </div>
             <div className="flex items-baseline gap-1.5">
-              <span className="text-xl font-black text-foreground tracking-tight hidden sm:block">PEYVAND</span>
-              <span className="text-xs font-bold text-accent hidden md:inline">پیوند</span>
+              <span className="text-xl font-black text-foreground tracking-tight hidden sm:block font-sans">PayVand</span>
+              <span className="text-xs font-bold text-accent hidden md:inline font-sans">پی‌وند</span>
               <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse hidden sm:block" />
             </div>
           </a>

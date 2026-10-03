@@ -28,9 +28,9 @@ export default function Footer({ onSwitchTab }) {
         {/* Bottom Minimal Info Bar */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-2.5 text-xs text-muted-foreground/70 border-t border-border/30 pt-4 font-sans">
           <div className="flex items-center gap-2">
-            <img src="/logo.svg" alt="Peyvand" className="w-4 h-4 object-contain" />
-            <span className="font-bold text-foreground/90">PEYVAND</span>
-            <span className="text-[11px] font-bold text-accent">پیوند</span>
+            <img src="/logo.svg" alt="PayVand" className="w-4 h-4 object-contain" />
+            <span className="font-bold text-foreground/90 tracking-tight">PayVand</span>
+            <span className="text-[11px] font-bold text-accent">پی‌وند</span>
             <span>•</span>
             <span>پروتکل مبادله غیرحضانتی و امن چندزنجیره‌ای</span>
           </div>
