@@ -124,6 +124,11 @@ export default function ChainSelectorModal({ isOpen, onClose, activeChain, onSel
                         <span className="text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded bg-white/[0.05] text-muted-foreground border border-white/[0.08]">
                           {chain.nativeSymbol}
                         </span>
+                        {chain.id === 'ton' && (
+                          <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-sky-500/15 text-sky-300 border border-sky-500/30">
+                            GRAM و استارز
+                          </span>
+                        )}
                         {isSelected && (
                           <span className="flex items-center text-accent text-xs">
                             <Check size={14} className="stroke-[3]" />

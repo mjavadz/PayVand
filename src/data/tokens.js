@@ -169,9 +169,9 @@ export const TOKENS = {
 
   ethereum: [
     { symbol: 'ETH', name: 'Ethereum', decimals: 18, address: 'native', priceUSD: 2692.00, icon: 'eth', isNative: true, censorshipResistant: true, securityLabel: 'کوین بومی (فاقد فریز)' },
+    { symbol: 'USDT', name: 'Tether USD (ERC-20)', decimals: 6, address: '0xdAC17F958D2ee523a2206206994597C13D831ec7', priceUSD: 1.00, icon: 'usdt', isNative: false, freezable: true, securityLabel: 'متمرکز (دارای تابع فریز)' },
     { symbol: 'LUSD', name: 'Liquity USD', decimals: 18, address: '0x5f98805A4E8be255a32880FDeC7F6728C6568bA0', priceUSD: 1.00, icon: 'lusd', isNative: false, censorshipResistant: true, securityLabel: '۱۰۰٪ تغییرناپذیر (ضد فریز)' },
     { symbol: 'DAI', name: 'Dai Stablecoin', decimals: 18, address: '0x6B175474E89094C44Da98b954EedeAC495271d0F', priceUSD: 1.00, icon: 'dai', isNative: false, censorshipResistant: true, securityLabel: 'غیرمتمرکز (وثیقه‌ای)' },
-    { symbol: 'USDT', name: 'Tether USD (ERC-20)', decimals: 6, address: '0xdAC17F958D2ee523a2206206994597C13D831ec7', priceUSD: 1.00, icon: 'usdt', isNative: false, freezable: true, securityLabel: 'متمرکز (دارای تابع فریز)' },
     { symbol: 'USDC', name: 'USD Coin (ERC-20)', decimals: 6, address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', priceUSD: 1.00, icon: 'usdc', isNative: false, freezable: true, securityLabel: 'متمرکز (دارای تابع فریز)' },
     { symbol: 'WBTC', name: 'Wrapped Bitcoin', decimals: 8, address: '0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599', priceUSD: 64500.00, icon: 'wbtc', isNative: false },
     { symbol: 'UNI', name: 'Uniswap', decimals: 18, address: '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984', priceUSD: 7.20, icon: 'uni', isNative: false }

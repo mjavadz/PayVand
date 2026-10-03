@@ -41,6 +41,9 @@ export default function SwapCard({ onOpenWalletModal, onOpenChainSelector, onSwi
     const list = TOKENS[activeChain] || [];
     setFromToken(list[0] || null);
     setToToken(list[1] || null);
+    if (activeChain !== 'ton') {
+      setViewMode('swap');
+    }
   }, [activeChain]);
 
   const [fromAmount, setFromAmount] = useState('');
@@ -117,10 +120,10 @@ export default function SwapCard({ onOpenWalletModal, onOpenChainSelector, onSwi
 
   const getButtonText = () => {
     if (isSwapping) return 'در حال ارسال تراکنش…';
-    if (!isConnected) return 'اتصال کیف پول برای مبادله';
+    if (!isConnected) return 'اتصال کیف پول برای تبدیل';
     if (!fromAmount || numFromAmount <= 0) return 'مقدار را وارد کنید';
     if (isInsufficientBalance) return `موجودی ناکافی (${fromBalance} ${fromToken?.symbol})`;
-    return `مبادله ${fromToken?.symbol} به ${toToken?.symbol}`;
+    return `تبدیل ${fromToken?.symbol} به ${toToken?.symbol}`;
   };
 
   const isButtonDisabled = isSwapping || (isConnected && (!fromAmount || numFromAmount <= 0 || isInsufficientBalance));
@@ -128,32 +131,34 @@ export default function SwapCard({ onOpenWalletModal, onOpenChainSelector, onSwi
   return (
     <div className={`w-full ${viewMode === 'stars' ? 'max-w-2xl' : 'max-w-[460px]'} mx-auto animate-fade-in space-y-3`}>
       
-      {/* Top Toggle Switcher: Multi-Chain Swap vs. Telegram Stars & TON Desk */}
-      <div className="flex items-center p-1 bg-white/[0.04] border border-white/[0.08] rounded-2xl max-w-fit mx-auto shadow-sm">
-        <button
-          type="button"
-          onClick={() => setViewMode('swap')}
-          className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
-            viewMode === 'swap'
-              ? 'bg-card text-foreground border border-white/[0.1] shadow-xs'
-              : 'text-muted-foreground hover:text-foreground'
-          }`}
-        >
-          سواپ چندزنجیره‌ای
-        </button>
-        <button
-          type="button"
-          onClick={() => setViewMode('stars')}
-          className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
-            viewMode === 'stars'
-              ? 'bg-amber-500/15 text-amber-400 border border-amber-500/30 shadow-xs'
-              : 'text-muted-foreground hover:text-foreground'
-          }`}
-        >
-          <StarsIcon size={14} />
-          <span>استارز تلگرام (TON & Stars)</span>
-        </button>
-      </div>
+      {/* Telegram Ecosystem Switcher: ONLY shown when TON network is active */}
+      {activeChain === 'ton' && (
+        <div className="flex items-center p-1 bg-sky-500/[0.08] border border-sky-500/25 rounded-2xl max-w-fit mx-auto shadow-sm animate-fade-in">
+          <button
+            type="button"
+            onClick={() => setViewMode('swap')}
+            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+              viewMode === 'swap'
+                ? 'bg-card text-foreground border border-white/[0.1] shadow-xs'
+                : 'text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            تبدیل توکن‌های TON (GRAM)
+          </button>
+          <button
+            type="button"
+            onClick={() => setViewMode('stars')}
+            className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+              viewMode === 'stars'
+                ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-xs'
+                : 'text-amber-400/90 hover:text-amber-300'
+            }`}
+          >
+            <StarsIcon size={14} />
+            <span>میز استارز تلگرام (Stars)</span>
+          </button>
+        </div>
+      )}
 
       {viewMode === 'stars' ? (
         <StarsDesk onBackToSwap={() => setViewMode('swap')} />
@@ -165,7 +170,7 @@ export default function SwapCard({ onOpenWalletModal, onOpenChainSelector, onSwi
             {/* Header Bar */}
             <div className="flex items-center justify-between px-2 pt-1 pb-2 border-b border-border/40">
               <div className="flex items-center gap-2">
-                <h2 className="text-sm font-bold text-foreground">سواپ</h2>
+                <h2 className="text-sm font-bold text-foreground">تبدیل (SWAP)</h2>
                 
                 {/* Active Chain Selector Pill */}
                 <button
@@ -205,17 +210,18 @@ export default function SwapCard({ onOpenWalletModal, onOpenChainSelector, onSwi
 
             {/* Telegram Ecosystem Banner when TON is active */}
             {activeChain === 'ton' && (
-              <div className="p-2.5 rounded-2xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-between text-xs animate-fade-in">
+              <div className="p-2.5 rounded-2xl bg-gradient-to-r from-sky-500/10 via-amber-500/10 to-sky-500/10 border border-sky-500/25 flex items-center justify-between text-xs animate-fade-in">
                 <div className="flex items-center gap-2 text-sky-300 font-medium">
                   <StarsIcon size={15} />
-                  <span>پشتیبانی از TON، استارز و Gram تلگرام</span>
+                  <span>پشتیبانی از TON، توکن‌های GRAM و استارز رسمی تلگرام</span>
                 </div>
                 <button
                   type="button"
                   onClick={() => setViewMode('stars')}
-                  className="text-accent hover:underline font-bold text-xs shrink-0"
+                  className="text-amber-400 hover:text-amber-300 hover:underline font-bold text-xs shrink-0 flex items-center gap-1"
                 >
-                  میز استارز ←
+                  <span>ورود به میز استارز</span>
+                  <span>←</span>
                 </button>
               </div>
             )}
@@ -464,6 +470,11 @@ export default function SwapCard({ onOpenWalletModal, onOpenChainSelector, onSwi
           }
         }}
         chainName={activeChain.toUpperCase()}
+        activeChain={activeChain}
+        onOpenStarsDesk={() => {
+          setSelectorTarget(null);
+          setViewMode('stars');
+        }}
         getTokenBalance={getTokenBalance}
       />
 

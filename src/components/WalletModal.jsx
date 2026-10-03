@@ -201,14 +201,14 @@ export default function WalletModal({ isOpen, onClose }) {
     connectError 
   } = useWallet();
 
-  const [selectedTab, setSelectedTab] = useState(activeChain || 'ton');
+  const [selectedTab, setSelectedTab] = useState(activeChain || 'ethereum');
   const [copied, setCopied] = useState(false);
   const [localError, setLocalError] = useState(null);
 
   // Sync state whenever modal opens or activeChain updates
   useEffect(() => {
     if (isOpen) {
-      setSelectedTab(activeChain || 'ton');
+      setSelectedTab(activeChain || 'ethereum');
       setLocalError(null);
     }
   }, [isOpen, activeChain]);
@@ -217,7 +217,7 @@ export default function WalletModal({ isOpen, onClose }) {
 
   // The actual blockchain network targeted for connection
   const targetChainId = selectedTab;
-  const chainConfig = getChainById(targetChainId) || getChainById('ton');
+  const chainConfig = getChainById(targetChainId) || getChainById('ethereum');
   const currentWallet = connectedWallets[targetChainId];
 
   // Resolve wallet options depending on chain type

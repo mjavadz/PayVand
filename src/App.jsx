@@ -194,7 +194,7 @@ export default function App() {
           }`}
         >
           <ArrowDownUp size={16} />
-          <span className="text-[10px]">سواپ</span>
+          <span className="text-[10px]">تبدیل</span>
         </button>
 
         <button

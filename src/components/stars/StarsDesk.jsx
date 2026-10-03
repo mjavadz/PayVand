@@ -134,7 +134,7 @@ export default function StarsDesk({ onOrderCreated, onBackToSwap }) {
           className="flex items-center gap-1.5 text-xs font-semibold text-accent hover:underline mb-1 transition-all"
         >
           <ArrowRight size={14} />
-          <span>بازگشت به سواپ چندزنجیره‌ای</span>
+          <span>بازگشت به تبدیل (SWAP)</span>
         </button>
       )}
       

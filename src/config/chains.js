@@ -20,7 +20,7 @@ export const CHAINS = {
     type: 'ton',
     category: 'ton',
     mainDex: 'STON.fi & DeDust',
-    badge: 'کارمزد ناچیز تلگرام',
+    badge: 'اکوسیستم رسمی تلگرام (GRAM و Stars)',
     color: '#0088CC',
     rpcUrls: ['https://toncenter.com/api/v2/jsonRPC'],
     blockExplorer: 'https://tonviewer.com',
@@ -266,7 +266,7 @@ export const CHAINS = {
 export const CHAIN_LIST = Object.values(CHAINS);
 
 export function getChainById(id) {
-  return CHAINS[id] || CHAINS.ton;
+  return CHAINS[id] || CHAINS.ethereum;
 }
 
 export function isEVMChain(chainOrId) {

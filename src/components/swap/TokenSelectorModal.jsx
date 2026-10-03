@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { X, Search, Check, AlertCircle, Sparkles } from 'lucide-react';
-import { TokenLogo } from '../Icons';
+import { TokenLogo, StarsIcon } from '../Icons';
 import { getTokenPrice } from '../../services/priceService';
 import { formatToman } from '../../utils/format';
 
@@ -11,6 +11,8 @@ export default function TokenSelectorModal({
   selectedToken, 
   onSelectToken,
   chainName = '',
+  activeChain = '',
+  onOpenStarsDesk,
   getTokenBalance
 }) {
   const [search, setSearch] = useState('');
@@ -126,6 +128,36 @@ export default function TokenSelectorModal({
 
         {/* Tokens List */}
         <div className="flex-1 overflow-y-auto overflow-x-hidden p-2 space-y-1 divide-y divide-white/[0.02]">
+          {/* TON Ecosystem & Telegram Stars Feature */}
+          {activeChain === 'ton' && onOpenStarsDesk && (
+            <div className="p-3 mb-2 rounded-2xl bg-gradient-to-r from-sky-500/10 via-amber-500/10 to-sky-500/10 border border-sky-500/30 flex items-center justify-between gap-3 shadow-sm">
+              <div className="flex items-center gap-2.5 min-w-0">
+                <div className="w-9 h-9 rounded-xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-400 shrink-0">
+                  <StarsIcon size={18} />
+                </div>
+                <div className="min-w-0">
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    <span className="text-xs font-bold text-foreground">میز اختصاصی استارز تلگرام</span>
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono font-bold">Stars & GRAM</span>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground truncate mt-0.5">
+                    خرید مستقیم و نقد کردن استارز با TON و کارت شتاب
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  onClose();
+                  onOpenStarsDesk();
+                }}
+                className="px-3 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-background font-extrabold text-xs shrink-0 transition-colors shadow-sm"
+              >
+                ورود به میز ←
+              </button>
+            </div>
+          )}
+
           {filteredTokens.length > 0 ? (
             filteredTokens.map((token) => {
               const isSelected = selectedToken?.symbol === token.symbol;

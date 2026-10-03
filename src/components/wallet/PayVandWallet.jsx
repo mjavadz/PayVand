@@ -28,7 +28,7 @@ export default function PayVandWallet({ onNavigateToSwap }) {
   const [showSeed, setShowSeed] = useState(false);
   const [copiedSeed, setCopiedSeed] = useState(false);
   const [copiedAddr, setCopiedAddr] = useState(null);
-  const [activeChain, setActiveChain] = useState('ton');
+  const [activeChain, setActiveChain] = useState('evm');
   const [showReceiveModal, setShowReceiveModal] = useState(false);
   const [showSendModal, setShowSendModal] = useState(false);
   const [sendAmount, setSendAmount] = useState('');

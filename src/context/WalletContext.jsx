@@ -14,7 +14,7 @@ const STORAGE_KEY_WALLETS = 'payvand_connected_wallets';
 
 export function WalletProvider({ children }) {
   const [activeChain, setActiveChainState] = useState(() => {
-    return localStorage.getItem(STORAGE_KEY_CHAIN) || 'ton';
+    return localStorage.getItem(STORAGE_KEY_CHAIN) || 'ethereum';
   });
 
   const [connectedWallets, setConnectedWallets] = useState(() => {
