@@ -361,48 +361,18 @@ export const ShieldCheckIcon = ({ size = 20, className = '' }) => (
   </svg>
 );
 
-// Authentic Iranian Lion and Sun Flag (شیر و خورشید اصیل و باشکوه)
+// Authentic Iranian Lion and Sun Flag (شیر و خورشید رسمی از پرونده Lion_and_Sun.svg)
 export const IranFlagIcon = ({ size = 20, className = '' }) => {
   const height = Math.round(size * 0.67);
   return (
-    <svg 
-      width={size} 
-      height={height} 
-      viewBox="0 0 120 80" 
-      fill="none" 
-      className={`shrink-0 inline-block align-middle rounded-[3px] shadow-xs ${className}`}
-    >
-      {/* Tricolor Bands */}
-      <rect width="120" height="26.67" fill="#1E824C" rx="2"/>
-      <rect y="26.67" width="120" height="26.66" fill="#FFFFFF"/>
-      <rect y="53.33" width="120" height="26.67" fill="#C01823" rx="2"/>
-
-      {/* The Radiant Sun of Mithra */}
-      <g transform="translate(60, 36)">
-        <circle cx="0" cy="0" r="13" fill="#F59E0B"/>
-        <circle cx="0" cy="0" r="9.5" fill="#FDE047"/>
-        <path d="M 0 -22 L 2.5 -13 L -2.5 -13 Z" fill="#D97706"/>
-        <path d="M 12 -18 L 11 -9 L 7 -12 Z" fill="#D97706"/>
-        <path d="M -12 -18 L -7 -12 L -11 -9 Z" fill="#D97706"/>
-        <path d="M 20 -9 L 14 -5 L 13 -10 Z" fill="#D97706"/>
-        <path d="M -20 -9 L -13 -10 L -14 -5 Z" fill="#D97706"/>
-      </g>
-
-      {/* The Imperial Persian Lion */}
-      <g transform="translate(60, 42)">
-        <path d="M -22 5 C -25 -2, -24 -10, -18 -14 C -15 -16, -13 -14, -15 -11 C -18 -8, -18 -2, -14 4" stroke="#B45309" strokeWidth="3" strokeLinecap="round" fill="none"/>
-        <path d="M -18 3 C -19 -3, -14 -6, -8 -6 C 0 -6, 6 -4, 12 -7 C 14 -8, 17 -8, 20 -4 C 23 0, 22 6, 17 8 C 12 10, -2 11, -12 11 C -16 11, -18 8, -18 3 Z" fill="#D97706"/>
-        <path d="M 6 -6 C 8 -12, 14 -16, 20 -15 C 24 -14, 26 -10, 25 -5 C 25 0, 20 4, 15 2 Z" fill="#B45309"/>
-        <circle cx="21" cy="-8" r="4.5" fill="#F59E0B"/>
-        <path d="M -16 6 L -12 16" stroke="#B45309" strokeWidth="3" strokeLinecap="round"/>
-        <path d="M -8 7 L -4 16" stroke="#D97706" strokeWidth="3" strokeLinecap="round"/>
-        <path d="M 7 5 L 11 16" stroke="#D97706" strokeWidth="3" strokeLinecap="round"/>
-        <path d="M 16 2 L 23 0" stroke="#B45309" strokeWidth="3.5" strokeLinecap="round"/>
-        <path d="M 25 -4 C 28 -12, 33 -18, 41 -22 C 41.5 -22, 41.2 -21, 39.5 -19 C 34 -13, 30 -5, 27 1 Z" fill="#1E293B"/>
-        <path d="M 26 -3 C 29 -11, 34 -17, 41 -21" stroke="#FDE047" strokeWidth="1.5" strokeLinecap="round"/>
-      </g>
-      <rect x="0.5" y="0.5" width="119" height="79" rx="3" stroke="rgba(255,255,255,0.25)" strokeWidth="1"/>
-    </svg>
+    <img 
+      src="/assets/icons/iran_lion_sun.svg"
+      alt="پرچم شیر و خورشید ایران"
+      width={size}
+      height={height}
+      className={`shrink-0 inline-block align-middle rounded-[3px] shadow-xs object-contain ${className}`}
+      loading="eager"
+    />
   );
 };
 

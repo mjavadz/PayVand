@@ -226,7 +226,7 @@ export default function App() {
             activeTab === 'iran' ? 'text-accent font-semibold' : 'text-muted-foreground'
           }`}
         >
-          <IranFlagIcon size={16} />
+          <IranFlagIcon size={20} />
           <span className="text-[10px]">ایران</span>
         </button>
 

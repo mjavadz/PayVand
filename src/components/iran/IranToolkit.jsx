@@ -138,8 +138,8 @@ export default function IranToolkit({ initialSubTab = 'cashout' }) {
       {/* Title & Badge with Lion & Sun Flag */}
       <div className="flex items-center justify-between px-2">
         <div className="flex items-center gap-3">
-          <div className="p-1 rounded-md bg-white/[0.04] border border-white/[0.08] shadow-xs flex items-center justify-center">
-            <IranFlagIcon size={28} />
+          <div className="p-1 rounded-lg bg-white/[0.04] border border-white/[0.08] shadow-xs flex items-center justify-center">
+            <IranFlagIcon size={40} />
           </div>
           <div>
             <h1 className="text-sm sm:text-base font-bold text-foreground font-sans">جعبه‌ابزار تخصصی کاربران ایران</h1>

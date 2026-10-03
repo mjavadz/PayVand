@@ -52,7 +52,7 @@ export default function Header({
     { id: 'swap', label: 'سواپ و تلگرام', icon: <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m3 16 4 4 4-4"/><path d="M7 20V4"/><path d="m21 8-4-4-4 4"/><path d="M17 4v16"/></svg> },
     { id: 'wallet', label: 'کیف‌پول پی‌وند', icon: <Wallet size={14} /> },
     { id: 'checkout', label: 'درگاه و افزونه', icon: <Store size={14} /> },
-    { id: 'iran', label: 'جعبه‌ابزار ایران', icon: <IranFlagIcon size={16} /> },
+    { id: 'iran', label: 'جعبه‌ابزار ایران', icon: <IranFlagIcon size={22} /> },
     { id: 'orders', label: 'سفارشات', icon: <Clock size={14} /> },
   ];
 
@@ -63,8 +63,8 @@ export default function Header({
         {/* Brand */}
         <div className="flex items-center gap-4">
           <a href="/" className="flex items-center gap-2.5 group" aria-label="PayVand Home">
-            <div className="w-8 h-8 flex items-center justify-center group-hover:scale-105 transition-transform duration-200">
-              <img src="/logo.svg" alt="PayVand Logo" className="w-full h-full object-contain filter drop-shadow-[0_0_10px_rgba(245,158,11,0.35)]" />
+            <div className="w-9 h-9 flex items-center justify-center group-hover:scale-105 transition-transform duration-200">
+              <img src="/logo.svg" alt="PayVand Logo" className="w-full h-full object-contain filter drop-shadow-[0_0_12px_rgba(6,182,212,0.4)]" />
             </div>
             <div className="flex items-baseline gap-1.5">
               <span className="text-xl font-black text-foreground tracking-tight hidden sm:block font-sans">PayVand</span>
