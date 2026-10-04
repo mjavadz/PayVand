@@ -5,7 +5,6 @@ import SwapCard from './components/swap/SwapCard';
 import StarsDesk from './components/stars/StarsDesk';
 import OrderTracker from './components/orders/OrderTracker';
 import IranToolkit from './components/iran/IranToolkit';
-import PayVandWallet from './components/wallet/PayVandWallet';
 import PayVandCheckout from './components/merchant/PayVandCheckout';
 import WalletModal from './components/WalletModal';
 import ChainSelectorModal from './components/ChainSelectorModal';
@@ -99,14 +98,7 @@ export default function App() {
           </div>
         )}
 
-        {/* Tab 2: Non-Custodial PayVand Multi-Chain Wallet */}
-        {activeTab === 'wallet' && (
-          <div className="animate-fade-in">
-            <PayVandWallet onNavigateToSwap={() => setActiveTab('swap')} />
-          </div>
-        )}
-
-        {/* Tab 3: PayVand Merchant Checkout & Plugins */}
+        {/* Tab 2: PayVand Merchant Checkout & Plugins */}
         {activeTab === 'checkout' && (
           <div className="animate-fade-in">
             <PayVandCheckout />
@@ -195,17 +187,6 @@ export default function App() {
         >
           <ArrowDownUp size={16} />
           <span className="text-[10px]">تبدیل</span>
-        </button>
-
-        <button
-          type="button"
-          onClick={() => setActiveTab('wallet')}
-          className={`flex flex-col items-center gap-0.5 py-1 px-2 rounded-lg transition-all ${
-            activeTab === 'wallet' ? 'text-accent font-semibold' : 'text-muted-foreground'
-          }`}
-        >
-          <Wallet size={16} />
-          <span className="text-[10px]">کیف‌پول</span>
         </button>
 
         <button

@@ -43,7 +43,6 @@ const IRAN_CASHOUT_ASSETS = [
 
 export default function IranToolkit({ initialSubTab = 'cashout' }) {
   const [subTab, setSubTab] = useState(initialSubTab);
-  const [showExchangesList, setShowExchangesList] = useState(false);
 
   useEffect(() => {
     if (initialSubTab) {
@@ -193,65 +192,37 @@ export default function IranToolkit({ initialSubTab = 'cashout' }) {
         </button>
       </div>
 
-      {/* Live Rate Banner */}
-      <div className="card card-hover p-3.5 space-y-2 border border-white/[0.08]">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
-          <div className="flex items-center gap-2.5">
+      {/* Unified Live Rate Summary Banner */}
+      <div className="card card-hover p-4 border border-white/[0.08] rounded-2xl bg-white/[0.02] shadow-sm">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
             <div>
-              <div className="text-xs sm:text-sm text-foreground font-sans font-bold">
-                نرخ لحظه‌ای تتر: <strong className="text-emerald-400">میانگین ۵ صرافی برتر ایران</strong>
+              <div className="text-xs sm:text-sm text-foreground font-sans font-bold flex flex-wrap items-center gap-2">
+                <span>نرخ میانگین لحظه‌ای تتر در ایران:</span>
+                <span className="text-emerald-400 font-sans font-black text-sm sm:text-base" dir="rtl">
+                  {formatToman(tomanRate)}
+                </span>
               </div>
-              <p className="text-[11px] text-muted-foreground mt-0.5">استعلام زنده از نوبیتکس، والکس، بیت‌پین، رمزینکس و اوام‌پی فینکس</p>
+              <p className="text-[11px] text-muted-foreground mt-0.5 font-sans">
+                محاسبه برخط از ۵ صرافی معتبر: نوبیتکس، والکس، بیت‌پین، رمزینکس و اوام‌پی فینکس
+              </p>
             </div>
           </div>
           
           <button
             type="button"
-            onClick={() => setShowExchangesList(!showExchangesList)}
-            className="flex items-center justify-between sm:justify-start gap-2 px-3.5 py-1.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-emerald-500/30 text-emerald-400 font-sans font-black transition-all shadow-sm group"
-            title="نمایش جزئیات نرخ ۵ صرافی"
+            onClick={() => setSubTab('gas_tracker')}
+            className={`px-3.5 py-1.5 rounded-xl border text-xs font-bold font-sans transition-all flex items-center gap-1.5 self-start sm:self-auto shrink-0 ${
+              subTab === 'gas_tracker'
+                ? 'bg-emerald-500/15 border-emerald-500/40 text-emerald-300'
+                : 'bg-white/[0.04] hover:bg-white/[0.08] border-white/[0.08] text-muted-foreground hover:text-foreground'
+            }`}
           >
-            <span className="font-sans font-black text-sm sm:text-base text-emerald-400 tracking-normal" dir="rtl">
-              {formatToman(tomanRate)}
-            </span>
-            <ChevronDown size={14} className={`text-muted-foreground group-hover:text-emerald-400 transition-transform duration-200 ${showExchangesList ? 'rotate-180' : ''}`} />
+            <span>تابلوی مقایسه ۵ صرافی</span>
+            <span>←</span>
           </button>
         </div>
-
-        {showExchangesList && (
-          <div className="pt-3 border-t border-white/[0.06] space-y-2 animate-fade-in">
-            <div className="flex items-center justify-between text-xs text-muted-foreground">
-              <span>تابلوی استعلام نرخ ۵ صرافی برتر کشور (بر اساس عمق بازار):</span>
-              <span className="text-[11px] font-mono text-emerald-400">۵ منبع تأییدشده</span>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
-              {exchanges.map((ex, idx) => (
-                <div key={ex.id || idx} className="flex justify-between items-center p-2.5 rounded-xl bg-white/[0.03] border border-white/[0.06] hover:border-emerald-500/30 transition-colors">
-                  <div className="flex items-center gap-2 min-w-0">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0" />
-                    <div>
-                      <span className="text-xs text-foreground font-sans font-bold block whitespace-nowrap">
-                        {ex.name}
-                      </span>
-                      {ex.volumeShare && (
-                        <span className="text-[10px] text-muted-foreground block">
-                          سهم بازار: {ex.volumeShare}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                  <div className="text-left shrink-0 pl-1">
-                    <span className="font-sans font-black text-xs sm:text-sm text-emerald-400 block" dir="rtl">
-                      {formatToman(ex.price)}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
       </div>
 
       {/* SUBTAB 1: CASHOUT */}
@@ -457,35 +428,35 @@ export default function IranToolkit({ initialSubTab = 'cashout' }) {
 
           {/* 5 Exchanges Live Comparison Table */}
           <div className="space-y-2">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {exchanges.map((ex, idx) => {
                 const diff = ex.price - tomanRate;
                 const isCheaper = diff < 0;
                 return (
                   <div 
                     key={ex.id || idx}
-                    className="p-3 rounded-2xl bg-white/[0.025] hover:bg-white/[0.05] border border-white/[0.06] hover:border-emerald-500/30 transition-all flex flex-col justify-between gap-2 shadow-xs"
+                    className="p-3.5 rounded-2xl bg-white/[0.025] hover:bg-white/[0.05] border border-white/[0.06] hover:border-emerald-500/30 transition-all flex flex-col justify-between gap-2.5 shadow-xs"
                   >
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-1.5">
-                        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                        <span className="text-xs font-bold text-foreground font-sans">
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-2 min-w-0">
+                        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+                        <span className="text-xs sm:text-sm font-bold text-foreground font-sans truncate">
                           {ex.name}
                         </span>
                       </div>
-                      <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/[0.05] text-muted-foreground font-mono">
+                      <span className="text-[10px] px-2 py-0.5 rounded-md bg-white/[0.05] text-muted-foreground font-mono shrink-0">
                         {ex.volumeShare ? `سهم ${ex.volumeShare}` : 'فعال'}
                       </span>
                     </div>
 
-                    <div className="flex items-baseline justify-between pt-1 border-t border-white/[0.04]">
-                      <span className="text-[11px] text-muted-foreground font-sans">نرخ تتر:</span>
+                    <div className="flex items-baseline justify-between pt-2 border-t border-white/[0.04]">
+                      <span className="text-xs text-muted-foreground font-sans">نرخ تتر:</span>
                       <span className="font-sans font-black text-sm sm:text-base text-emerald-400" dir="rtl">
                         {formatToman(ex.price)}
                       </span>
                     </div>
 
-                    <div className="flex items-center justify-between text-[10px] text-muted-foreground pt-0.5">
+                    <div className="flex items-center justify-between text-[11px] text-muted-foreground pt-0.5">
                       <span>فاصله از میانگین:</span>
                       <span className={`font-sans font-bold ${isCheaper ? 'text-sky-400' : 'text-amber-400'}`} dir="rtl">
                         {diff === 0 ? 'نرخ مبنا' : `${Math.abs(diff)} تومان ${isCheaper ? 'پایین‌تر' : 'بالاتر'}`}
