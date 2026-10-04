@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
   <defs>
-    <linearGradient id="pvLogoGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+    <linearGradient id="pvTangentGrad" gradientUnits="userSpaceOnUse" x1="25" y1="85" x2="85" y2="15">
       <stop offset="0%" stop-color="#10B981" />
       <stop offset="100%" stop-color="#06B6D4" />
     </linearGradient>
   </defs>
-  <path d="M 30 80 V 24 C 30 21 32 19 35 19 H 58 C 72 19 83 30 83 44 C 83 58 72 69 58 69 H 30" 
-        stroke="url(#pvLogoGrad)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 30 15 V 85" stroke="url(#pvTangentGrad)" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="55" cy="40" r="25" stroke="url(#pvTangentGrad)" stroke-width="10"/>
 </svg>
