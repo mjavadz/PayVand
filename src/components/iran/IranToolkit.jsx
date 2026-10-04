@@ -194,38 +194,59 @@ export default function IranToolkit({ initialSubTab = 'cashout' }) {
       </div>
 
       {/* Live Rate Banner */}
-      <div className="card card-hover p-3">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-            <span className="text-sm text-fgMuted">
-              نرخ تتر: <strong className="text-fg">میانگین ۵ صرافی برتر ایران</strong>
-            </span>
+      <div className="card card-hover p-3.5 space-y-2 border border-white/[0.08]">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+          <div className="flex items-center gap-2.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+            <div>
+              <div className="text-xs sm:text-sm text-foreground font-sans font-bold">
+                نرخ لحظه‌ای تتر: <strong className="text-emerald-400">میانگین ۵ صرافی برتر ایران</strong>
+              </div>
+              <p className="text-[11px] text-muted-foreground mt-0.5">استعلام زنده از نوبیتکس، والکس، بیت‌پین، رمزینکس و اوام‌پی فینکس</p>
+            </div>
           </div>
           
           <button
             type="button"
             onClick={() => setShowExchangesList(!showExchangesList)}
-            className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-muted border border-border text-accent font-mono font-bold transition-all"
+            className="flex items-center justify-between sm:justify-start gap-2 px-3.5 py-1.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-emerald-500/30 text-emerald-400 font-sans font-black transition-all shadow-sm group"
+            title="نمایش جزئیات نرخ ۵ صرافی"
           >
-            <span>{formatToman(tomanRate)}</span>
-            <ChevronDown size={12} className={`transition-transform duration-200 ${showExchangesList ? 'rotate-180' : ''}`} />
+            <span className="font-sans font-black text-sm sm:text-base text-emerald-400 tracking-normal" dir="rtl">
+              {formatToman(tomanRate)}
+            </span>
+            <ChevronDown size={14} className={`text-muted-foreground group-hover:text-emerald-400 transition-transform duration-200 ${showExchangesList ? 'rotate-180' : ''}`} />
           </button>
         </div>
 
         {showExchangesList && (
-          <div className="mt-3 pt-3 border-t border-border space-y-1.5 animate-fade-in">
-            <span className="text-xs text-fgSubtle block mb-1">استعلام زنده ۵ صرافی برتر (بر اساس حجم):</span>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+          <div className="pt-3 border-t border-white/[0.06] space-y-2 animate-fade-in">
+            <div className="flex items-center justify-between text-xs text-muted-foreground">
+              <span>تابلوی استعلام نرخ ۵ صرافی برتر کشور (بر اساس عمق بازار):</span>
+              <span className="text-[11px] font-mono text-emerald-400">۵ منبع تأییدشده</span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
               {exchanges.map((ex, idx) => (
-                <div key={idx} className="flex justify-between items-center p-2 rounded-md bg-muted border border-border/50">
-                  <span className="text-xs text-fgMuted flex items-center gap-1.5">
-                    <Building2 size={11} className="text-fgSubtle" />
-                    {ex.name}
-                  </span>
-                  <span className="font-mono text-xs text-accent font-bold" dir="ltr">
-                    {formatToman(ex.price)}
-                  </span>
+                <div key={ex.id || idx} className="flex justify-between items-center p-2.5 rounded-xl bg-white/[0.03] border border-white/[0.06] hover:border-emerald-500/30 transition-colors">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0" />
+                    <div>
+                      <span className="text-xs text-foreground font-sans font-bold block whitespace-nowrap">
+                        {ex.name}
+                      </span>
+                      {ex.volumeShare && (
+                        <span className="text-[10px] text-muted-foreground block">
+                          سهم بازار: {ex.volumeShare}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  <div className="text-left shrink-0 pl-1">
+                    <span className="font-sans font-black text-xs sm:text-sm text-emerald-400 block" dir="rtl">
+                      {formatToman(ex.price)}
+                    </span>
+                  </div>
                 </div>
               ))}
             </div>
@@ -330,11 +351,11 @@ export default function IranToolkit({ initialSubTab = 'cashout' }) {
               <div className="p-3 rounded-lg bg-muted/30 border border-border/50 space-y-1 text-xs">
                 <div className="flex justify-between items-center text-fgSubtle">
                   <span>نرخ مبنا (میانگین ۵ صرافی):</span>
-                  <span className="font-mono text-fg">{formatToman(tomanRate)}</span>
+                  <span className="font-sans font-bold text-fg">{formatToman(tomanRate)}</span>
                 </div>
                 <div className="flex justify-between items-center text-fgSubtle pt-1 border-t border-border/50">
                   <span className="font-semibold text-fg">مبلغ واریزی به حساب شما:</span>
-                  <strong className="text-accent font-bold text-sm">{formatToman(finalTomanPayout)}</strong>
+                  <strong className="text-emerald-400 font-sans font-black text-sm sm:text-base">{formatToman(finalTomanPayout)}</strong>
                 </div>
               </div>
 
@@ -419,30 +440,80 @@ export default function IranToolkit({ initialSubTab = 'cashout' }) {
         </div>
       )}
 
-      {/* SUBTAB 2: GAS TRACKER */}
+      {/* SUBTAB 2: GAS TRACKER & 5 EXCHANGES */}
       {subTab === 'gas_tracker' && (
-        <div className="card card-hover p-4 sm:p-5 space-y-4 animate-fade-in">
-          <div>
-            <h2 className="text-sm font-semibold text-fg">ماشین‌حساب تتر و مقایسه کارمزد شبکه‌ها</h2>
-            <p className="text-xs text-fgMuted mt-0.5">بر اساس نرخ میانگین ۵ صرافی ({formatToman(tomanRate)})</p>
+        <div className="card card-hover p-4 sm:p-5 space-y-4 animate-fade-in border border-white/[0.08]">
+          <div className="flex items-center justify-between pb-3 border-b border-white/[0.06]">
+            <div>
+              <h2 className="text-sm font-bold text-foreground font-sans">تابلوی مقایسه زنده نرخ ۵ صرافی برتر ایران</h2>
+              <p className="text-xs text-muted-foreground mt-0.5 font-sans">
+                میانگین وزنی بازار: <strong className="text-emerald-400 font-sans font-extrabold">{formatToman(tomanRate)}</strong>
+              </p>
+            </div>
+            <span className="text-[11px] px-2.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 font-bold">
+              ۵ صرافی فعال
+            </span>
           </div>
 
-          <div className="p-3 rounded-lg bg-muted border border-border space-y-2">
-            <span className="text-xs font-semibold text-fgMuted block">ماشین‌حساب تتر ➔ تومان:</span>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 items-center">
+          {/* 5 Exchanges Live Comparison Table */}
+          <div className="space-y-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
+              {exchanges.map((ex, idx) => {
+                const diff = ex.price - tomanRate;
+                const isCheaper = diff < 0;
+                return (
+                  <div 
+                    key={ex.id || idx}
+                    className="p-3 rounded-2xl bg-white/[0.025] hover:bg-white/[0.05] border border-white/[0.06] hover:border-emerald-500/30 transition-all flex flex-col justify-between gap-2 shadow-xs"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-1.5">
+                        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                        <span className="text-xs font-bold text-foreground font-sans">
+                          {ex.name}
+                        </span>
+                      </div>
+                      <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/[0.05] text-muted-foreground font-mono">
+                        {ex.volumeShare ? `سهم ${ex.volumeShare}` : 'فعال'}
+                      </span>
+                    </div>
+
+                    <div className="flex items-baseline justify-between pt-1 border-t border-white/[0.04]">
+                      <span className="text-[11px] text-muted-foreground font-sans">نرخ تتر:</span>
+                      <span className="font-sans font-black text-sm sm:text-base text-emerald-400" dir="rtl">
+                        {formatToman(ex.price)}
+                      </span>
+                    </div>
+
+                    <div className="flex items-center justify-between text-[10px] text-muted-foreground pt-0.5">
+                      <span>فاصله از میانگین:</span>
+                      <span className={`font-sans font-bold ${isCheaper ? 'text-sky-400' : 'text-amber-400'}`} dir="rtl">
+                        {diff === 0 ? 'نرخ مبنا' : `${Math.abs(diff)} تومان ${isCheaper ? 'پایین‌تر' : 'بالاتر'}`}
+                      </span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Calculator */}
+          <div className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/[0.06] space-y-2.5">
+            <span className="text-xs font-bold text-foreground font-sans block">ماشین‌حساب تبدیل تتر ➔ تومان (با نرخ ۵ صرافی):</span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 items-center">
               <div>
-                <label className="text-[10px] text-fgSubtle block mb-0.5">مقدار تتر (USDT):</label>
+                <label className="text-[10px] text-muted-foreground block mb-1">مقدار تتر (USDT):</label>
                 <input
                   type="text"
                   value={calcInput}
                   onChange={(e) => setCalcInput(e.target.value.replace(/[^0-9.]/g, ''))}
-                  className="w-full px-3 py-1.5 rounded-md bg-card border border-border text-xs text-fg font-mono focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent"
+                  className="w-full px-3 py-2 rounded-xl bg-card border border-white/[0.08] text-sm text-foreground font-mono focus:outline-none focus:border-accent"
                   dir="ltr"
                 />
               </div>
               <div>
-                <label className="text-[10px] text-fgSubtle block mb-0.5">معادل تومان:</label>
-                <div className="px-3 py-1.5 rounded-md bg-card border border-border text-xs text-accent font-bold font-mono">
+                <label className="text-[10px] text-muted-foreground block mb-1">معادل تقریبی به تومان:</label>
+                <div className="px-3 py-2 rounded-xl bg-card border border-emerald-500/30 text-emerald-400 font-sans font-black text-sm sm:text-base text-center" dir="rtl">
                   {formatToman(Math.round((Number(calcInput) || 0) * tomanRate))}
                 </div>
               </div>

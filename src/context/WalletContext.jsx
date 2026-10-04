@@ -259,6 +259,22 @@ export function WalletProvider({ children }) {
     fetchAddressBalance(chainKey, addr, true);
   }, [fetchAddressBalance]);
 
+  // Connect Internal Sovereign Wallet (Generated inside PayVand)
+  const connectInternalWallet = useCallback((chainKey, address) => {
+    setConnectedWallets(prev => ({
+      ...prev,
+      [chainKey]: {
+        address: address,
+        walletName: 'کیف‌پول پی‌وند (Sovereign)',
+        isInternal: true,
+        isDemo: false,
+        connectedAt: Date.now()
+      }
+    }));
+    setActiveChainState(chainKey);
+    fetchAddressBalance(chainKey, address);
+  }, [fetchAddressBalance]);
+
   // Disconnect handler
   const disconnectWallet = useCallback((chainKey) => {
     setConnectedWallets(prev => {
@@ -290,6 +306,7 @@ export function WalletProvider({ children }) {
     connectError,
     connectWallet,
     connectDemoMode,
+    connectInternalWallet,
     disconnectWallet,
     getTokenBalance,
     refetchBalances: () => activeWallet?.address && fetchAddressBalance(activeChain, activeWallet.address)
