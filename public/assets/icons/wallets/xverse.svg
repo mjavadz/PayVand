@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
+  <rect width="128" height="128" rx="28" fill="#18181B"/>
+  <path d="M36 36L64 72L92 36H104L70 80L104 120H92L64 88L36 120H24L58 80L24 36H36Z" fill="url(#xverse-grad)"/>
+  <defs>
+    <linearGradient id="xverse-grad" x1="24" y1="36" x2="104" y2="120" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF5A36"/>
+      <stop offset="1" stop-color="#FF9345"/>
+    </linearGradient>
+  </defs>
+</svg>

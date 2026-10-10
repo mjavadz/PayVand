@@ -45,8 +45,17 @@ export function isValidZcashAddress(address) {
   return /^(t[13][a-km-zA-HJ-NP-Z1-9]{33}|zs1[a-z0-9]{75}|u1[a-z0-9]+)$/.test(clean);
 }
 
+export function isValidBitcoinAddress(address) {
+  if (!address || typeof address !== 'string') return false;
+  const clean = address.trim();
+  return /^(1[a-km-zA-HJ-NP-Z1-9]{25,34}|3[a-km-zA-HJ-NP-Z1-9]{25,34}|bc1[a-zA-HJ-NP-Z0-9]{25,62})$/.test(clean);
+}
+
 export function validateAddress(chainType, address) {
   switch (chainType) {
+    case 'bitcoin':
+    case 'btc':
+      return isValidBitcoinAddress(address);
     case 'evm':
     case 'ethereum':
     case 'bsc':

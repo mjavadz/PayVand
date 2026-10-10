@@ -203,6 +203,38 @@ export function WalletProvider({ children }) {
         detectedAddress = await connectTONWallet();
       } else if (chainKey === 'tron') {
         detectedAddress = await connectTronWallet();
+      } else if (chainKey === 'bitcoin') {
+        if (typeof window !== 'undefined' && window.unisat) {
+          const accounts = await window.unisat.requestAccounts();
+          detectedAddress = accounts[0];
+        } else if (typeof window !== 'undefined' && window.xverse) {
+          detectedAddress = await window.xverse.bitcoin.getAddress();
+        } else if (typeof window !== 'undefined' && window.okxwallet?.bitcoin) {
+          const res = await window.okxwallet.bitcoin.connect();
+          detectedAddress = res.address;
+        } else {
+          throw new Error('افزونه کیف‌پول بیت‌کوین (UniSat یا Xverse) در مرورگر یافت نشد.');
+        }
+      } else if (chainKey === 'sui') {
+        if (typeof window !== 'undefined' && window.suiWallet) {
+          const res = await window.suiWallet.getAccounts();
+          detectedAddress = res[0];
+        } else if (typeof window !== 'undefined' && window.suiet) {
+          await window.suiet.connect();
+          detectedAddress = window.suiet.account?.address;
+        } else {
+          throw new Error('کیف‌پول سویی (Sui Wallet یا Suiet) در مرورگر یافت نشد.');
+        }
+      } else if (chainKey === 'aptos') {
+        if (typeof window !== 'undefined' && window.aptos) {
+          const res = await window.aptos.connect();
+          detectedAddress = res.address;
+        } else if (typeof window !== 'undefined' && window.pontem) {
+          const res = await window.pontem.connect();
+          detectedAddress = res.address;
+        } else {
+          throw new Error('کیف‌پول آپتوس (Petra یا Pontem) در مرورگر یافت نشد.');
+        }
       } else {
         throw new Error(`اتصال خودکار به شبکه ${chainConfig.name} در حال حاضر نیاز به افزونه اختصاصی دارد.`);
       }
@@ -235,10 +267,13 @@ export function WalletProvider({ children }) {
   // Transparent Demo Mode (Optional for previewing without extension)
   const connectDemoMode = useCallback((chainKey) => {
     const demoAddresses = {
+      bitcoin: 'bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq',
       ton: 'EQCD39VS5jcptHL8vMjEXrzGaRcCVYto7HUn4bpAOg8xqB2N',
       solana: '7XwP6fC9dGkPZ91e2K5yBqJ8fG9m82La9Dk4eM5b6P81',
       ethereum: '0x71C8A6929944fcA312521C78D82A5239f88c5E91',
       tron: 'TMuA6YqfCeX8EhbfYg5y7SNNGLqxUX8e89',
+      sui: '0x2c636f3769c8a49c95d82be12e75e1141bc29b52a514d79fa5534c568600c6d7',
+      aptos: '0x1b44d2d48f76e73cbe82e1c75c8cbca5fb8435d1e67cf72acfae155b0a390d79',
       zcash: 'zs1znewe2leucskx9x82nx2wunxsamvuegtafhuvzahv2tu3gsqrax0af999pnk4z46ugj9reyrxj5'
     };
 

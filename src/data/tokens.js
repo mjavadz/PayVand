@@ -146,6 +146,11 @@ export const SUPPORTED_CHAINS = [
 ];
 
 export const TOKENS = {
+  bitcoin: [
+    { symbol: 'BTC', name: 'Bitcoin', decimals: 8, address: 'native', priceUSD: 64500.00, icon: 'btc', isNative: true, censorshipResistant: true, securityLabel: 'کوین بومی شبکه بیت‌کوین (UTXO فاقد فریز)' },
+    { symbol: 'USDT', name: 'Tether USD (Omni / Liquid)', decimals: 8, address: 'omni_usdt', priceUSD: 1.00, icon: 'usdt', isNative: false, freezable: true, securityLabel: 'متمرکز (تابع فریز)' }
+  ],
+
   ton: [
     { symbol: 'TON', name: 'Toncoin', decimals: 9, address: 'native', priceUSD: 1.60, icon: 'ton', isNative: true, censorshipResistant: true, securityLabel: 'کوین بومی تلگرام (فاقد فریز)' },
     { symbol: 'STARS', name: 'Telegram Stars', decimals: 0, address: 'telegram_stars_desk', priceUSD: 0.015, icon: 'stars', isNative: false, securityLabel: 'استارز رسمی تلگرام' },

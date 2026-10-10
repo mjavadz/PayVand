@@ -95,8 +95,84 @@ export default function ChainSelectorModal({ isOpen, onClose, activeChain, onSel
 
         {/* Chain List - Vertical only (overflow-x-hidden) */}
         <div className="flex-1 overflow-y-auto overflow-x-hidden p-2 space-y-1 divide-y divide-white/[0.02]">
-          {filteredChains.length > 0 ? (
-            filteredChains.map((chain) => {
+          {/* Unified EVM Group Card (Only shown in 'all' view when not searching) */}
+          {selectedCategory === 'all' && !search && (
+            <div className="p-3.5 rounded-2xl bg-white/[0.025] border border-white/[0.06] space-y-2.5 transition-all mb-1">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-2xl bg-white/[0.04] border border-white/[0.06] flex items-center justify-center shrink-0">
+                    <ChainLogo chainId="ethereum" size={24} />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="font-bold text-sm text-foreground">اتریوم و شبکه‌های EVM</span>
+                      <span className="text-[10px] px-1.5 py-0.5 rounded bg-accent/15 text-accent font-bold">یکپارچه</span>
+                    </div>
+                    <p className="text-[11px] text-muted-foreground mt-0.5">
+                      سازگار با آدرس‌های 0x (اتریوم، بیس، آربیتروم، بایننس، پالیگان و لایه‌های ۲)
+                    </p>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    onSelectChain('ethereum');
+                    onClose();
+                  }}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                    isEVMChain(activeChain)
+                      ? 'bg-accent text-background shadow-xs'
+                      : 'bg-white/[0.05] hover:bg-white/[0.1] text-foreground'
+                  }`}
+                >
+                  {isEVMChain(activeChain) ? 'انتخاب شده' : 'انتخاب EVM'}
+                </button>
+              </div>
+
+              {/* Sub-chain pills */}
+              <div className="flex flex-wrap gap-1 pt-1 border-t border-white/[0.04]">
+                {[
+                  { id: 'ethereum', name: 'اتریوم' },
+                  { id: 'arbitrum', name: 'آربیتروم' },
+                  { id: 'base', name: 'بیس' },
+                  { id: 'bsc', name: 'بایننس' },
+                  { id: 'polygon', name: 'پالیگان' },
+                  { id: 'optimism', name: 'آپتیمیزم' },
+                  { id: 'avalanche', name: 'آوالانچ' },
+                  { id: 'zksync', name: 'زد‌کی‌سینک' },
+                  { id: 'linea', name: 'لینیا' },
+                ].map((evmSub) => (
+                  <button
+                    key={evmSub.id}
+                    type="button"
+                    onClick={() => {
+                      onSelectChain(evmSub.id);
+                      onClose();
+                    }}
+                    className={`px-2.5 py-1 rounded-lg text-[10px] font-bold transition-all flex items-center gap-1 ${
+                      activeChain === evmSub.id
+                        ? 'bg-accent/20 text-accent border border-accent/40 shadow-xs'
+                        : 'bg-white/[0.03] text-muted-foreground hover:text-foreground hover:bg-white/[0.06] border border-white/[0.04]'
+                    }`}
+                  >
+                    <ChainLogo chainId={evmSub.id} size={12} />
+                    <span>{evmSub.name}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Individual Non-EVM chains (or all chains if searching/filtering) */}
+          {((selectedCategory === 'all' && !search) 
+            ? filteredChains.filter(c => !isEVMChain(c)) 
+            : filteredChains
+          ).length > 0 ? (
+            ((selectedCategory === 'all' && !search) 
+              ? filteredChains.filter(c => !isEVMChain(c)) 
+              : filteredChains
+            ).map((chain) => {
               const isSelected = chain.id === activeChain;
               return (
                 <button
@@ -124,6 +200,11 @@ export default function ChainSelectorModal({ isOpen, onClose, activeChain, onSel
                         <span className="text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded bg-white/[0.05] text-muted-foreground border border-white/[0.08]">
                           {chain.nativeSymbol}
                         </span>
+                        {chain.id === 'bitcoin' && (
+                          <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-300 border border-amber-500/30">
+                            شبکه اصلی UTXO
+                          </span>
+                        )}
                         {chain.id === 'ton' && (
                           <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-sky-500/15 text-sky-300 border border-sky-500/30">
                             GRAM و استارز

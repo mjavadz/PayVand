@@ -41,11 +41,15 @@ export const WalletLogo = ({ walletId, size = 24, className = '' }) => {
       case 'suiet':
         return '/assets/icons/wallets/suiet.svg';
       case 'suiwallet':
-        return '/assets/icons/wallets/suiet.svg';
+        return '/assets/icons/wallets/suiwallet.svg';
       case 'petra':
         return '/assets/icons/wallets/petra.svg';
       case 'pontem':
-        return '/assets/icons/wallets/petra.svg';
+        return '/assets/icons/wallets/pontem.svg';
+      case 'unisat':
+        return '/assets/icons/wallets/unisat.svg';
+      case 'xverse':
+        return '/assets/icons/wallets/xverse.svg';
       case 'coinbase':
         return '/assets/icons/wallets/coinbase.svg';
       case 'okx':

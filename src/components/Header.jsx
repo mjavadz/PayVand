@@ -28,19 +28,27 @@ export default function Header({
   );
 
   const getChainName = () => {
+    const evmChains = ['ethereum', 'bsc', 'base', 'arbitrum', 'optimism', 'polygon', 'avalanche', 'zksync', 'linea'];
+    if (evmChains.includes(activeChain)) {
+      if (activeChain === 'ethereum') return 'اتریوم و EVM';
+      const evmSubNames = {
+        bsc: 'EVM • بایننس',
+        base: 'EVM • بیس',
+        arbitrum: 'EVM • آربیتروم',
+        optimism: 'EVM • آپتیمیزم',
+        polygon: 'EVM • پالیگان',
+        avalanche: 'EVM • آوالانچ',
+        zksync: 'EVM • زد‌کی‌سینک',
+        linea: 'EVM • لینیا',
+      };
+      return evmSubNames[activeChain] || 'اتریوم و EVM';
+    }
+
     const names = {
-      ethereum: 'اتریوم',
+      bitcoin: 'بیت‌کوین',
       solana: 'سولانا',
       ton: 'تون',
       tron: 'ترون',
-      bsc: 'بایننس چین',
-      base: 'بیس',
-      arbitrum: 'آربیتروم',
-      optimism: 'آپتیمیزم',
-      polygon: 'پالیگان',
-      avalanche: 'آوالانچ',
-      zksync: 'زد‌کی‌سینک',
-      linea: 'لینیا',
       sui: 'سویی',
       aptos: 'آپتوس',
       zcash: 'زی‌کش',

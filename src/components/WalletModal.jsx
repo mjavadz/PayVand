@@ -32,26 +32,44 @@ const EVM_NETWORKS = [
 
 const EVM_ID_SET = new Set(EVM_NETWORKS.map(c => c.id));
 
-// Top Ecosystem Tabs: Dedicated tabs with authentic logos for each blockchain
+// Top Ecosystem Tabs: Consolidated to 8 clean ecosystems
 const ECOSYSTEM_TABS = [
+  { id: 'evm', name: 'اتریوم و EVM', iconChainId: 'ethereum' },
+  { id: 'bitcoin', name: 'بیت‌کوین (BTC)', iconChainId: 'bitcoin' },
   { id: 'ton', name: 'تون (TON)', iconChainId: 'ton' },
   { id: 'solana', name: 'سولانا (SOL)', iconChainId: 'solana' },
-  { id: 'ethereum', name: 'اتریوم (ETH)', iconChainId: 'ethereum' },
-  { id: 'arbitrum', name: 'آربیتروم (ARB)', iconChainId: 'arbitrum' },
-  { id: 'base', name: 'بیس (Base)', iconChainId: 'base' },
-  { id: 'bsc', name: 'بایننس (BNB)', iconChainId: 'bsc' },
-  { id: 'polygon', name: 'پالیگان (POL)', iconChainId: 'polygon' },
-  { id: 'avalanche', name: 'آوالانچ (AVAX)', iconChainId: 'avalanche' },
-  { id: 'optimism', name: 'آپتیمیزم (OP)', iconChainId: 'optimism' },
-  { id: 'zksync', name: 'زد‌کی‌سینک (ZK)', iconChainId: 'zksync' },
-  { id: 'linea', name: 'لینیا (Linea)', iconChainId: 'linea' },
-  { id: 'zcash', name: 'زی‌کش (ZEC)', iconChainId: 'zcash' },
   { id: 'tron', name: 'ترون (TRX)', iconChainId: 'tron' },
   { id: 'sui', name: 'سویی (SUI)', iconChainId: 'sui' },
   { id: 'aptos', name: 'آپتوس (APT)', iconChainId: 'aptos' },
+  { id: 'zcash', name: 'زی‌کش (ZEC)', iconChainId: 'zcash' },
 ];
 
 const WALLET_OPTIONS = {
+  bitcoin: [
+    { 
+      id: 'unisat', 
+      name: 'UniSat Wallet', 
+      desc: 'کیف‌پول تخصصی شبکه اصلی بیت‌کوین و اوردینالز', 
+      badge: 'پیشنهادی', 
+      checkInstalled: () => typeof window !== 'undefined' && Boolean(window.unisat),
+      installUrl: 'https://unisat.io/'
+    },
+    { 
+      id: 'xverse', 
+      name: 'Xverse Wallet', 
+      desc: 'امن‌ترین کیف‌پول وب۳ بیت‌کوین برای نگهداری و دیفای', 
+      badge: 'محبوب',
+      checkInstalled: () => typeof window !== 'undefined' && Boolean(window.xverse),
+      installUrl: 'https://www.xverse.app/'
+    },
+    { 
+      id: 'okx', 
+      name: 'OKX Wallet', 
+      desc: 'کیف‌پول چند ارزی متمرکز بر بیت‌کوین و وب۳',
+      checkInstalled: () => typeof window !== 'undefined' && Boolean(window.okxwallet?.bitcoin),
+      installUrl: 'https://www.okx.com/web3'
+    }
+  ],
   evm: [
     { 
       id: 'metamask', 
@@ -201,14 +219,18 @@ export default function WalletModal({ isOpen, onClose }) {
     connectError 
   } = useWallet();
 
-  const [selectedTab, setSelectedTab] = useState(activeChain || 'ethereum');
+  const isCurrentEVM = isEVMChain(activeChain);
+  const [selectedTab, setSelectedTab] = useState(isCurrentEVM ? 'evm' : (activeChain || 'evm'));
+  const [evmSubChain, setEvmSubChain] = useState(isCurrentEVM ? activeChain : 'ethereum');
   const [copied, setCopied] = useState(false);
   const [localError, setLocalError] = useState(null);
 
   // Sync state whenever modal opens or activeChain updates
   useEffect(() => {
     if (isOpen) {
-      setSelectedTab(activeChain || 'ethereum');
+      const isEVM = isEVMChain(activeChain);
+      setSelectedTab(isEVM ? 'evm' : (activeChain || 'evm'));
+      if (isEVM) setEvmSubChain(activeChain);
       setLocalError(null);
     }
   }, [isOpen, activeChain]);
@@ -216,12 +238,12 @@ export default function WalletModal({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   // The actual blockchain network targeted for connection
-  const targetChainId = selectedTab;
+  const targetChainId = selectedTab === 'evm' ? evmSubChain : selectedTab;
   const chainConfig = getChainById(targetChainId) || getChainById('ethereum');
-  const currentWallet = connectedWallets[targetChainId];
+  const currentWallet = connectedWallets[targetChainId] || (selectedTab === 'evm' ? (connectedWallets[evmSubChain] || connectedWallets.ethereum) : null);
 
   // Resolve wallet options depending on chain type
-  const chainType = isEVMChain(chainConfig) ? 'evm' : (chainConfig?.type || 'evm');
+  const chainType = selectedTab === 'evm' ? 'evm' : (chainConfig?.type || selectedTab);
   const availableWallets = WALLET_OPTIONS[chainType] || WALLET_OPTIONS.evm;
 
   const handleCopy = (text) => {
@@ -306,12 +328,43 @@ export default function WalletModal({ isOpen, onClose }) {
           })}
         </div>
 
-        {/* Informational banner for EVM chains */}
-        {isEVMChain(chainConfig) && (
+        {/* Informational banner and sub-chain selector for EVM chains */}
+        {selectedTab === 'evm' && (
+          <div className="px-4 py-2.5 bg-muted/40 border-b border-border/40 space-y-2 text-xs text-muted-foreground animate-fade-in">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent shrink-0" />
+                <span className="text-[11px] font-sans">اتصال یکپارچه به کلیه شبکه‌های EVM (آدرس 0x...)</span>
+              </div>
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-accent/10 text-accent font-bold">EVM یکپارچه</span>
+            </div>
+            {/* Quick EVM Network Pills */}
+            <div className="flex flex-wrap gap-1 pt-0.5">
+              {EVM_NETWORKS.map(net => (
+                <button
+                  key={net.id}
+                  type="button"
+                  onClick={() => setEvmSubChain(net.id)}
+                  className={`px-2 py-1 rounded-lg text-[10px] font-bold transition-all flex items-center gap-1 ${
+                    evmSubChain === net.id
+                      ? 'bg-accent/20 text-accent border border-accent/40 shadow-xs'
+                      : 'bg-white/[0.03] text-muted-foreground hover:text-foreground hover:bg-white/[0.06] border border-white/[0.04]'
+                  }`}
+                >
+                  {getChainIcon(net.id, 12)}
+                  <span>{net.symbol}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Informational banner for non-EVM chains */}
+        {selectedTab !== 'evm' && chainConfig && (
           <div className="px-4 py-2 bg-muted/40 border-b border-border/40 flex items-center justify-between text-[11px] text-muted-foreground animate-fade-in">
             <div className="flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-accent shrink-0" />
-              <span>سازگار با استاندارد آدرس اتریوم (0x...)</span>
+              <span>{chainConfig.badge || `اکوسیستم اختصاصی ${chainConfig.name}`}</span>
             </div>
             <div className="flex items-center gap-1.5 font-bold text-foreground">
               {getChainIcon(chainConfig.id, 14)}

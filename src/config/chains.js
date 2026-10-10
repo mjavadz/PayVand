@@ -3,14 +3,32 @@
 
 export const CHAIN_CATEGORIES = [
   { id: 'all', name: 'همه شبکه‌ها' },
+  { id: 'evm', name: 'اتریوم و زنجیره‌های EVM' },
+  { id: 'btc', name: 'بیت‌کوین (Bitcoin)' },
   { id: 'ton', name: 'اکوسیستم تلگرام (TON)' },
   { id: 'solana', name: 'اکوسیستم سولانا (Solana)' },
-  { id: 'evm', name: 'اتریوم و زنجیره‌های EVM' },
-  { id: 'privacy', name: 'توکن‌های محرمانه (Privacy Coins)' },
-  { id: 'move', name: 'شبکه‌های نسل نو (Move)' }
+  { id: 'move', name: 'شبکه‌های نسل نو (Move)' },
+  { id: 'privacy', name: 'توکن‌های محرمانه (Privacy Coins)' }
 ];
 
 export const CHAINS = {
+  // --- Bitcoin ---
+  bitcoin: {
+    id: 'bitcoin',
+    name: 'بیت‌کوین',
+    englishName: 'Bitcoin Mainnet',
+    nativeSymbol: 'BTC',
+    type: 'bitcoin',
+    category: 'btc',
+    mainDex: 'Thorchain & Native Swaps',
+    badge: 'پادشاه رمزارزها (UTXO)',
+    color: '#F7931A',
+    rpcUrls: ['https://mempool.space/api'],
+    blockExplorer: 'https://mempool.space',
+    decimals: 8,
+    defaultGas: '0.00005 BTC'
+  },
+
   // --- Telegram & High Speed ---
   ton: {
     id: 'ton',
