@@ -51,6 +51,11 @@ export async function onRequestGet(context) {
       name: 'اوام‌پی فینکس (OMPfinex)',
       url: 'https://api.ompfinex.com/v1/market',
       parse: (d) => Number(d?.data?.find(m => m?.base_currency?.id === 'USDT' && m?.quote_currency?.id === 'IRR')?.last_price) / 10
+    },
+    {
+      name: 'آبان‌تتر (AbanTether)',
+      url: 'https://api.abantether.com/api/v1/otc/currencies/USDT',
+      parse: (d) => Number(d?.price || d?.buy_price || d?.sell_price)
     }
   ];
 

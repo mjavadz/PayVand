@@ -1,10 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  PayVand logo — editable SVG vector artwork.
+  The canvas intentionally has no background element, so it is transparent.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none" role="img" aria-labelledby="title desc">
+  <title id="title">PayVand interlocking ribbon mark</title>
+  <desc id="desc">A symmetrical turquoise and violet interlocking rounded diamond, with a small purple diamond at its centre.</desc>
   <defs>
-    <linearGradient id="pvFaviconGrad" gradientUnits="userSpaceOnUse" x1="25" y1="85" x2="85" y2="15">
-      <stop offset="0%" stop-color="#10B981" />
-      <stop offset="100%" stop-color="#06B6D4" />
+    <linearGradient id="lower-ribbon" x1="125" y1="267" x2="387" y2="389" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#34276E"/>
+      <stop offset="1" stop-color="#7A3FC2"/>
     </linearGradient>
   </defs>
-  <path d="M 30 15 V 85" stroke="url(#pvFaviconGrad)" stroke-width="12" stroke-linecap="round"/>
-  <circle cx="55" cy="40" r="25" stroke="url(#pvFaviconGrad)" stroke-width="12"/>
+
+  <!-- Upper turquoise ribbon -->
+  <path d="M96 256 224 128Q256 96 288 128L416 256 352 320"
+        stroke="#19C8C6" stroke-width="64" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Lower violet/navy ribbon: mirrored counterpart -->
+  <path d="M416 256 288 384Q256 416 224 384L96 256 160 192"
+        stroke="url(#lower-ribbon)" stroke-width="64" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Central clasp -->
+  <path d="m256 218 38 38-38 38-38-38 38-38Z" fill="#7B3FC4"/>
 </svg>

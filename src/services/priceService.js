@@ -24,11 +24,12 @@ let CACHED_PRICES = {
 
 let IRAN_TETHER_RATE = 265500; // Baseline average Toman
 let IRAN_EXCHANGES_BREAKDOWN = [
-  { id: 'nobitex', name: 'نوبیتکس (Nobitex)', price: 265450, spread: -50, status: 'live', volumeShare: '۴۲٪' },
+  { id: 'nobitex', name: 'نوبیتکس (Nobitex)', price: 265450, spread: -50, status: 'live', volumeShare: '۳۸٪' },
   { id: 'wallex', name: 'والکس (Wallex)', price: 265390, spread: -110, status: 'live', volumeShare: '۲۴٪' },
   { id: 'bitpin', name: 'بیت‌پین (Bitpin)', price: 265910, spread: +410, status: 'live', volumeShare: '۱۶٪' },
   { id: 'ramzinex', name: 'رمزینکس (Ramzinex)', price: 265520, spread: +20, status: 'live', volumeShare: '۱۰٪' },
-  { id: 'ompfinex', name: 'اوام‌پی فینکس (OMPfinex)', price: 265480, spread: -20, status: 'live', volumeShare: '۸٪' }
+  { id: 'ompfinex', name: 'اوام‌پی فینکس (OMPfinex)', price: 265480, spread: -20, status: 'live', volumeShare: '۷٪' },
+  { id: 'abantether', name: 'آبان‌تتر (AbanTether)', price: 265510, spread: +10, status: 'live', volumeShare: '۵٪' }
 ];
 
 let lastFetchTime = 0;
@@ -110,7 +111,7 @@ export async function fetchLivePrices() {
       });
     }
 
-    // Always maintain all 5 exchanges calibrated to current market level
+    // Always maintain all 6 exchanges calibrated to current market level
     if (liveAnchor) {
       const nobitexIdx = IRAN_EXCHANGES_BREAKDOWN.findIndex(e => e.id === 'nobitex');
       if (nobitexIdx !== -1) IRAN_EXCHANGES_BREAKDOWN[nobitexIdx].price = Math.round(liveAnchor * 1.0002);
@@ -120,6 +121,9 @@ export async function fetchLivePrices() {
 
       const ompIdx = IRAN_EXCHANGES_BREAKDOWN.findIndex(e => e.id === 'ompfinex');
       if (ompIdx !== -1) IRAN_EXCHANGES_BREAKDOWN[ompIdx].price = Math.round(liveAnchor * 0.9998);
+
+      const abanIdx = IRAN_EXCHANGES_BREAKDOWN.findIndex(e => e.id === 'abantether');
+      if (abanIdx !== -1) IRAN_EXCHANGES_BREAKDOWN[abanIdx].price = Math.round(liveAnchor * 1.0001);
     }
 
     const avg = Math.round(
