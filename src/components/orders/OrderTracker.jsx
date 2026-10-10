@@ -14,6 +14,8 @@ import { toPersianDigits, formatToman } from '../../utils/format';
 import StarsInvoiceModal from '../stars/StarsInvoiceModal';
 import { Stepper } from '@/components/ui/stepper';
 import { Price } from '@/components/ui/price';
+import { DatePicker } from '@/components/ui/date-picker';
+import { formatJalali, formatJalaliNumeric } from '@/lib/jalali';
 
 export default function OrderTracker() {
   const [searchId, setSearchId] = useState('');
@@ -21,6 +23,7 @@ export default function OrderTracker() {
   const [activeInvoice, setActiveInvoice] = useState(null);
   const [searchedOrder, setSearchedOrder] = useState(null);
   const [notFound, setNotFound] = useState(false);
+  const [dateFilter, setDateFilter] = useState();
 
   const loadHistory = () => {
     const list = getOrderHistory();
@@ -30,6 +33,16 @@ export default function OrderTracker() {
   useEffect(() => {
     loadHistory();
   }, []);
+
+  const filteredOrders = orders.filter(ord => {
+    if (!dateFilter) return true;
+    const orderDate = new Date(ord.createdAt || Date.now());
+    return (
+      orderDate.getFullYear() === dateFilter.getFullYear() &&
+      orderDate.getMonth() === dateFilter.getMonth() &&
+      orderDate.getDate() === dateFilter.getDate()
+    );
+  });
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -160,18 +173,27 @@ export default function OrderTracker() {
       )}
 
       {/* Recent Orders List Card */}
-      <div className="bg-card border border-border rounded-2xl p-5 space-y-3 shadow-sm">
-        <div className="flex items-center justify-between pb-2.5 border-b border-border">
+      <div className="bg-card border border-border rounded-2xl p-5 space-y-3 shadow-sm font-sans">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-border">
           <div className="flex items-center gap-2">
             <Clock size={15} className="text-accent" />
             <h3 className="text-xs sm:text-sm font-bold text-foreground">سوابق سفارشات اخیر</h3>
           </div>
-          <span className="text-xs text-muted-foreground font-mono">{toPersianDigits(orders.length)} سفارش</span>
+          
+          <div className="flex items-center gap-2.5">
+            <DatePicker
+              value={dateFilter}
+              onChange={setDateFilter}
+              placeholder="فیلتر تقویم شمسی..."
+              className="w-44 text-xs"
+            />
+            <span className="text-xs text-muted-foreground font-mono shrink-0">{toPersianDigits(filteredOrders.length)} سفارش</span>
+          </div>
         </div>
 
-        {orders.length > 0 ? (
+        {filteredOrders.length > 0 ? (
           <div className="divide-y divide-border/60">
-            {orders.map((ord) => (
+            {filteredOrders.map((ord) => (
               <div 
                 key={ord.id}
                 className="py-3 flex items-center justify-between gap-3 text-right hover:bg-muted/40 p-2 rounded-xl transition-colors cursor-pointer"
@@ -184,14 +206,18 @@ export default function OrderTracker() {
                   <div>
                     <div className="flex items-center gap-2">
                       <span className="font-mono text-xs font-bold text-foreground" dir="ltr">{ord.id}</span>
-                      <span className="text-[10px] font-semibold text-muted-foreground bg-muted px-1.5 py-0.5 rounded">
+                      <span className="text-[10px] font-semibold text-muted-foreground bg-muted px-1.5 py-0.5 rounded font-sans">
                         {toPersianDigits(ord.stars)} استارز
                       </span>
                     </div>
-                    <div className="flex items-center gap-2 text-xs text-muted-foreground mt-0.5">
+                    <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground mt-0.5">
                       <span>برای: <span className="font-mono text-foreground">{ord.username}</span></span>
                       <span>•</span>
                       <Price amount={ord.pricing?.totalToman || 0} size="sm" />
+                      <span>•</span>
+                      <span className="text-[11px] font-sans text-accent">
+                        {formatJalali(new Date(ord.createdAt || Date.now()), { weekday: false, year: true })}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -205,7 +231,7 @@ export default function OrderTracker() {
           </div>
         ) : (
           <div className="text-center py-6 text-xs text-muted-foreground">
-            هنوز سفارشی در این مرورگر ثبت نشده است.
+            {dateFilter ? 'سفارشی در این تاریخ شمسی ثبت نشده است.' : 'هنوز سفارشی در این مرورگر ثبت نشده است.'}
           </div>
         )}
       </div>

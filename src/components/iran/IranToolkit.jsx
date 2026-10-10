@@ -18,8 +18,25 @@ import {
   ArrowRightLeft,
   ExternalLink,
   Zap,
-  Check
+  Check,
+  Calendar as CalendarLucide,
+  CalendarDays,
+  CalendarCheck2,
+  ArrowLeftRight,
+  Info
 } from 'lucide-react';
+import { Calendar } from '../ui/calendar';
+import { DatePicker } from '../ui/date-picker';
+import { 
+  formatJalali, 
+  formatJalaliNumeric, 
+  toJalali, 
+  toGregorian, 
+  JALALI_MONTHS, 
+  JALALI_WEEKDAYS, 
+  jalaliWeekday 
+} from '../../lib/jalali';
+import { toPersianDigits } from '../../utils/format';
 import { 
   TonIcon, 
   SolanaIcon, 
@@ -63,6 +80,48 @@ export default function IranToolkit({ initialSubTab = 'cashout' }) {
   const exchanges = getIranExchangesBreakdown();
 
   const [calcInput, setCalcInput] = useState('100');
+
+  // Jalali Calendar & Converter States
+  const [selectedCalendarDate, setSelectedCalendarDate] = useState(() => new Date());
+  const [convDirection, setConvDirection] = useState('j2g'); // j2g: شمسی به میلادی, g2j: میلادی به شمسی
+  const [convJDay, setConvJDay] = useState(() => String(toJalali(new Date()).jd));
+  const [convJMonth, setConvJMonth] = useState(() => String(toJalali(new Date()).jm));
+  const [convJYear, setConvJYear] = useState(() => String(toJalali(new Date()).jy));
+  const [convGDay, setConvGDay] = useState(() => String(new Date().getDate()));
+  const [convGMonth, setConvGMonth] = useState(() => String(new Date().getMonth() + 1));
+  const [convGYear, setConvGYear] = useState(() => String(new Date().getFullYear()));
+  const [conversionResult, setConversionResult] = useState('');
+
+  const handleConvertDate = () => {
+    try {
+      if (convDirection === 'j2g') {
+        const y = parseInt(convJYear, 10);
+        const m = parseInt(convJMonth, 10);
+        const d = parseInt(convJDay, 10);
+        if (!y || !m || !d || m < 1 || m > 12 || d < 1 || d > 31) {
+          setConversionResult('تاریخ شمسی واردشده نامعتبر است');
+          return;
+        }
+        const gDate = toGregorian(y, m, d);
+        const gStr = gDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        setConversionResult(`معادل میلادی: ${gStr} (${gDate.toISOString().slice(0, 10)})`);
+      } else {
+        const y = parseInt(convGYear, 10);
+        const m = parseInt(convGMonth, 10);
+        const d = parseInt(convGDay, 10);
+        if (!y || !m || !d || m < 1 || m > 12 || d < 1 || d > 31) {
+          setConversionResult('تاریخ میلادی واردشده نامعتبر است');
+          return;
+        }
+        const gDate = new Date(y, m - 1, d);
+        const jStr = formatJalali(gDate, { weekday: true, year: true });
+        const jNum = formatJalaliNumeric(gDate);
+        setConversionResult(`معادل شمسی: ${jStr} (${jNum})`);
+      }
+    } catch {
+      setConversionResult('خطا در تبدیل تاریخ');
+    }
+  };
 
   const getAssetPriceUSD = (assetId) => {
     if (assetId.startsWith('usdt')) return 1.0;
@@ -188,7 +247,20 @@ export default function IranToolkit({ initialSubTab = 'cashout' }) {
           }`}
         >
           <ShieldAlert size={13} className="text-emerald-400" />
-          <span>سپر ضد فریز و قطع منشأ</span>
+          <span>سپر ضد فریز</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setSubTab('calendar')}
+          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-semibold transition-all ${
+            subTab === 'calendar'
+              ? 'bg-card text-emerald-400 border border-border shadow-sm'
+              : 'text-fgSubtle hover:text-fg hover:bg-card/50'
+          }`}
+        >
+          <CalendarLucide size={13} className={subTab === 'calendar' ? 'text-emerald-400' : ''} />
+          <span>تقویم شمسی و تسویه</span>
         </button>
       </div>
 
@@ -793,6 +865,248 @@ export default function IranToolkit({ initialSubTab = 'cashout' }) {
                 </p>
               </div>
             </div>
+          </div>
+
+        </div>
+      )}
+
+      {/* SubTab 4: Jalali Calendar & Banking Settlement Schedule */}
+      {subTab === 'calendar' && (
+        <div className="space-y-4 animate-fade-in font-sans">
+          
+          {/* Header Status Card */}
+          <div className="card p-4 border border-border/70 rounded-2xl bg-card space-y-2">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-border/50">
+              <div className="flex items-center gap-2.5">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+                <div>
+                  <div className="text-xs sm:text-sm font-extrabold text-foreground flex items-center gap-2">
+                    <span>تاریخ رسمی امروز ایران:</span>
+                    <span className="text-emerald-400 font-black">{formatJalali(new Date(), { weekday: true, year: true })}</span>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground mt-0.5 font-sans">
+                    بر مبنای ساعت رسمی کشور (Asia/Tehran • UTC+03:30) • تقویم خورشیدی رسمی
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 shrink-0">
+                <span className="text-[10px] px-2.5 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-bold">
+                  {new Date().getDay() === 5 ? 'جمعه • تعطیل رسمی' : 'روز کاری فعال شبکه بانکی'}
+                </span>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap items-center justify-between gap-2 pt-1 text-[11px] text-muted-foreground">
+              <span>معادل میلادی روز جاری:</span>
+              <span className="font-mono text-foreground font-bold" dir="ltr">
+                {new Date().toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' })}
+              </span>
+            </div>
+          </div>
+
+          {/* 2-Column Responsive Grid: Calendar on Right, Settlement & Tools on Left */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
+            
+            {/* Column 1: Interactive FarsiUI Jalali Calendar Component */}
+            <div className="space-y-3 flex flex-col items-center">
+              <Calendar
+                selected={selectedCalendarDate}
+                onSelect={setSelectedCalendarDate}
+                className="w-full max-w-full"
+              />
+
+              {/* Selected Day Info Card */}
+              <div className="w-full p-3.5 rounded-2xl bg-card border border-border/70 text-xs space-y-1.5 shadow-xs">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-foreground">روز انتخاب‌شده در تقویم:</span>
+                  <span className="text-emerald-400 font-bold">
+                    {formatJalali(selectedCalendarDate, { weekday: true, year: true })}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between text-[11px] text-muted-foreground pt-1 border-t border-border/40">
+                  <span>وضعیت تسویه پایا:</span>
+                  <span className={selectedCalendarDate.getDay() === 5 ? 'text-amber-400 font-bold' : 'text-emerald-400 font-bold'}>
+                    {selectedCalendarDate.getDay() === 5 ? 'تعطیل (انتقال به صبح شنبه)' : 'فعال در ۴ چرخه روزانه'}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Column 2: Banking Settlement Timetable & Converter */}
+            <div className="space-y-3.5">
+              
+              {/* Card 1: Official PAYA & SATNA Settlement Cycles */}
+              <div className="p-4 rounded-2xl bg-card border border-border space-y-3 shadow-xs">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-xs sm:text-sm font-bold text-foreground flex items-center gap-1.5">
+                    <Clock size={15} className="text-accent" />
+                    <span>سیکل‌های تسویه شاپرک و پایا (بانک مرکزی)</span>
+                  </h3>
+                  <span className="text-[10px] text-muted-foreground font-mono">۴ چرخه رسمی</span>
+                </div>
+
+                <div className="space-y-2 text-xs">
+                  <div className="p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.06] flex items-center justify-between">
+                    <div>
+                      <span className="font-bold text-foreground block text-xs">چرخه ۱ (بامداد)</span>
+                      <span className="text-[10px] text-muted-foreground">تراکنش‌های ساعت ۱۹:۰۰ الی ۲۴:۰۰</span>
+                    </div>
+                    <span className="font-mono font-bold text-emerald-400 text-xs" dir="ltr">۰۳:۴۵ صبح</span>
+                  </div>
+
+                  <div className="p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.06] flex items-center justify-between">
+                    <div>
+                      <span className="font-bold text-foreground block text-xs">چرخه ۲ (صبحگاهی)</span>
+                      <span className="text-[10px] text-muted-foreground">تراکنش‌های بامداد تا ساعت ۱۰:۰۰</span>
+                    </div>
+                    <span className="font-mono font-bold text-emerald-400 text-xs" dir="ltr">۱۰:۴۵ صبح</span>
+                  </div>
+
+                  <div className="p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.06] flex items-center justify-between">
+                    <div>
+                      <span className="font-bold text-foreground block text-xs">چرخه ۳ (ظهرگاهی)</span>
+                      <span className="text-[10px] text-muted-foreground">تراکنش‌های ساعات اولیه اداری</span>
+                    </div>
+                    <span className="font-mono font-bold text-emerald-400 text-xs" dir="ltr">۱۳:۴۵ بعدازظهر</span>
+                  </div>
+
+                  <div className="p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.06] flex items-center justify-between">
+                    <div>
+                      <span className="font-bold text-foreground block text-xs">چرخه ۴ (عصرگاهی)</span>
+                      <span className="text-[10px] text-muted-foreground">آخرین تسویه روز کاری جاری</span>
+                    </div>
+                    <span className="font-mono font-bold text-emerald-400 text-xs" dir="ltr">۱۸:۴۵ عصر</span>
+                  </div>
+                </div>
+
+                <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-[11px] text-amber-300 leading-relaxed flex items-start gap-2 font-sans">
+                  <Info size={14} className="shrink-0 mt-0.5 text-amber-400" />
+                  <span>
+                    در روزهای جمعه و تعطیلات رسمی، مبالغ نقدشده در چرخه اول اولین روز کاری بعد (شنبه ساعت ۰۳:۴۵) به حساب شما واریز خواهد شد.
+                  </span>
+                </div>
+              </div>
+
+              {/* Card 2: Two-way Date Converter */}
+              <div className="p-4 rounded-2xl bg-card border border-border space-y-3 shadow-xs">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-xs sm:text-sm font-bold text-foreground flex items-center gap-1.5">
+                    <ArrowLeftRight size={15} className="text-accent" />
+                    <span>مبدل تقویم شمسی ↔ میلادی</span>
+                  </h3>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setConvDirection(d => d === 'j2g' ? 'g2j' : 'j2g');
+                      setConversionResult('');
+                    }}
+                    className="text-[11px] font-bold text-accent hover:underline flex items-center gap-1 font-sans"
+                  >
+                    <span>{convDirection === 'j2g' ? 'تغییر به میلادی به شمسی' : 'تغییر به شمسی به میلادی'}</span>
+                  </button>
+                </div>
+
+                {convDirection === 'j2g' ? (
+                  <div className="space-y-2.5 font-sans">
+                    <div className="grid grid-cols-3 gap-2 text-center text-xs">
+                      <div>
+                        <label className="text-[10px] text-muted-foreground block mb-1">روز</label>
+                        <input
+                          type="number"
+                          min="1"
+                          max="31"
+                          value={convJDay}
+                          onChange={(e) => setConvJDay(e.target.value)}
+                          className="w-full p-2 rounded-lg bg-background border border-border text-center font-bold text-xs"
+                        />
+                      </div>
+                      <div>
+                        <label className="text-[10px] text-muted-foreground block mb-1">ماه</label>
+                        <select
+                          value={convJMonth}
+                          onChange={(e) => setConvJMonth(e.target.value)}
+                          className="w-full p-2 rounded-lg bg-background border border-border text-center font-bold text-xs font-sans"
+                        >
+                          {JALALI_MONTHS.map((mName, idx) => (
+                            <option key={mName} value={idx + 1}>{mName}</option>
+                          ))}
+                        </select>
+                      </div>
+                      <div>
+                        <label className="text-[10px] text-muted-foreground block mb-1">سال</label>
+                        <input
+                          type="number"
+                          value={convJYear}
+                          onChange={(e) => setConvJYear(e.target.value)}
+                          className="w-full p-2 rounded-lg bg-background border border-border text-center font-bold text-xs font-mono"
+                        />
+                      </div>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={handleConvertDate}
+                      className="w-full py-2 rounded-xl bg-accent hover:bg-emerald-600 text-background font-bold text-xs transition-colors shadow-xs"
+                    >
+                      تبدیل به تقویم میلادی
+                    </button>
+                  </div>
+                ) : (
+                  <div className="space-y-2.5 font-sans">
+                    <div className="grid grid-cols-3 gap-2 text-center text-xs">
+                      <div>
+                        <label className="text-[10px] text-muted-foreground block mb-1 font-mono">Day</label>
+                        <input
+                          type="number"
+                          min="1"
+                          max="31"
+                          value={convGDay}
+                          onChange={(e) => setConvGDay(e.target.value)}
+                          className="w-full p-2 rounded-lg bg-background border border-border text-center font-bold text-xs font-mono"
+                        />
+                      </div>
+                      <div>
+                        <label className="text-[10px] text-muted-foreground block mb-1 font-mono">Month</label>
+                        <input
+                          type="number"
+                          min="1"
+                          max="12"
+                          value={convGMonth}
+                          onChange={(e) => setConvGMonth(e.target.value)}
+                          className="w-full p-2 rounded-lg bg-background border border-border text-center font-bold text-xs font-mono"
+                        />
+                      </div>
+                      <div>
+                        <label className="text-[10px] text-muted-foreground block mb-1 font-mono">Year</label>
+                        <input
+                          type="number"
+                          value={convGYear}
+                          onChange={(e) => setConvGYear(e.target.value)}
+                          className="w-full p-2 rounded-lg bg-background border border-border text-center font-bold text-xs font-mono"
+                        />
+                      </div>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={handleConvertDate}
+                      className="w-full py-2 rounded-xl bg-accent hover:bg-emerald-600 text-background font-bold text-xs transition-colors shadow-xs"
+                    >
+                      تبدیل به تقویم شمسی
+                    </button>
+                  </div>
+                )}
+
+                {conversionResult && (
+                  <div className="p-2.5 rounded-xl bg-accent/10 border border-accent/30 text-xs font-bold text-accent text-center animate-fade-in font-sans">
+                    {conversionResult}
+                  </div>
+                )}
+              </div>
+
+            </div>
+
           </div>
 
         </div>
