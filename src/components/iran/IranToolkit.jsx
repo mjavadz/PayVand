@@ -223,6 +223,9 @@ export default function IranToolkit({ initialSubTab = 'cashout' }) {
         >
           <CreditCard size={13} />
           <span>نقد کردن به تومان</span>
+          <span className="text-[9px] px-1.5 py-0.2 rounded bg-amber-500/15 text-amber-400 font-bold border border-amber-500/30">
+            به‌زودی
+          </span>
         </button>
 
         <button
@@ -298,183 +301,100 @@ export default function IranToolkit({ initialSubTab = 'cashout' }) {
         </div>
       </div>
 
-      {/* SUBTAB 1: CASHOUT */}
+      {/* SUBTAB 1: CASHOUT (Temporarily Disabled - Coming Soon) */}
       {subTab === 'cashout' && (
-        <div className="card card-hover p-4 sm:p-5 space-y-4 animate-fade-in">
-          
-          <div className="pb-3 border-b border-border">
+        <div className="card p-4 sm:p-5 space-y-4 animate-fade-in relative overflow-hidden border border-amber-500/20 bg-white/[0.01]">
+          {/* Coming Soon Notice Overlay Header */}
+          <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/25 flex items-start sm:items-center justify-between gap-3 text-xs">
+            <div className="flex items-center gap-2.5">
+              <Clock size={18} className="text-amber-400 shrink-0" />
+              <div>
+                <strong className="text-amber-300 block font-bold text-xs sm:text-sm">سرویس نقد کردن و تسویه ریالی موقتاً غیرفعال است (به‌زودی)</strong>
+                <p className="text-[11px] text-muted-foreground mt-0.5 font-sans">
+                  زیرساخت اتصال خودکار به درگاه‌های بانکی و پایا در حال به‌روزرسانی امنیتی است و به زودی فعال خواهد شد.
+                </p>
+              </div>
+            </div>
+            <span className="px-2.5 py-1 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-300 font-bold text-[10px] shrink-0">
+              درحال ارتقا
+            </span>
+          </div>
+
+          <div className="pb-3 border-b border-border opacity-60">
             <h2 className="text-sm font-semibold text-fg">فروش رمزارز و استارز با واریز به حساب بانکی ایران</h2>
             <p className="text-xs text-fgMuted mt-0.5">تسویه مستقیم پایا و کارت به کارت به کلیه بانک‌های عضو شتاب</p>
           </div>
 
-          {!cashoutInvoice ? (
-            <form onSubmit={handleCreateCashout} className="space-y-3.5">
-              
-              {/* Asset Selection */}
-              <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-fgMuted">ارزی که قصد فروش دارید:</label>
-                <div className="grid grid-cols-2 gap-2">
-                  {IRAN_CASHOUT_ASSETS.map((asset) => {
-                    const isSelected = selectedAsset.id === asset.id;
-                    return (
-                      <button
-                        key={asset.id}
-                        type="button"
-                        onClick={() => setSelectedAsset(asset)}
-                        className={`flex items-center gap-2 p-2.5 rounded-lg border text-right transition-all ${
-                          isSelected
-                            ? 'bg-accentSoft border-accent/30 text-fg'
-                            : 'bg-muted border-border text-fgSubtle hover:text-fg hover:bg-card'
-                        }`}
-                      >
-                        <div className="shrink-0">{asset.icon}</div>
-                        <div>
-                          <strong className="text-xs block text-fg">{asset.symbol}</strong>
-                          <span className="text-[10px] text-fgMuted">{asset.name}</span>
-                        </div>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Amount */}
-              <div className="p-3 rounded-lg bg-muted/50 border border-border space-y-1.5">
-                <div className="flex justify-between items-center text-xs text-fgSubtle">
-                  <span>مقدار برای فروش:</span>
-                  <span className="text-[10px] text-fgMuted">حداقل: {selectedAsset.min} {selectedAsset.symbol}</span>
-                </div>
-
-                <div className="flex items-center justify-between gap-3">
-                  <input
-                    type="text"
-                    inputMode="decimal"
-                    placeholder="0"
-                    value={assetAmount}
-                    onChange={(e) => setAssetAmount(sanitizeNumeric(e.target.value, 16))}
-                    className="w-full bg-transparent text-xl font-bold text-fg placeholder-fgSubtle focus:outline-none font-mono"
-                  />
-                  <span className="text-xs font-bold text-fgMuted px-2 py-1 bg-card rounded border border-border">
-                    {selectedAsset.symbol}
-                  </span>
-                </div>
-
-                <div className="text-xs text-fgSubtle">≈ ${totalUSDValue.toFixed(2)} دلار</div>
-              </div>
-
-              {/* Bank Info */}
-              <div className="space-y-2">
-                <label className="text-xs font-semibold text-fgMuted">حساب بانکی ایران جهت دریافت:</label>
-
-                <input
-                  type="text"
-                  placeholder="شماره شبا (مثال: IR120120000000001234567890)"
-                  value={shebaNumber}
-                  onChange={(e) => handleShebaChange(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg bg-card border border-border text-xs text-fg placeholder-fgSubtle focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent font-mono"
-                  dir="ltr"
-                />
-
-                {detectedBank && (
-                  <div className="flex items-center gap-1.5 p-2 rounded-md bg-accentSoft border border-accent/20 text-xs text-accent">
-                    <CheckCircle2 size={12} />
-                    <span>بانک: <strong>{detectedBank.name}</strong></span>
-                  </div>
-                )}
-
-                <input
-                  type="text"
-                  placeholder="نام صاحب حساب (مطابق کارت بانکی)"
-                  value={accountOwner}
-                  onChange={(e) => setAccountOwner(sanitizeInput(e.target.value, 64))}
-                  className="w-full px-3 py-2 rounded-lg bg-card border border-border text-xs text-fg placeholder-fgSubtle focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent"
-                />
-              </div>
-
-              {/* Summary */}
-              <div className="p-3 rounded-lg bg-muted/30 border border-border/50 flex justify-between items-center text-xs">
-                <span className="font-semibold text-fg">مبلغ واریزی به حساب شما:</span>
-                <strong className="text-emerald-400 font-sans font-black text-sm sm:text-base">{formatToman(finalTomanPayout)}</strong>
-              </div>
-
-              {formError && (
-                <div className="p-2 rounded-md bg-destructiveSoft border border-destructive/30 text-destructive text-xs flex items-center gap-1.5">
-                  <AlertTriangle size={12} />
-                  <span>{formError}</span>
-                </div>
-              )}
-
-              <button
-                type="submit"
-                className="w-full py-3 rounded-lg btn-primary text-xs"
-              >
-                ثبت پیش‌فاکتور فروش
-              </button>
-
-            </form>
-          ) : (
-            /* Invoice Card */
-            <div className="space-y-3 animate-scale-in">
-              <div className="p-3 rounded-lg bg-card border border-accent/30 space-y-2 text-xs">
-                <div className="flex items-center justify-between pb-2 border-b border-border">
-                  <div>
-                    <span className="text-[10px] text-fgSubtle block">شناسه پیش‌فاکتور</span>
-                    <strong className="text-xs text-accent font-mono">{cashoutInvoice.orderId}</strong>
-                  </div>
-                  <div className="flex items-center gap-1 text-xs text-amber-400">
-                    <Clock size={12} />
-                    <span>مهلت ۱۵ دقیقه</span>
-                  </div>
-                </div>
-
-                <div className="p-2.5 bg-muted rounded border border-border space-y-1.5">
-                  <div className="flex justify-between text-fgSubtle">
-                    <span>مبلغ واریزی:</span>
-                    <strong className="text-accent font-bold">{formatToman(cashoutInvoice.tomanPayout)}</strong>
-                  </div>
-                  <div className="flex justify-between text-fgSubtle">
-                    <span>بانک و صاحب:</span>
-                    <span className="text-fg">{cashoutInvoice.bankName} • {cashoutInvoice.accountOwner}</span>
-                  </div>
-                  <div className="flex justify-between text-fgSubtle font-mono text-xs" dir="ltr">
-                    <span>{cashoutInvoice.shebaNumber}</span>
-                  </div>
-                </div>
-
-                <div className="space-y-1">
-                  <span className="text-xs font-semibold text-fgMuted block">
-                    آدرس کیف‌پول جهت انتقال {cashoutInvoice.amount} {cashoutInvoice.asset.symbol}:
-                  </span>
-                  <div className="flex items-center gap-2 p-2 rounded-lg bg-card border border-border">
-                    <span className="font-mono text-xs text-fg truncate flex-1" dir="ltr">
-                      {cashoutInvoice.depositAddress}
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => copyToClipboard(cashoutInvoice.depositAddress)}
-                      className="p-1 rounded bg-muted text-fgSubtle hover:text-fg"
-                      title="کپی"
+          {/* Disabled Form Preview */}
+          <div className="space-y-3.5 opacity-40 pointer-events-none select-none grayscale-[40%]">
+            {/* Asset Selection */}
+            <div className="space-y-1.5">
+              <label className="text-xs font-semibold text-fgMuted">ارزی که قصد فروش دارید:</label>
+              <div className="grid grid-cols-2 gap-2">
+                {IRAN_CASHOUT_ASSETS.map((asset) => {
+                  const isSelected = selectedAsset.id === asset.id;
+                  return (
+                    <div
+                      key={asset.id}
+                      className={`flex items-center gap-2 p-2.5 rounded-lg border text-right ${
+                        isSelected
+                          ? 'bg-accentSoft border-accent/30 text-fg'
+                          : 'bg-muted border-border text-fgSubtle'
+                      }`}
                     >
-                      {copied ? <CheckCircle2 size={12} className="text-accent" /> : <Copy size={12} />}
-                    </button>
-                  </div>
-                </div>
+                      <div className="shrink-0">{asset.icon}</div>
+                      <div>
+                        <strong className="text-xs block text-fg">{asset.symbol}</strong>
+                        <span className="text-[10px] text-fgMuted">{asset.name}</span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
 
-                <p className="text-[10px] text-fgSubtle leading-relaxed">
-                  پس از تایید تراکنش در بلاکچین، مبلغ ریالی به صورت آنی به شبای شما واریز می‌شود.
-                </p>
+            {/* Amount */}
+            <div className="p-3 rounded-lg bg-muted/50 border border-border space-y-1.5">
+              <div className="flex justify-between items-center text-xs text-fgSubtle">
+                <span>مقدار برای فروش:</span>
+                <span className="text-[10px] text-fgMuted">حداقل: {selectedAsset.min} {selectedAsset.symbol}</span>
               </div>
 
-              <button
-                type="button"
-                onClick={() => setCashoutInvoice(null)}
-                className="w-full py-2.5 rounded-lg bg-muted border border-border text-xs font-semibold text-fgSubtle hover:text-fg hover:bg-border transition-colors"
-              >
-                معامله جدید
-              </button>
+              <div className="flex items-center justify-between gap-3">
+                <input
+                  type="text"
+                  disabled
+                  placeholder="100"
+                  className="w-full bg-transparent text-xl font-bold text-fg placeholder-fgSubtle focus:outline-none font-mono cursor-not-allowed"
+                />
+                <span className="text-xs font-bold text-fgMuted px-2 py-1 bg-card rounded border border-border">
+                  {selectedAsset.symbol}
+                </span>
+              </div>
             </div>
-          )}
 
+            {/* Bank Info */}
+            <div className="space-y-2">
+              <label className="text-xs font-semibold text-fgMuted">حساب بانکی ایران جهت دریافت:</label>
+              <input
+                type="text"
+                disabled
+                placeholder="شماره شبا (مثال: IR120120000000001234567890)"
+                className="w-full px-3 py-2 rounded-lg bg-card border border-border text-xs text-fg placeholder-fgSubtle cursor-not-allowed font-mono"
+                dir="ltr"
+              />
+            </div>
+
+            {/* Disabled Submit Button */}
+            <button
+              type="button"
+              disabled
+              className="w-full py-3 rounded-lg bg-white/[0.05] border border-white/[0.08] text-muted-foreground font-bold text-xs cursor-not-allowed flex items-center justify-center gap-2"
+            >
+              <Clock size={14} />
+              <span>این قابلیت به زودی در دسترس قرار می‌گیرد</span>
+            </button>
+          </div>
         </div>
       )}
 
