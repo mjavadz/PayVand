@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Store, Code, Copy, Check, ShieldCheck, Zap, ArrowLeft, ExternalLink, QrCode, Sparkles, CheckCircle2 } from 'lucide-react';
 import { IranFlagIcon } from '../Icons';
+import { sanitizeInput, sanitizeAddress, sanitizeNumeric } from '../../utils/security';
 
 export default function PayVandCheckout() {
   const [storeName, setStoreName] = useState('فروشگاه آرایشی و بهداشتی ترنج');
@@ -139,7 +140,7 @@ export function PayVandButton({ amount = "${amount}", currency = "${currency}" }
               <input 
                 type="text" 
                 value={storeName} 
-                onChange={(e) => setStoreName(e.target.value)}
+                onChange={(e) => setStoreName(sanitizeInput(e.target.value, 64))}
                 className="w-full px-3 py-2 rounded-xl bg-muted/60 border border-border text-foreground font-sans focus:outline-none focus:border-accent"
               />
             </div>
@@ -149,7 +150,7 @@ export function PayVandButton({ amount = "${amount}", currency = "${currency}" }
               <input 
                 type="text" 
                 value={merchantWallet} 
-                onChange={(e) => setMerchantWallet(e.target.value)}
+                onChange={(e) => setMerchantWallet(sanitizeAddress(e.target.value, 128))}
                 placeholder="آدرس ولت تون، سولانا، اتریوم یا زی‌کش"
                 className="w-full px-3 py-2 rounded-xl bg-muted/60 border border-border text-foreground font-mono text-[11px] focus:outline-none focus:border-accent dir-ltr"
               />
@@ -164,7 +165,7 @@ export function PayVandButton({ amount = "${amount}", currency = "${currency}" }
                 <input 
                   type="number" 
                   value={amount} 
-                  onChange={(e) => setAmount(e.target.value)}
+                  onChange={(e) => setAmount(sanitizeNumeric(e.target.value, 16))}
                   className="w-full px-3 py-2 rounded-xl bg-muted/60 border border-border text-foreground font-mono focus:outline-none focus:border-accent dir-ltr"
                 />
               </div>

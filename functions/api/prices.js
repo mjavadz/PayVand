@@ -1,31 +1,49 @@
 // Cloudflare Pages Function: /api/prices
-// Live Crypto & Iranian Tether Rate (Trimmed Average of Top 5 Iranian Exchanges)
+// Live Crypto & Iranian Tether Rate (Trimmed Average of Top Iranian Exchanges)
+// Hardened with SSRF protection, outbound payload caps, and strict error containment.
 
-const SECURITY_HEADERS = {
-  'Content-Type': 'application/json; charset=utf-8',
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'GET, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type',
-  'X-Content-Type-Options': 'nosniff',
-  'X-Frame-Options': 'DENY',
-  'Referrer-Policy': 'strict-origin-when-cross-origin'
+import { validateQueryParams, safeFetch, createErrorResponse } from '../_security.js';
+
+const DEFAULT_PRICES = {
+  ton: 1.60,
+  solana: 117.10,
+  ethereum: 2692.00,
+  tron: 0.34,
+  bnb: 580.00,
+  btc: 64500.00,
+  usdt: 1.00
 };
 
-export async function onRequestOptions() {
-  return new Response(null, {
-    status: 204,
-    headers: SECURITY_HEADERS
-  });
-}
+const DEFAULT_IRAN_TETHER = {
+  averageToman: 265500,
+  sourcesCount: 0,
+  fallback: true
+};
 
 export async function onRequestGet(context) {
-  // 1. Fetch Global Crypto Prices (Binance public ticker)
-  const cryptoPromise = fetch('https://api.binance.com/api/v3/ticker/price?symbols=%5B%22TONUSDT%22,%22SOLUSDT%22,%22ETHUSDT%22,%22TRXUSDT%22,%22BNBUSDT%22,%22BTCUSDT%22%5D', {
-    headers: { 'Accept': 'application/json' },
-    cf: { cacheTtl: 15, cacheEverything: true }
-  }).then(r => r.json()).catch(() => []);
+  const { request } = context;
+  const requestId = context.data?.requestId || '';
 
-  // 2. Fetch Top 5 Iranian Exchanges by Volume
+  // 1. Strict parameter validation - Reject unexpected query params
+  const validation = validateQueryParams(request.url, {});
+  if (!validation.valid) {
+    return createErrorResponse(validation.error, 400, requestId);
+  }
+
+  // 2. Fetch Global Crypto Prices via SSRF-safe fetch
+  const cryptoPromise = safeFetch(
+    'https://api.binance.com/api/v3/ticker/price?symbols=%5B%22TONUSDT%22,%22SOLUSDT%22,%22ETHUSDT%22,%22TRXUSDT%22,%22BNBUSDT%22,%22BTCUSDT%22%5D',
+    {
+      headers: { 'Accept': 'application/json' },
+      timeoutMs: 3500,
+      maxBytes: 512 * 1024
+    }
+  ).then(r => r.json()).catch((err) => {
+    console.warn(`[${requestId}] Binance ticker fetch failed:`, err.message || err);
+    return [];
+  });
+
+  // 3. Permitted Top Iranian Exchanges by Volume
   const iranExchanges = [
     {
       name: 'نوبیتکس (Nobitex)',
@@ -61,33 +79,26 @@ export async function onRequestGet(context) {
 
   const iranPromise = Promise.allSettled(
     iranExchanges.map(async (ex) => {
-      const resp = await fetch(ex.url, {
+      const resp = await safeFetch(ex.url, {
         headers: { 'User-Agent': 'Mozilla/5.0 (compatible; PayVandBot/1.0)' },
-        cf: { cacheTtl: 30, cacheEverything: true },
-        signal: AbortSignal.timeout(3500)
+        timeoutMs: 3500,
+        maxBytes: 512 * 1024
       });
+
       if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
       const data = await resp.json();
       const price = ex.parse(data);
       if (typeof price === 'number' && Number.isFinite(price) && price > 40000 && price < 500000) {
         return { name: ex.name, price: Math.round(price) };
       }
-      throw new Error('Invalid rate');
+      throw new Error('Invalid rate bounds');
     })
   );
 
   try {
     const [cryptoData, iranResults] = await Promise.all([cryptoPromise, iranPromise]);
 
-    const prices = {
-      ton: 1.60,
-      solana: 117.10,
-      ethereum: 2692.00,
-      tron: 0.34,
-      bnb: 580.00,
-      btc: 64500.00,
-      usdt: 1.00
-    };
+    const prices = { ...DEFAULT_PRICES };
 
     if (Array.isArray(cryptoData)) {
       cryptoData.forEach(item => {
@@ -112,7 +123,7 @@ export async function onRequestGet(context) {
 
     const averageUsdtToman = validExchanges.length > 0
       ? Math.round(validExchanges.reduce((sum, item) => sum + item.price, 0) / validExchanges.length)
-      : 234000;
+      : DEFAULT_IRAN_TETHER.averageToman;
 
     return new Response(JSON.stringify({
       success: true,
@@ -124,35 +135,29 @@ export async function onRequestGet(context) {
         exchanges: validExchanges
       }
     }), {
+      status: 200,
       headers: {
-        ...SECURITY_HEADERS,
-        'Cache-Control': 'public, max-age=15, stale-while-revalidate=45'
+        'Content-Type': 'application/json; charset=utf-8',
+        'Cache-Control': 'public, max-age=15, stale-while-revalidate=45',
+        'Vary': 'Origin, Accept-Encoding'
       }
     });
 
   } catch (error) {
+    console.error(`[${requestId}] Internal pricing failure:`, error.message || error);
+    // Secure fallback: Never leak internal error message to client
     return new Response(JSON.stringify({
       success: false,
-      error: error.message || 'Internal pricing error',
-      prices: {
-        ton: 1.60,
-        solana: 117.10,
-        ethereum: 2692.00,
-        tron: 0.34,
-        bnb: 580.00,
-        btc: 64500.00,
-        usdt: 1.00
-      },
-      iranTether: {
-        averageToman: 234000,
-        sourcesCount: 0,
-        fallback: true
-      }
+      error: 'Unable to retrieve live pricing. Displaying cached baseline.',
+      requestId,
+      prices: DEFAULT_PRICES,
+      iranTether: DEFAULT_IRAN_TETHER
     }), {
       status: 200,
       headers: {
-        ...SECURITY_HEADERS,
-        'Cache-Control': 'public, max-age=5'
+        'Content-Type': 'application/json; charset=utf-8',
+        'Cache-Control': 'public, max-age=5',
+        'Vary': 'Origin, Accept-Encoding'
       }
     });
   }

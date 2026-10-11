@@ -2,6 +2,7 @@
 // Implements BIP-39 mnemonic generation, multi-chain address derivation, and AES-GCM local vault encryption.
 
 import { BIP39_WORDLIST } from './bip39Words.js';
+import { wipeMemory } from '../../utils/security.js';
 
 const STORAGE_KEY_VAULT = 'payvand_sovereign_vault_v2';
 
@@ -83,6 +84,9 @@ export async function generateMnemonic(strengthOrWords = 12) {
     const index = parseInt(chunk, 2);
     words.push(BIP39_WORDLIST[index] || 'abandon');
   }
+
+  // Securely wipe raw entropy from memory
+  wipeMemory(entropy);
 
   return words;
 }
@@ -300,7 +304,9 @@ export async function decryptVault(vaultObj, pin = '') {
       ciphertext
     );
     const dec = new TextDecoder();
-    return JSON.parse(dec.decode(decryptedBuffer));
+    const result = JSON.parse(dec.decode(decryptedBuffer));
+    wipeMemory(new Uint8Array(decryptedBuffer));
+    return result;
   } catch {
     throw new Error('رمز عبور (PIN) وارد شده نادرست است.');
   }

@@ -11,6 +11,7 @@ import {
 import { StarsIcon } from '../Icons';
 import { getOrderHistory } from '../../services/starsService';
 import { toPersianDigits, formatToman } from '../../utils/format';
+import { sanitizeInput } from '../../utils/security';
 import StarsInvoiceModal from '../stars/StarsInvoiceModal';
 import { Stepper } from '@/components/ui/stepper';
 import { Price } from '@/components/ui/price';
@@ -104,7 +105,7 @@ export default function OrderTracker() {
               type="text"
               placeholder="مثال: JS-STARS-491823"
               value={searchId}
-              onChange={(e) => setSearchId(e.target.value)}
+              onChange={(e) => setSearchId(sanitizeInput(e.target.value.replace(/[^a-zA-Z0-9-]/g, ''), 32))}
               className="w-full pl-3 pr-9 py-2.5 rounded-xl bg-background border border-border text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-accent font-mono"
               dir="ltr"
             />

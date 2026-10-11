@@ -20,6 +20,7 @@ import {
 } from '../../services/starsService';
 import { toPersianDigits, formatToman } from '../../utils/format';
 import { getIranTetherRate } from '../../services/priceService';
+import { sanitizeInput, sanitizeNumeric, sanitizeAddress } from '../../utils/security';
 import StarsInvoiceModal from './StarsInvoiceModal';
 
 export default function StarsDesk({ onOrderCreated, onBackToSwap }) {
@@ -53,7 +54,7 @@ export default function StarsDesk({ onOrderCreated, onBackToSwap }) {
   };
 
   const handleCustomChange = (val) => {
-    const clean = val.replace(/[^0-9]/g, '');
+    const clean = sanitizeNumeric(val, 8);
     setCustomStars(clean);
   };
 
@@ -206,7 +207,7 @@ export default function StarsDesk({ onOrderCreated, onBackToSwap }) {
                   required
                   placeholder="مثال: javad_crypto یا @mybot"
                   value={telegramUsername}
-                  onChange={(e) => setTelegramUsername(e.target.value)}
+                  onChange={(e) => setTelegramUsername(sanitizeInput(e.target.value, 32))}
                   className="input pr-9 py-2.5 font-mono text-sm"
                   dir="ltr"
                 />
@@ -350,7 +351,7 @@ export default function StarsDesk({ onOrderCreated, onBackToSwap }) {
                 required
                 placeholder="مثال: 1000"
                 value={sellStarsAmount}
-                onChange={(e) => setSellStarsAmount(e.target.value)}
+                onChange={(e) => setSellStarsAmount(sanitizeNumeric(e.target.value, 8))}
                 className="input py-2.5 font-mono text-sm"
                 dir="ltr"
               />
@@ -406,7 +407,7 @@ export default function StarsDesk({ onOrderCreated, onBackToSwap }) {
                 required
                 placeholder="آدرس کیف‌پول مقصد خود را وارد نمایید..."
                 value={sellPayoutAddress}
-                onChange={(e) => setSellPayoutAddress(e.target.value)}
+                onChange={(e) => setSellPayoutAddress(sanitizeAddress(e.target.value, 128))}
                 className="input py-2.5 font-mono text-xs"
                 dir="ltr"
               />

@@ -18,6 +18,7 @@ import { getSwapQuote, executeSwap } from '../../services/swapService';
 import { getIranTetherRate } from '../../services/priceService';
 import { useWallet } from '../../context/WalletContext';
 import { formatToman } from '../../utils/format';
+import { sanitizeNumeric } from '../../utils/security';
 
 export default function SwapCard({ onOpenWalletModal, onOpenChainSelector, onSwitchToShieldTab }) {
   const { 
@@ -268,7 +269,7 @@ export default function SwapCard({ onOpenWalletModal, onOpenChainSelector, onSwi
                 type="text"
                 placeholder="دلخواه"
                 value={['0.1', '0.5', '1.0'].includes(slippage) ? '' : slippage}
-                onChange={(e) => setSlippage(e.target.value.replace(/[^0-9.]/g, ''))}
+                onChange={(e) => setSlippage(sanitizeNumeric(e.target.value, 4))}
                 className="w-full text-center py-1.5 rounded-xl bg-white/[0.04] border border-white/[0.06] text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-accent font-mono"
               />
             </div>
@@ -291,7 +292,7 @@ export default function SwapCard({ onOpenWalletModal, onOpenChainSelector, onSwi
               inputMode="decimal"
               placeholder="0"
               value={fromAmount}
-              onChange={(e) => setFromAmount(e.target.value.replace(/[^0-9.]/g, ''))}
+              onChange={(e) => setFromAmount(sanitizeNumeric(e.target.value, 18))}
               className="w-full bg-transparent text-3xl sm:text-4xl font-bold font-mono text-foreground placeholder:text-zinc-600 focus:outline-none"
               aria-label="مقدار پرداخت"
             />

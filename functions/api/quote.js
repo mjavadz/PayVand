@@ -1,86 +1,91 @@
 // Cloudflare Pages Function: /api/quote
-// Secure Proxy for Solana Jupiter Aggregator API
+// Secure Hardened Proxy for Solana Jupiter Aggregator API
 
-const SECURITY_HEADERS = {
-  'Content-Type': 'application/json; charset=utf-8',
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'GET, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type',
-  'X-Content-Type-Options': 'nosniff',
-  'X-Frame-Options': 'DENY'
+import { validateQueryParams, safeFetch, createErrorResponse } from '../_security.js';
+
+const BASE58_MINT_REGEX = /^[1-9A-HJ-NP-Za-km-z]{32,44}$/;
+const POSITIVE_INT_REGEX = /^[1-9]\d{0,29}$/;
+
+const QUOTE_QUERY_SCHEMA = {
+  inputMint: {
+    required: true,
+    pattern: BASE58_MINT_REGEX,
+    maxLength: 44,
+    message: 'inputMint must be a valid Solana Base58 address (32-44 characters)'
+  },
+  outputMint: {
+    required: true,
+    pattern: BASE58_MINT_REGEX,
+    maxLength: 44,
+    message: 'outputMint must be a valid Solana Base58 address (32-44 characters)'
+  },
+  amount: {
+    required: true,
+    pattern: POSITIVE_INT_REGEX,
+    maxLength: 30,
+    message: 'amount must be a positive integer in base units'
+  },
+  slippageBps: {
+    required: false,
+    default: 50,
+    pattern: /^\d{1,4}$/,
+    transform: (val) => {
+      const num = parseInt(val, 10);
+      if (!Number.isInteger(num) || num < 1 || num > 5000) {
+        throw new Error('Slippage out of range');
+      }
+      return num;
+    },
+    message: 'slippageBps must be an integer between 1 and 5000'
+  }
 };
 
-export async function onRequestOptions() {
-  return new Response(null, {
-    status: 204,
-    headers: SECURITY_HEADERS
-  });
-}
-
 export async function onRequestGet(context) {
-  const { searchParams } = new URL(context.request.url);
-  const inputMint = searchParams.get('inputMint')?.trim();
-  const outputMint = searchParams.get('outputMint')?.trim();
-  const amount = searchParams.get('amount')?.trim();
-  const slippageBps = searchParams.get('slippageBps')?.trim() || '50';
+  const { request } = context;
+  const requestId = context.data?.requestId || '';
 
-  // Strict parameter validation
-  if (!inputMint || !outputMint || !amount) {
-    return new Response(JSON.stringify({ error: 'Missing required parameters (inputMint, outputMint, amount)' }), {
-      status: 400,
-      headers: SECURITY_HEADERS
-    });
+  // 1. Strict schema validation & unknown parameter rejection
+  const validation = validateQueryParams(request.url, QUOTE_QUERY_SCHEMA);
+  if (!validation.valid) {
+    return createErrorResponse(validation.error, 400, requestId);
   }
 
-  // Base58 regex or native token keyword
-  const base58Regex = /^[1-9A-HJ-NP-Za-km-z]{32,44}$/;
-  if (!base58Regex.test(inputMint) || !base58Regex.test(outputMint)) {
-    return new Response(JSON.stringify({ error: 'Invalid mint format' }), {
-      status: 400,
-      headers: SECURITY_HEADERS
-    });
-  }
+  const { inputMint, outputMint, amount, slippageBps } = validation.data;
 
-  // Positive integer check for amount and slippage
-  if (!/^\d+$/.test(amount) || BigInt(amount) <= 0n) {
-    return new Response(JSON.stringify({ error: 'Amount must be a positive integer' }), {
-      status: 400,
-      headers: SECURITY_HEADERS
-    });
-  }
+  // 2. Build strictly sanitized outbound Jupiter quote URL
+  const params = new URLSearchParams({
+    inputMint,
+    outputMint,
+    amount,
+    slippageBps: String(slippageBps)
+  });
+  const jupUrl = `https://quote-api.jup.ag/v6/quote?${params.toString()}`;
 
-  const numSlippage = Number(slippageBps);
-  if (!Number.isInteger(numSlippage) || numSlippage < 1 || numSlippage > 5000) {
-    return new Response(JSON.stringify({ error: 'Slippage must be between 1 and 5000 bps' }), {
-      status: 400,
-      headers: SECURITY_HEADERS
-    });
-  }
-
-  const jupUrl = `https://quote-api.jup.ag/v6/quote?inputMint=${encodeURIComponent(inputMint)}&outputMint=${encodeURIComponent(outputMint)}&amount=${encodeURIComponent(amount)}&slippageBps=${numSlippage}`;
-
+  // 3. SSRF-protected outbound request with 512KB cap and 4.5s timeout
   try {
-    const res = await fetch(jupUrl, {
+    const res = await safeFetch(jupUrl, {
       headers: { 'Accept': 'application/json' },
-      cf: { cacheTtl: 10, cacheEverything: true },
-      signal: AbortSignal.timeout(4500)
+      timeoutMs: 4500,
+      maxBytes: 512 * 1024
     });
 
     if (!res.ok) {
-      throw new Error(`Jupiter quote failed with status ${res.status}`);
+      console.error(`[${requestId}] Upstream Jupiter quote responded with status ${res.status}`);
+      return createErrorResponse('Unable to fetch liquidity quote from aggregator', 502, requestId);
     }
 
     const data = await res.json();
     return new Response(JSON.stringify(data), {
+      status: 200,
       headers: {
-        ...SECURITY_HEADERS,
-        'Cache-Control': 'public, max-age=10'
+        'Content-Type': 'application/json; charset=utf-8',
+        'Cache-Control': 'public, max-age=10, s-maxage=10',
+        'Vary': 'Origin, Accept-Encoding'
       }
     });
+
   } catch (err) {
-    return new Response(JSON.stringify({ error: err.message || 'Routing quote failed' }), {
-      status: 502,
-      headers: SECURITY_HEADERS
-    });
+    console.error(`[${requestId}] Jupiter routing error:`, err.message || err);
+    return createErrorResponse('Routing quote request failed. Please retry.', 502, requestId);
   }
 }

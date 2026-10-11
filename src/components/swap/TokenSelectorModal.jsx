@@ -3,6 +3,7 @@ import { X, Search, Check, AlertCircle, Sparkles } from 'lucide-react';
 import { TokenLogo, StarsIcon } from '../Icons';
 import { getTokenPrice } from '../../services/priceService';
 import { formatToman } from '../../utils/format';
+import { sanitizeInput } from '../../utils/security';
 
 export default function TokenSelectorModal({ 
   isOpen, 
@@ -83,7 +84,7 @@ export default function TokenSelectorModal({
               type="text"
               placeholder="جستجو با نماد یا نام توکن..."
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e) => setSearch(sanitizeInput(e.target.value, 64))}
               className="w-full pr-10 pl-9 py-2.5 rounded-2xl bg-white/[0.04] border border-white/[0.08] text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-accent/60 focus:bg-white/[0.07] transition-all font-sans"
               autoFocus
             />

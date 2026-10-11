@@ -13,6 +13,7 @@ import {
 import { StarsIcon } from '../Icons';
 import { updateOrderStatus } from '../../services/starsService';
 import { toPersianDigits, formatToman } from '../../utils/format';
+import { sanitizeInput } from '../../utils/security';
 
 export default function StarsInvoiceModal({ order, isOpen, onClose, onOrderUpdated }) {
   if (!isOpen || !order) return null;
@@ -199,7 +200,7 @@ export default function StarsInvoiceModal({ order, isOpen, onClose, onOrderUpdat
                   type="text"
                   placeholder="هش تراکنش (TX Hash) - اختیاری"
                   value={txHashInput}
-                  onChange={(e) => setTxHashInput(e.target.value)}
+                  onChange={(e) => setTxHashInput(sanitizeInput(e.target.value, 128))}
                   className="input"
                 />
                 <button

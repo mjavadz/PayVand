@@ -18,6 +18,7 @@ import {
   ZcashIcon
 } from './Icons';
 import { SUPPORTED_CHAINS } from '../data/tokens';
+import { sanitizeInput } from '../utils/security';
 
 export default function NetworkDropdown({ activeChain, onSelectChain }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -98,7 +99,7 @@ export default function NetworkDropdown({ activeChain, onSelectChain }) {
               type="text"
               placeholder="جستجوی شبکه (یونی‌سواپ، بیس، سولانا...)"
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e) => setSearch(sanitizeInput(e.target.value, 64))}
               className="w-full pl-3 pr-8 py-1.5 rounded-lg bg-card border border-border text-xs text-fg placeholder-fgSubtle focus:outline-none focus:border-accent font-sans"
               autoFocus
             />

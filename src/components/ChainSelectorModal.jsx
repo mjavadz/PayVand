@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { X, Search, Check, Layers, Zap, Shield, Cpu } from 'lucide-react';
 import { ChainLogo } from './Icons';
 import { CHAINS, CHAIN_CATEGORIES, isEVMChain } from '../config/chains';
+import { sanitizeInput } from '../utils/security';
 
 export default function ChainSelectorModal({ isOpen, onClose, activeChain, onSelectChain }) {
   const [search, setSearch] = useState('');
@@ -59,7 +60,7 @@ export default function ChainSelectorModal({ isOpen, onClose, activeChain, onSel
               type="text"
               placeholder="جستجوی نام شبکه، نماد یا دکس (بیس، آربیتروم، یونی‌سواپ...)"
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e) => setSearch(sanitizeInput(e.target.value, 64))}
               className="w-full pr-10 pl-9 py-2.5 rounded-2xl bg-white/[0.04] border border-white/[0.08] text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-accent/60 focus:bg-white/[0.07] transition-all font-sans"
               autoFocus
             />

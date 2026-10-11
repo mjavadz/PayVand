@@ -1,0 +1,10 @@
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: same-origin
+  X-XSS-Protection: 1; mode=block
+  Content-Security-Policy: default-src 'self' https://javadnode.top; script-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https://javadnode.top https://quote-api.jup.ag https://api.binance.com https://apiv2.nobitex.ir https://api.wallex.ir https://api.bitpin.ir https://publicapi.ramzinex.com https://api.ompfinex.com https://api.abantether.com https://*.solana.com https://*.drpc.org https://toncenter.com; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; upgrade-insecure-requests;

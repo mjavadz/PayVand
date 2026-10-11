@@ -48,6 +48,7 @@ import {
 } from '../Icons';
 import { detectBankFromIBAN } from '../../utils/bankDetector';
 import { formatToman } from '../../utils/format';
+import { sanitizeInput, sanitizeNumeric } from '../../utils/security';
 import { getTokenPrice, getIranTetherRate, getIranExchangesBreakdown } from '../../services/priceService';
 import { getTreasuryWallet } from '../../config/treasury';
 
@@ -350,7 +351,7 @@ export default function IranToolkit({ initialSubTab = 'cashout' }) {
                     inputMode="decimal"
                     placeholder="0"
                     value={assetAmount}
-                    onChange={(e) => setAssetAmount(e.target.value.replace(/[^0-9.]/g, ''))}
+                    onChange={(e) => setAssetAmount(sanitizeNumeric(e.target.value, 16))}
                     className="w-full bg-transparent text-xl font-bold text-fg placeholder-fgSubtle focus:outline-none font-mono"
                   />
                   <span className="text-xs font-bold text-fgMuted px-2 py-1 bg-card rounded border border-border">
@@ -385,7 +386,7 @@ export default function IranToolkit({ initialSubTab = 'cashout' }) {
                   type="text"
                   placeholder="نام صاحب حساب (مطابق کارت بانکی)"
                   value={accountOwner}
-                  onChange={(e) => setAccountOwner(e.target.value)}
+                  onChange={(e) => setAccountOwner(sanitizeInput(e.target.value, 64))}
                   className="w-full px-3 py-2 rounded-lg bg-card border border-border text-xs text-fg placeholder-fgSubtle focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent"
                 />
               </div>

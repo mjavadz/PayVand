@@ -19,6 +19,7 @@ import {
 } from '../../services/web3/walletCrypto';
 import { getTokenPrice, getIranTetherRate } from '../../services/priceService';
 import { formatToman, formatUSD, shortenAddress } from '../../utils/format';
+import { sanitizeInput, sanitizeNumeric, sanitizeAddress } from '../../utils/security';
 import { useWallet } from '../../context/WalletContext';
 
 export default function PayVandWallet({ onNavigateToSwap }) {
@@ -457,7 +458,7 @@ Website: https://javadnode.top`;
                       maxLength={16}
                       placeholder="پین‌کد ۶ رقمی یا گذرواژه دلخواه (اختیاری)"
                       value={pinInput}
-                      onChange={(e) => setPinInput(e.target.value)}
+                      onChange={(e) => setPinInput(sanitizeInput(e.target.value, 16))}
                       className="w-full px-3.5 py-2.5 rounded-xl bg-card border border-white/[0.08] text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-accent font-mono"
                     />
                   </div>
@@ -510,7 +511,7 @@ Website: https://javadnode.top`;
                 rows={3}
                 placeholder="کلمات را با فاصله وارد کنید (مثال: apple banana cherry ...)"
                 value={importInput}
-                onChange={(e) => setImportInput(e.target.value)}
+                onChange={(e) => setImportInput(sanitizeInput(e.target.value, 512))}
                 className="w-full p-3.5 rounded-2xl bg-card border border-white/[0.08] text-sm text-foreground font-mono focus:outline-none focus:border-accent placeholder:text-muted-foreground/50 dir-ltr"
               />
 
@@ -522,7 +523,7 @@ Website: https://javadnode.top`;
                   type="password"
                   placeholder="پین‌کد دلخواه"
                   value={pinInput}
-                  onChange={(e) => setPinInput(e.target.value)}
+                  onChange={(e) => setPinInput(sanitizeInput(e.target.value, 16))}
                   className="w-full px-3.5 py-2.5 rounded-xl bg-card border border-white/[0.08] text-sm text-foreground font-mono focus:outline-none focus:border-accent"
                 />
               </div>
@@ -568,7 +569,7 @@ Website: https://javadnode.top`;
               autoFocus
               placeholder="پین‌کد بازگشایی"
               value={unlockPinInput}
-              onChange={(e) => setUnlockPinInput(e.target.value)}
+              onChange={(e) => setUnlockPinInput(sanitizeInput(e.target.value, 16))}
               className="w-full text-center px-4 py-3 rounded-2xl bg-card border border-white/[0.1] text-base text-foreground font-mono tracking-widest focus:outline-none focus:border-accent"
             />
             <button
@@ -952,7 +953,7 @@ Website: https://javadnode.top`;
                     required
                     placeholder={`آدرس گیرنده در شبکه ${activeChain.toUpperCase()}`}
                     value={sendRecipient}
-                    onChange={(e) => setSendRecipient(e.target.value)}
+                    onChange={(e) => setSendRecipient(sanitizeAddress(e.target.value, 128))}
                     className="w-full px-3.5 py-2.5 rounded-xl bg-card border border-white/[0.08] font-mono text-xs dir-ltr focus:outline-none focus:border-accent text-foreground"
                   />
                 </div>
@@ -970,7 +971,7 @@ Website: https://javadnode.top`;
                       required
                       placeholder="0.00"
                       value={sendAmount}
-                      onChange={(e) => setSendAmount(e.target.value.replace(/[^0-9.]/g, ''))}
+                      onChange={(e) => setSendAmount(sanitizeNumeric(e.target.value, 32))}
                       className="w-full pr-3.5 pl-16 py-2.5 rounded-xl bg-card border border-white/[0.08] font-mono text-sm dir-ltr focus:outline-none focus:border-accent text-foreground"
                     />
                     <button
